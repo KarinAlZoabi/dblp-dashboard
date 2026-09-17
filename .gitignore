@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset
+data/*.xml
+data/*.gz
+
+# Generated data
+data/processed/
+data/output/
+
+# Environment
+.env
