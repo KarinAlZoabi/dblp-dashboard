@@ -1,0 +1,65 @@
+{
+  "mastersthesis": {
+    "total": 27,
+    "missing_author": 0,
+    "missing_title": 0,
+    "missing_year": 0,
+    "missing_author_pct": 0.0,
+    "missing_title_pct": 0.0,
+    "missing_year_pct": 0.0
+  },
+  "book": {
+    "total": 21639,
+    "missing_author": 2553,
+    "missing_title": 1,
+    "missing_year": 0,
+    "missing_author_pct": 11.8,
+    "missing_title_pct": 0.0,
+    "missing_year_pct": 0.0
+  },
+  "incollection": {
+    "total": 71185,
+    "missing_author": 10847,
+    "missing_title": 56,
+    "missing_year": 0,
+    "missing_author_pct": 15.24,
+    "missing_title_pct": 0.08,
+    "missing_year_pct": 0.0
+  },
+  "inproceedings": {
+    "total": 3967188,
+    "missing_author": 5933,
+    "missing_title": 1152,
+    "missing_year": 0,
+    "missing_author_pct": 0.15,
+    "missing_title_pct": 0.03,
+    "missing_year_pct": 0.0
+  },
+  "proceedings": {
+    "total": 65477,
+    "missing_author": 65463,
+    "missing_title": 0,
+    "missing_year": 0,
+    "missing_author_pct": 99.98,
+    "missing_title_pct": 0.0,
+    "missing_year_pct": 0.0
+  },
+  "phdthesis": {
+    "total": 157236,
+    "missing_author": 2,
+    "missing_title": 0,
+    "missing_year": 0,
+    "missing_author_pct": 0.0,
+    "missing_title_pct": 0.0,
+    "missing_year_pct": 0.0
+  },
+  "article": {
+    "total": 4458737,
+    "missing_author": 31621,
+    "missing_title": 4809,
+    "missing_year": 3,
+    "missing_author_pct": 0.71,
+    "missing_title_pct": 0.11,
+    "missing_year_pct": 0.0
+  }
+}

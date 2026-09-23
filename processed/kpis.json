@@ -1,0 +1,12 @@
+{
+  "total_analyzed_publications": 8741489,
+  "average_authors": 3.44,
+  "median_authors": 3,
+  "maximum_authors": 450,
+  "zero_author_publications": 116419,
+  "single_author_publications": 1173126,
+  "multi_author_publications": 7451944,
+  "single_author_pct": 13.42,
+  "multi_author_pct": 85.25,
+  "duplicate_keys": 0
+}

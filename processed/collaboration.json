@@ -1,0 +1,738 @@
+{
+  "1936": {
+    "publications": 12,
+    "total_authors": 12,
+    "single_author": 12,
+    "multi_author": 0,
+    "avg_authors": 1.0,
+    "multi_author_pct": 0.0
+  },
+  "1937": {
+    "publications": 16,
+    "total_authors": 16,
+    "single_author": 16,
+    "multi_author": 0,
+    "avg_authors": 1.0,
+    "multi_author_pct": 0.0
+  },
+  "1938": {
+    "publications": 11,
+    "total_authors": 12,
+    "single_author": 10,
+    "multi_author": 1,
+    "avg_authors": 1.09,
+    "multi_author_pct": 9.09
+  },
+  "1939": {
+    "publications": 18,
+    "total_authors": 18,
+    "single_author": 18,
+    "multi_author": 0,
+    "avg_authors": 1.0,
+    "multi_author_pct": 0.0
+  },
+  "1940": {
+    "publications": 10,
+    "total_authors": 12,
+    "single_author": 8,
+    "multi_author": 2,
+    "avg_authors": 1.2,
+    "multi_author_pct": 20.0
+  },
+  "1941": {
+    "publications": 13,
+    "total_authors": 13,
+    "single_author": 13,
+    "multi_author": 0,
+    "avg_authors": 1.0,
+    "multi_author_pct": 0.0
+  },
+  "1942": {
+    "publications": 13,
+    "total_authors": 14,
+    "single_author": 12,
+    "multi_author": 1,
+    "avg_authors": 1.08,
+    "multi_author_pct": 7.69
+  },
+  "1943": {
+    "publications": 8,
+    "total_authors": 8,
+    "single_author": 8,
+    "multi_author": 0,
+    "avg_authors": 1.0,
+    "multi_author_pct": 0.0
+  },
+  "1944": {
+    "publications": 5,
+    "total_authors": 5,
+    "single_author": 5,
+    "multi_author": 0,
+    "avg_authors": 1.0,
+    "multi_author_pct": 0.0
+  },
+  "1945": {
+    "publications": 9,
+    "total_authors": 11,
+    "single_author": 7,
+    "multi_author": 2,
+    "avg_authors": 1.22,
+    "multi_author_pct": 22.22
+  },
+  "1946": {
+    "publications": 31,
+    "total_authors": 36,
+    "single_author": 26,
+    "multi_author": 5,
+    "avg_authors": 1.16,
+    "multi_author_pct": 16.13
+  },
+  "1947": {
+    "publications": 10,
+    "total_authors": 12,
+    "single_author": 8,
+    "multi_author": 2,
+    "avg_authors": 1.2,
+    "multi_author_pct": 20.0
+  },
+  "1948": {
+    "publications": 41,
+    "total_authors": 47,
+    "single_author": 35,
+    "multi_author": 6,
+    "avg_authors": 1.15,
+    "multi_author_pct": 14.63
+  },
+  "1949": {
+    "publications": 52,
+    "total_authors": 69,
+    "single_author": 39,
+    "multi_author": 13,
+    "avg_authors": 1.33,
+    "multi_author_pct": 25.0
+  },
+  "1950": {
+    "publications": 29,
+    "total_authors": 31,
+    "single_author": 27,
+    "multi_author": 2,
+    "avg_authors": 1.07,
+    "multi_author_pct": 6.9
+  },
+  "1951": {
+    "publications": 46,
+    "total_authors": 56,
+    "single_author": 37,
+    "multi_author": 8,
+    "avg_authors": 1.22,
+    "multi_author_pct": 17.39
+  },
+  "1952": {
+    "publications": 115,
+    "total_authors": 143,
+    "single_author": 92,
+    "multi_author": 20,
+    "avg_authors": 1.24,
+    "multi_author_pct": 17.39
+  },
+  "1953": {
+    "publications": 173,
+    "total_authors": 201,
+    "single_author": 146,
+    "multi_author": 24,
+    "avg_authors": 1.16,
+    "multi_author_pct": 13.87
+  },
+  "1954": {
+    "publications": 225,
+    "total_authors": 281,
+    "single_author": 172,
+    "multi_author": 44,
+    "avg_authors": 1.25,
+    "multi_author_pct": 19.56
+  },
+  "1955": {
+    "publications": 213,
+    "total_authors": 256,
+    "single_author": 161,
+    "multi_author": 43,
+    "avg_authors": 1.2,
+    "multi_author_pct": 20.19
+  },
+  "1956": {
+    "publications": 355,
+    "total_authors": 446,
+    "single_author": 260,
+    "multi_author": 79,
+    "avg_authors": 1.26,
+    "multi_author_pct": 22.25
+  },
+  "1957": {
+    "publications": 343,
+    "total_authors": 482,
+    "single_author": 241,
+    "multi_author": 94,
+    "avg_authors": 1.41,
+    "multi_author_pct": 27.41
+  },
+  "1958": {
+    "publications": 464,
+    "total_authors": 602,
+    "single_author": 337,
+    "multi_author": 112,
+    "avg_authors": 1.3,
+    "multi_author_pct": 24.14
+  },
+  "1959": {
+    "publications": 716,
+    "total_authors": 1034,
+    "single_author": 480,
+    "multi_author": 231,
+    "avg_authors": 1.44,
+    "multi_author_pct": 32.26
+  },
+  "1960": {
+    "publications": 625,
+    "total_authors": 827,
+    "single_author": 474,
+    "multi_author": 140,
+    "avg_authors": 1.32,
+    "multi_author_pct": 22.4
+  },
+  "1961": {
+    "publications": 903,
+    "total_authors": 1192,
+    "single_author": 675,
+    "multi_author": 215,
+    "avg_authors": 1.32,
+    "multi_author_pct": 23.81
+  },
+  "1962": {
+    "publications": 1186,
+    "total_authors": 1569,
+    "single_author": 877,
+    "multi_author": 289,
+    "avg_authors": 1.32,
+    "multi_author_pct": 24.37
+  },
+  "1963": {
+    "publications": 1034,
+    "total_authors": 1440,
+    "single_author": 756,
+    "multi_author": 272,
+    "avg_authors": 1.39,
+    "multi_author_pct": 26.31
+  },
+  "1964": {
+    "publications": 1108,
+    "total_authors": 1538,
+    "single_author": 786,
+    "multi_author": 305,
+    "avg_authors": 1.39,
+    "multi_author_pct": 27.53
+  },
+  "1965": {
+    "publications": 1291,
+    "total_authors": 1744,
+    "single_author": 942,
+    "multi_author": 335,
+    "avg_authors": 1.35,
+    "multi_author_pct": 25.95
+  },
+  "1966": {
+    "publications": 1506,
+    "total_authors": 2076,
+    "single_author": 1064,
+    "multi_author": 422,
+    "avg_authors": 1.38,
+    "multi_author_pct": 28.02
+  },
+  "1967": {
+    "publications": 1763,
+    "total_authors": 2419,
+    "single_author": 1216,
+    "multi_author": 520,
+    "avg_authors": 1.37,
+    "multi_author_pct": 29.5
+  },
+  "1968": {
+    "publications": 2184,
+    "total_authors": 3064,
+    "single_author": 1489,
+    "multi_author": 677,
+    "avg_authors": 1.4,
+    "multi_author_pct": 31.0
+  },
+  "1969": {
+    "publications": 2120,
+    "total_authors": 2879,
+    "single_author": 1487,
+    "multi_author": 593,
+    "avg_authors": 1.36,
+    "multi_author_pct": 27.97
+  },
+  "1970": {
+    "publications": 2239,
+    "total_authors": 3110,
+    "single_author": 1569,
+    "multi_author": 649,
+    "avg_authors": 1.39,
+    "multi_author_pct": 28.99
+  },
+  "1971": {
+    "publications": 3138,
+    "total_authors": 4605,
+    "single_author": 2095,
+    "multi_author": 1002,
+    "avg_authors": 1.47,
+    "multi_author_pct": 31.93
+  },
+  "1972": {
+    "publications": 3774,
+    "total_authors": 5396,
+    "single_author": 2525,
+    "multi_author": 1196,
+    "avg_authors": 1.43,
+    "multi_author_pct": 31.69
+  },
+  "1973": {
+    "publications": 4434,
+    "total_authors": 6361,
+    "single_author": 2866,
+    "multi_author": 1474,
+    "avg_authors": 1.43,
+    "multi_author_pct": 33.24
+  },
+  "1974": {
+    "publications": 5037,
+    "total_authors": 7581,
+    "single_author": 3205,
+    "multi_author": 1753,
+    "avg_authors": 1.51,
+    "multi_author_pct": 34.8
+  },
+  "1975": {
+    "publications": 5307,
+    "total_authors": 7801,
+    "single_author": 3406,
+    "multi_author": 1810,
+    "avg_authors": 1.47,
+    "multi_author_pct": 34.11
+  },
+  "1976": {
+    "publications": 5766,
+    "total_authors": 8929,
+    "single_author": 3486,
+    "multi_author": 2184,
+    "avg_authors": 1.55,
+    "multi_author_pct": 37.88
+  },
+  "1977": {
+    "publications": 6048,
+    "total_authors": 9257,
+    "single_author": 3636,
+    "multi_author": 2298,
+    "avg_authors": 1.53,
+    "multi_author_pct": 38.0
+  },
+  "1978": {
+    "publications": 6862,
+    "total_authors": 10593,
+    "single_author": 4153,
+    "multi_author": 2598,
+    "avg_authors": 1.54,
+    "multi_author_pct": 37.86
+  },
+  "1979": {
+    "publications": 7045,
+    "total_authors": 11164,
+    "single_author": 4092,
+    "multi_author": 2831,
+    "avg_authors": 1.58,
+    "multi_author_pct": 40.18
+  },
+  "1980": {
+    "publications": 7931,
+    "total_authors": 12436,
+    "single_author": 4692,
+    "multi_author": 3089,
+    "avg_authors": 1.57,
+    "multi_author_pct": 38.95
+  },
+  "1981": {
+    "publications": 8796,
+    "total_authors": 14058,
+    "single_author": 5083,
+    "multi_author": 3529,
+    "avg_authors": 1.6,
+    "multi_author_pct": 40.12
+  },
+  "1982": {
+    "publications": 10070,
+    "total_authors": 16452,
+    "single_author": 5601,
+    "multi_author": 4275,
+    "avg_authors": 1.63,
+    "multi_author_pct": 42.45
+  },
+  "1983": {
+    "publications": 10980,
+    "total_authors": 18247,
+    "single_author": 6021,
+    "multi_author": 4768,
+    "avg_authors": 1.66,
+    "multi_author_pct": 43.42
+  },
+  "1984": {
+    "publications": 12451,
+    "total_authors": 20922,
+    "single_author": 6713,
+    "multi_author": 5589,
+    "avg_authors": 1.68,
+    "multi_author_pct": 44.89
+  },
+  "1985": {
+    "publications": 14026,
+    "total_authors": 23920,
+    "single_author": 7424,
+    "multi_author": 6433,
+    "avg_authors": 1.71,
+    "multi_author_pct": 45.86
+  },
+  "1986": {
+    "publications": 16622,
+    "total_authors": 29533,
+    "single_author": 8252,
+    "multi_author": 8179,
+    "avg_authors": 1.78,
+    "multi_author_pct": 49.21
+  },
+  "1987": {
+    "publications": 17866,
+    "total_authors": 31964,
+    "single_author": 8689,
+    "multi_author": 8933,
+    "avg_authors": 1.79,
+    "multi_author_pct": 50.0
+  },
+  "1988": {
+    "publications": 22012,
+    "total_authors": 41585,
+    "single_author": 9711,
+    "multi_author": 11972,
+    "avg_authors": 1.89,
+    "multi_author_pct": 54.39
+  },
+  "1989": {
+    "publications": 24558,
+    "total_authors": 46614,
+    "single_author": 11011,
+    "multi_author": 13244,
+    "avg_authors": 1.9,
+    "multi_author_pct": 53.93
+  },
+  "1990": {
+    "publications": 28754,
+    "total_authors": 55928,
+    "single_author": 11877,
+    "multi_author": 16478,
+    "avg_authors": 1.95,
+    "multi_author_pct": 57.31
+  },
+  "1991": {
+    "publications": 31758,
+    "total_authors": 62750,
+    "single_author": 12781,
+    "multi_author": 18490,
+    "avg_authors": 1.98,
+    "multi_author_pct": 58.22
+  },
+  "1992": {
+    "publications": 35473,
+    "total_authors": 71523,
+    "single_author": 13615,
+    "multi_author": 21260,
+    "avg_authors": 2.02,
+    "multi_author_pct": 59.93
+  },
+  "1993": {
+    "publications": 41236,
+    "total_authors": 85465,
+    "single_author": 14579,
+    "multi_author": 25971,
+    "avg_authors": 2.07,
+    "multi_author_pct": 62.98
+  },
+  "1994": {
+    "publications": 45562,
+    "total_authors": 97429,
+    "single_author": 15018,
+    "multi_author": 29918,
+    "avg_authors": 2.14,
+    "multi_author_pct": 65.66
+  },
+  "1995": {
+    "publications": 47983,
+    "total_authors": 104143,
+    "single_author": 15415,
+    "multi_author": 31886,
+    "avg_authors": 2.17,
+    "multi_author_pct": 66.45
+  },
+  "1996": {
+    "publications": 53077,
+    "total_authors": 116079,
+    "single_author": 16720,
+    "multi_author": 35456,
+    "avg_authors": 2.19,
+    "multi_author_pct": 66.8
+  },
+  "1997": {
+    "publications": 57413,
+    "total_authors": 129426,
+    "single_author": 17800,
+    "multi_author": 38861,
+    "avg_authors": 2.25,
+    "multi_author_pct": 67.69
+  },
+  "1998": {
+    "publications": 64732,
+    "total_authors": 151957,
+    "single_author": 18021,
+    "multi_author": 45809,
+    "avg_authors": 2.35,
+    "multi_author_pct": 70.77
+  },
+  "1999": {
+    "publications": 71296,
+    "total_authors": 168478,
+    "single_author": 19861,
+    "multi_author": 50506,
+    "avg_authors": 2.36,
+    "multi_author_pct": 70.84
+  },
+  "2000": {
+    "publications": 81546,
+    "total_authors": 196058,
+    "single_author": 21145,
+    "multi_author": 59350,
+    "avg_authors": 2.4,
+    "multi_author_pct": 72.78
+  },
+  "2001": {
+    "publications": 87395,
+    "total_authors": 215777,
+    "single_author": 21915,
+    "multi_author": 64234,
+    "avg_authors": 2.47,
+    "multi_author_pct": 73.5
+  },
+  "2002": {
+    "publications": 98620,
+    "total_authors": 249808,
+    "single_author": 23059,
+    "multi_author": 74117,
+    "avg_authors": 2.53,
+    "multi_author_pct": 75.15
+  },
+  "2003": {
+    "publications": 118273,
+    "total_authors": 310020,
+    "single_author": 25475,
+    "multi_author": 91023,
+    "avg_authors": 2.62,
+    "multi_author_pct": 76.96
+  },
+  "2004": {
+    "publications": 137597,
+    "total_authors": 367684,
+    "single_author": 27260,
+    "multi_author": 108379,
+    "avg_authors": 2.67,
+    "multi_author_pct": 78.77
+  },
+  "2005": {
+    "publications": 160405,
+    "total_authors": 434041,
+    "single_author": 30366,
+    "multi_author": 127160,
+    "avg_authors": 2.71,
+    "multi_author_pct": 79.27
+  },
+  "2006": {
+    "publications": 177940,
+    "total_authors": 495833,
+    "single_author": 31080,
+    "multi_author": 143998,
+    "avg_authors": 2.79,
+    "multi_author_pct": 80.93
+  },
+  "2007": {
+    "publications": 191022,
+    "total_authors": 539279,
+    "single_author": 32720,
+    "multi_author": 156014,
+    "avg_authors": 2.82,
+    "multi_author_pct": 81.67
+  },
+  "2008": {
+    "publications": 205282,
+    "total_authors": 583564,
+    "single_author": 33638,
+    "multi_author": 167547,
+    "avg_authors": 2.84,
+    "multi_author_pct": 81.62
+  },
+  "2009": {
+    "publications": 224345,
+    "total_authors": 642465,
+    "single_author": 35839,
+    "multi_author": 182866,
+    "avg_authors": 2.86,
+    "multi_author_pct": 81.51
+  },
+  "2010": {
+    "publications": 231113,
+    "total_authors": 681952,
+    "single_author": 34976,
+    "multi_author": 192216,
+    "avg_authors": 2.95,
+    "multi_author_pct": 83.17
+  },
+  "2011": {
+    "publications": 252735,
+    "total_authors": 757645,
+    "single_author": 37654,
+    "multi_author": 210946,
+    "avg_authors": 3.0,
+    "multi_author_pct": 83.47
+  },
+  "2012": {
+    "publications": 265752,
+    "total_authors": 822007,
+    "single_author": 36529,
+    "multi_author": 225929,
+    "avg_authors": 3.09,
+    "multi_author_pct": 85.01
+  },
+  "2013": {
+    "publications": 282920,
+    "total_authors": 893359,
+    "single_author": 37274,
+    "multi_author": 241973,
+    "avg_authors": 3.16,
+    "multi_author_pct": 85.53
+  },
+  "2014": {
+    "publications": 294764,
+    "total_authors": 945597,
+    "single_author": 37413,
+    "multi_author": 252427,
+    "avg_authors": 3.21,
+    "multi_author_pct": 85.64
+  },
+  "2015": {
+    "publications": 305072,
+    "total_authors": 1003962,
+    "single_author": 37073,
+    "multi_author": 264400,
+    "avg_authors": 3.29,
+    "multi_author_pct": 86.67
+  },
+  "2016": {
+    "publications": 317414,
+    "total_authors": 1064927,
+    "single_author": 36678,
+    "multi_author": 277069,
+    "avg_authors": 3.36,
+    "multi_author_pct": 87.29
+  },
+  "2017": {
+    "publications": 342328,
+    "total_authors": 1169682,
+    "single_author": 36500,
+    "multi_author": 299908,
+    "avg_authors": 3.42,
+    "multi_author_pct": 87.61
+  },
+  "2018": {
+    "publications": 378379,
+    "total_authors": 1333870,
+    "single_author": 37728,
+    "multi_author": 335230,
+    "avg_authors": 3.53,
+    "multi_author_pct": 88.6
+  },
+  "2019": {
+    "publications": 421258,
+    "total_authors": 1541138,
+    "single_author": 37829,
+    "multi_author": 378634,
+    "avg_authors": 3.66,
+    "multi_author_pct": 89.88
+  },
+  "2020": {
+    "publications": 438186,
+    "total_authors": 1642932,
+    "single_author": 37646,
+    "multi_author": 395659,
+    "avg_authors": 3.75,
+    "multi_author_pct": 90.29
+  },
+  "2021": {
+    "publications": 466981,
+    "total_authors": 1789401,
+    "single_author": 39722,
+    "multi_author": 420960,
+    "avg_authors": 3.83,
+    "multi_author_pct": 90.14
+  },
+  "2022": {
+    "publications": 485656,
+    "total_authors": 1929646,
+    "single_author": 36706,
+    "multi_author": 443238,
+    "avg_authors": 3.97,
+    "multi_author_pct": 91.27
+  },
+  "2023": {
+    "publications": 527321,
+    "total_authors": 2165034,
+    "single_author": 36446,
+    "multi_author": 484500,
+    "avg_authors": 4.11,
+    "multi_author_pct": 91.88
+  },
+  "2024": {
+    "publications": 585908,
+    "total_authors": 2510409,
+    "single_author": 36709,
+    "multi_author": 543206,
+    "avg_authors": 4.28,
+    "multi_author_pct": 92.71
+  },
+  "2025": {
+    "publications": 597424,
+    "total_authors": 2680727,
+    "single_author": 35391,
+    "multi_author": 557173,
+    "avg_authors": 4.49,
+    "multi_author_pct": 93.26
+  },
+  "2026": {
+    "publications": 375115,
+    "total_authors": 1697042,
+    "single_author": 26424,
+    "multi_author": 345285,
+    "avg_authors": 4.52,
+    "multi_author_pct": 92.05
+  },
+  "2027": {
+    "publications": 1841,
+    "total_authors": 7090,
+    "single_author": 78,
+    "multi_author": 1605,
+    "avg_authors": 3.85,
+    "multi_author_pct": 87.18
+  }
+}

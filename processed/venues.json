@@ -1,0 +1,806 @@
+{
+  "journals": [
+    {
+      "venue": "CoRR",
+      "count": 979923
+    },
+    {
+      "venue": "IEEE Access",
+      "count": 111565
+    },
+    {
+      "venue": "Sensors",
+      "count": 64311
+    },
+    {
+      "venue": "Remote. Sens.",
+      "count": 36114
+    },
+    {
+      "venue": "Expert Syst. Appl.",
+      "count": 29957
+    },
+    {
+      "venue": "IACR Cryptol. ePrint Arch.",
+      "count": 27324
+    },
+    {
+      "venue": "Neurocomputing",
+      "count": 25125
+    },
+    {
+      "venue": "Appl. Math. Comput.",
+      "count": 22601
+    },
+    {
+      "venue": "IEEE Trans. Geosci. Remote. Sens.",
+      "count": 21923
+    },
+    {
+      "venue": "Multim. Tools Appl.",
+      "count": 21767
+    },
+    {
+      "venue": "IEEE Trans. Instrum. Meas.",
+      "count": 20194
+    },
+    {
+      "venue": "NeuroImage",
+      "count": 20119
+    },
+    {
+      "venue": "IEEE Trans. Veh. Technol.",
+      "count": 19340
+    },
+    {
+      "venue": "IEEE Trans. Ind. Electron.",
+      "count": 19336
+    },
+    {
+      "venue": "IEEE Trans. Commun.",
+      "count": 19022
+    },
+    {
+      "venue": "Bioinform.",
+      "count": 18946
+    },
+    {
+      "venue": "IEEE Trans. Inf. Theory",
+      "count": 18675
+    },
+    {
+      "venue": "Inf. Sci.",
+      "count": 18488
+    },
+    {
+      "venue": "IEEE Internet Things J.",
+      "count": 17794
+    },
+    {
+      "venue": "Discret. Math.",
+      "count": 17378
+    },
+    {
+      "venue": "Eur. J. Oper. Res.",
+      "count": 17078
+    },
+    {
+      "venue": "Autom.",
+      "count": 16332
+    },
+    {
+      "venue": "Symmetry",
+      "count": 16217
+    },
+    {
+      "venue": "Theor. Comput. Sci.",
+      "count": 15637
+    },
+    {
+      "venue": "IEEE Trans. Signal Process.",
+      "count": 15228
+    },
+    {
+      "venue": "Pattern Recognit.",
+      "count": 15008
+    },
+    {
+      "venue": "Entropy",
+      "count": 14978
+    },
+    {
+      "venue": "IEEE Trans. Autom. Control.",
+      "count": 14380
+    },
+    {
+      "venue": "IEEE Trans. Wirel. Commun.",
+      "count": 14364
+    },
+    {
+      "venue": "Appl. Soft Comput.",
+      "count": 14190
+    },
+    {
+      "venue": "Commun. ACM",
+      "count": 14142
+    },
+    {
+      "venue": "Wirel. Pers. Commun.",
+      "count": 13275
+    },
+    {
+      "venue": "BMC Bioinform.",
+      "count": 13100
+    },
+    {
+      "venue": "IEEE Commun. Lett.",
+      "count": 12974
+    },
+    {
+      "venue": "J. Comput. Phys.",
+      "count": 12965
+    },
+    {
+      "venue": "Eng. Appl. Artif. Intell.",
+      "count": 12879
+    },
+    {
+      "venue": "Knowl. Based Syst.",
+      "count": 12869
+    },
+    {
+      "venue": "Neural Comput. Appl.",
+      "count": 12511
+    },
+    {
+      "venue": "PLoS Comput. Biol.",
+      "count": 11994
+    },
+    {
+      "venue": "J. Intell. Fuzzy Syst.",
+      "count": 11889
+    },
+    {
+      "venue": "IEEE Trans. Image Process.",
+      "count": 11417
+    },
+    {
+      "venue": "IEEE Trans. Intell. Transp. Syst.",
+      "count": 11188
+    },
+    {
+      "venue": "IEEE Robotics Autom. Lett.",
+      "count": 10885
+    },
+    {
+      "venue": "Discret. Appl. Math.",
+      "count": 10804
+    },
+    {
+      "venue": "IEEE J. Solid State Circuits",
+      "count": 10797
+    },
+    {
+      "venue": "IEEE Trans. Computers",
+      "count": 10662
+    },
+    {
+      "venue": "Soft Comput.",
+      "count": 10658
+    },
+    {
+      "venue": "IEEE Trans. Pattern Anal. Mach. Intell.",
+      "count": 10657
+    },
+    {
+      "venue": "Comput. Biol. Medicine",
+      "count": 10414
+    },
+    {
+      "venue": "IEEE Trans. Biomed. Eng.",
+      "count": 10227
+    },
+    {
+      "venue": "IEEE Geosci. Remote. Sens. Lett.",
+      "count": 10087
+    },
+    {
+      "venue": "Signal Process.",
+      "count": 10075
+    },
+    {
+      "venue": "Biomed. Signal Process. Control.",
+      "count": 9963
+    },
+    {
+      "venue": "IEEE J. Sel. Top. Appl. Earth Obs. Remote. Sens.",
+      "count": 9830
+    },
+    {
+      "venue": "RFC",
+      "count": 9719
+    },
+    {
+      "venue": "IEEE Signal Process. Lett.",
+      "count": 9580
+    },
+    {
+      "venue": "J. Chem. Inf. Model.",
+      "count": 9561
+    },
+    {
+      "venue": "Comput. Ind. Eng.",
+      "count": 9536
+    },
+    {
+      "venue": "Comput. Networks",
+      "count": 9516
+    },
+    {
+      "venue": "J. Comput. Appl. Math.",
+      "count": 9475
+    },
+    {
+      "venue": "J. Supercomput.",
+      "count": 9301
+    },
+    {
+      "venue": "Reliab. Eng. Syst. Saf.",
+      "count": 9202
+    },
+    {
+      "venue": "Pattern Recognit. Lett.",
+      "count": 9183
+    },
+    {
+      "venue": "IEEE Trans. Ind. Informatics",
+      "count": 9098
+    },
+    {
+      "venue": "Comput. Math. Appl.",
+      "count": 8995
+    },
+    {
+      "venue": "IEEE Commun. Mag.",
+      "count": 8913
+    },
+    {
+      "venue": "IEEE Trans. Circuits Syst. Video Technol.",
+      "count": 8903
+    },
+    {
+      "venue": "Neural Networks",
+      "count": 8819
+    },
+    {
+      "venue": "IEEE Trans. Circuits Syst. II Express Briefs",
+      "count": 8658
+    },
+    {
+      "venue": "Ann. Oper. Res.",
+      "count": 8657
+    },
+    {
+      "venue": "Computer",
+      "count": 8639
+    },
+    {
+      "venue": "IEEE J. Sel. Areas Commun.",
+      "count": 8523
+    },
+    {
+      "venue": "Future Gener. Comput. Syst.",
+      "count": 8426
+    },
+    {
+      "venue": "Scientometrics",
+      "count": 8269
+    },
+    {
+      "venue": "IEEE Trans. Comput. Aided Des. Integr. Circuits Syst.",
+      "count": 8265
+    },
+    {
+      "venue": "IEICE Trans. Fundam. Electron. Commun. Comput. Sci.",
+      "count": 8229
+    },
+    {
+      "venue": "Comput. Electron. Agric.",
+      "count": 8197
+    },
+    {
+      "venue": "Comput. Hum. Behav.",
+      "count": 8158
+    },
+    {
+      "venue": "Comput. Commun.",
+      "count": 8127
+    },
+    {
+      "venue": "Inf. Process. Lett.",
+      "count": 8008
+    },
+    {
+      "venue": "IEEE Trans. Neural Networks Learn. Syst.",
+      "count": 8007
+    },
+    {
+      "venue": "Nucleic Acids Res.",
+      "count": 7985
+    },
+    {
+      "venue": "IEEE Trans. Circuits Syst. I Regul. Pap.",
+      "count": 7939
+    },
+    {
+      "venue": "J. Frankl. Inst.",
+      "count": 7918
+    },
+    {
+      "venue": "Appl. Intell.",
+      "count": 7820
+    },
+    {
+      "venue": "Fuzzy Sets Syst.",
+      "count": 7760
+    },
+    {
+      "venue": "Comput. Oper. Res.",
+      "count": 7697
+    },
+    {
+      "venue": "Oper. Res.",
+      "count": 7671
+    },
+    {
+      "venue": "Appl. Math. Lett.",
+      "count": 7656
+    },
+    {
+      "venue": "IEICE Trans. Inf. Syst.",
+      "count": 7555
+    },
+    {
+      "venue": "IEICE Trans. Commun.",
+      "count": 7387
+    },
+    {
+      "venue": "IEEE Trans. Knowl. Data Eng.",
+      "count": 7294
+    },
+    {
+      "venue": "Complex.",
+      "count": 7280
+    },
+    {
+      "venue": "IEEE Trans. Aerosp. Electron. Syst.",
+      "count": 7224
+    },
+    {
+      "venue": "IEEE Trans. Vis. Comput. Graph.",
+      "count": 7175
+    },
+    {
+      "venue": "J. Comput. Chem.",
+      "count": 7047
+    },
+    {
+      "venue": "Int. J. Bifurc. Chaos",
+      "count": 7024
+    },
+    {
+      "venue": "Concurr. Comput. Pract. Exp.",
+      "count": 6932
+    },
+    {
+      "venue": "Commun. Nonlinear Sci. Numer. Simul.",
+      "count": 6901
+    },
+    {
+      "venue": "IEEE Trans. Medical Imaging",
+      "count": 6810
+    }
+  ],
+  "conferences": [
+    {
+      "venue": "ICASSP",
+      "count": 47722
+    },
+    {
+      "venue": "IGARSS",
+      "count": 33702
+    },
+    {
+      "venue": "ICRA",
+      "count": 30221
+    },
+    {
+      "venue": "AAAI",
+      "count": 28468
+    },
+    {
+      "venue": "ICC",
+      "count": 26828
+    },
+    {
+      "venue": "IROS",
+      "count": 26355
+    },
+    {
+      "venue": "CDC",
+      "count": 26040
+    },
+    {
+      "venue": "ACC",
+      "count": 25053
+    },
+    {
+      "venue": "CVPR",
+      "count": 24439
+    },
+    {
+      "venue": "GLOBECOM",
+      "count": 24030
+    },
+    {
+      "venue": "EMBC",
+      "count": 23629
+    },
+    {
+      "venue": "NeurIPS",
+      "count": 23368
+    },
+    {
+      "venue": "ISCAS",
+      "count": 21244
+    },
+    {
+      "venue": "INTERSPEECH",
+      "count": 21172
+    },
+    {
+      "venue": "IJCNN",
+      "count": 19791
+    },
+    {
+      "venue": "SMC",
+      "count": 18687
+    },
+    {
+      "venue": "HICSS",
+      "count": 18682
+    },
+    {
+      "venue": "ICIP",
+      "count": 18512
+    },
+    {
+      "venue": "ICML",
+      "count": 16223
+    },
+    {
+      "venue": "IJCAI",
+      "count": 15192
+    },
+    {
+      "venue": "CHI",
+      "count": 14434
+    },
+    {
+      "venue": "IECON",
+      "count": 14424
+    },
+    {
+      "venue": "EUSIPCO",
+      "count": 13807
+    },
+    {
+      "venue": "PIMRC",
+      "count": 13602
+    },
+    {
+      "venue": "CogSci",
+      "count": 13475
+    },
+    {
+      "venue": "WCNC",
+      "count": 13468
+    },
+    {
+      "venue": "ISIT",
+      "count": 13421
+    },
+    {
+      "venue": "CHI Extended Abstracts",
+      "count": 12895
+    },
+    {
+      "venue": "WSC",
+      "count": 12476
+    },
+    {
+      "venue": "ICCV",
+      "count": 11675
+    },
+    {
+      "venue": "AMCIS",
+      "count": 11582
+    },
+    {
+      "venue": "AMIA",
+      "count": 11573
+    },
+    {
+      "venue": "ACM Multimedia",
+      "count": 11103
+    },
+    {
+      "venue": "INFOCOM",
+      "count": 10427
+    },
+    {
+      "venue": "ICLR",
+      "count": 10323
+    },
+    {
+      "venue": "VTC Spring",
+      "count": 10133
+    },
+    {
+      "venue": "ISBI",
+      "count": 9854
+    },
+    {
+      "venue": "ICIS",
+      "count": 9799
+    },
+    {
+      "venue": "ICPR",
+      "count": 9771
+    },
+    {
+      "venue": "VTC Fall",
+      "count": 9669
+    },
+    {
+      "venue": "ECC",
+      "count": 9459
+    },
+    {
+      "venue": "SAC",
+      "count": 9410
+    },
+    {
+      "venue": "ICME",
+      "count": 9409
+    },
+    {
+      "venue": "CIKM",
+      "count": 9354
+    },
+    {
+      "venue": "ITSC",
+      "count": 9341
+    },
+    {
+      "venue": "DAC",
+      "count": 9222
+    },
+    {
+      "venue": "ICCE",
+      "count": 8942
+    },
+    {
+      "venue": "OFC",
+      "count": 8836
+    },
+    {
+      "venue": "DATE",
+      "count": 8809
+    },
+    {
+      "venue": "LREC",
+      "count": 8686
+    },
+    {
+      "venue": "BIBM",
+      "count": 8343
+    },
+    {
+      "venue": "AAMAS",
+      "count": 8168
+    },
+    {
+      "venue": "ACL (1)",
+      "count": 8166
+    },
+    {
+      "venue": "ROBIO",
+      "count": 8036
+    },
+    {
+      "venue": "SIGIR",
+      "count": 7904
+    },
+    {
+      "venue": "EMNLP",
+      "count": 7737
+    },
+    {
+      "venue": "NIPS",
+      "count": 7280
+    },
+    {
+      "venue": "ECAI",
+      "count": 7238
+    },
+    {
+      "venue": "CVPR Workshops",
+      "count": 7195
+    },
+    {
+      "venue": "FUZZ-IEEE",
+      "count": 7119
+    },
+    {
+      "venue": "ICECS",
+      "count": 7092
+    },
+    {
+      "venue": "ICDE",
+      "count": 7058
+    },
+    {
+      "venue": "ECIS",
+      "count": 6826
+    },
+    {
+      "venue": "SIGCSE",
+      "count": 6580
+    },
+    {
+      "venue": "KDD",
+      "count": 6401
+    },
+    {
+      "venue": "WACV",
+      "count": 6238
+    },
+    {
+      "venue": "WWW",
+      "count": 6231
+    },
+    {
+      "venue": "KES",
+      "count": 6087
+    },
+    {
+      "venue": "ICCAD",
+      "count": 6080
+    },
+    {
+      "venue": "FIE",
+      "count": 5996
+    },
+    {
+      "venue": "ICCCNT",
+      "count": 5927
+    },
+    {
+      "venue": "ICTC",
+      "count": 5822
+    },
+    {
+      "venue": "SIU",
+      "count": 5807
+    },
+    {
+      "venue": "ACL (Findings)",
+      "count": 5767
+    },
+    {
+      "venue": "IPDPS",
+      "count": 5763
+    },
+    {
+      "venue": "COLING",
+      "count": 5761
+    },
+    {
+      "venue": "IWCMC",
+      "count": 5734
+    },
+    {
+      "venue": "PACIS",
+      "count": 5693
+    },
+    {
+      "venue": "GECCO",
+      "count": 5638
+    },
+    {
+      "venue": "ITC",
+      "count": 5621
+    },
+    {
+      "venue": "IEEE Congress on Evolutionary Computation",
+      "count": 5590
+    },
+    {
+      "venue": "IAS",
+      "count": 5526
+    },
+    {
+      "venue": "COMPSAC",
+      "count": 5449
+    },
+    {
+      "venue": "IEEE BigData",
+      "count": 5345
+    },
+    {
+      "venue": "CCNC",
+      "count": 5332
+    },
+    {
+      "venue": "ETFA",
+      "count": 5304
+    },
+    {
+      "venue": "FUSION",
+      "count": 5223
+    },
+    {
+      "venue": "IV",
+      "count": 5220
+    },
+    {
+      "venue": "ISCC",
+      "count": 5215
+    },
+    {
+      "venue": "ICNC",
+      "count": 5156
+    },
+    {
+      "venue": "AISTATS",
+      "count": 5102
+    },
+    {
+      "venue": "ISSCC",
+      "count": 5091
+    },
+    {
+      "venue": "MIE",
+      "count": 5090
+    },
+    {
+      "venue": "CEC",
+      "count": 5079
+    },
+    {
+      "venue": "CASE",
+      "count": 5046
+    },
+    {
+      "venue": "SODA",
+      "count": 4961
+    },
+    {
+      "venue": "BMVC",
+      "count": 4952
+    },
+    {
+      "venue": "EMNLP (Findings)",
+      "count": 4895
+    },
+    {
+      "venue": "MedInfo",
+      "count": 4849
+    },
+    {
+      "venue": "ICSE",
+      "count": 4846
+    }
+  ]
+}

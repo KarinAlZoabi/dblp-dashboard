@@ -1,0 +1,658 @@
+{
+  "1936": {
+    "article": 12
+  },
+  "1937": {
+    "article": 16
+  },
+  "1938": {
+    "article": 10,
+    "phdthesis": 1
+  },
+  "1939": {
+    "article": 18
+  },
+  "1940": {
+    "article": 10
+  },
+  "1941": {
+    "article": 13
+  },
+  "1942": {
+    "article": 13
+  },
+  "1943": {
+    "article": 8
+  },
+  "1944": {
+    "article": 5
+  },
+  "1945": {
+    "article": 9
+  },
+  "1946": {
+    "article": 31
+  },
+  "1947": {
+    "article": 10
+  },
+  "1948": {
+    "article": 40,
+    "phdthesis": 1
+  },
+  "1949": {
+    "book": 2,
+    "article": 50
+  },
+  "1950": {
+    "book": 2,
+    "article": 25,
+    "phdthesis": 2
+  },
+  "1951": {
+    "book": 2,
+    "inproceedings": 19,
+    "proceedings": 1,
+    "article": 19,
+    "phdthesis": 5
+  },
+  "1952": {
+    "inproceedings": 75,
+    "proceedings": 2,
+    "article": 34,
+    "phdthesis": 4
+  },
+  "1953": {
+    "book": 1,
+    "inproceedings": 55,
+    "proceedings": 2,
+    "article": 111,
+    "phdthesis": 4
+  },
+  "1954": {
+    "book": 1,
+    "inproceedings": 44,
+    "proceedings": 2,
+    "article": 165,
+    "phdthesis": 13
+  },
+  "1955": {
+    "book": 3,
+    "inproceedings": 44,
+    "proceedings": 2,
+    "article": 156,
+    "phdthesis": 8
+  },
+  "1956": {
+    "book": 4,
+    "inproceedings": 118,
+    "proceedings": 2,
+    "article": 220,
+    "phdthesis": 11
+  },
+  "1957": {
+    "book": 3,
+    "inproceedings": 87,
+    "proceedings": 2,
+    "article": 246,
+    "phdthesis": 5
+  },
+  "1958": {
+    "book": 2,
+    "inproceedings": 138,
+    "proceedings": 4,
+    "article": 310,
+    "phdthesis": 10
+  },
+  "1959": {
+    "book": 1,
+    "inproceedings": 253,
+    "proceedings": 3,
+    "article": 446,
+    "phdthesis": 13
+  },
+  "1960": {
+    "book": 3,
+    "proceedings": 4,
+    "inproceedings": 75,
+    "article": 517,
+    "phdthesis": 26
+  },
+  "1961": {
+    "book": 1,
+    "inproceedings": 194,
+    "proceedings": 4,
+    "article": 683,
+    "phdthesis": 21
+  },
+  "1962": {
+    "book": 4,
+    "inproceedings": 281,
+    "proceedings": 5,
+    "article": 868,
+    "phdthesis": 28
+  },
+  "1963": {
+    "book": 6,
+    "inproceedings": 106,
+    "proceedings": 3,
+    "article": 890,
+    "phdthesis": 29
+  },
+  "1964": {
+    "book": 2,
+    "inproceedings": 214,
+    "proceedings": 7,
+    "article": 848,
+    "phdthesis": 37
+  },
+  "1965": {
+    "book": 1,
+    "inproceedings": 254,
+    "proceedings": 7,
+    "article": 982,
+    "phdthesis": 47
+  },
+  "1966": {
+    "book": 4,
+    "inproceedings": 247,
+    "proceedings": 7,
+    "article": 1188,
+    "phdthesis": 60
+  },
+  "1967": {
+    "book": 8,
+    "inproceedings": 414,
+    "proceedings": 10,
+    "article": 1285,
+    "phdthesis": 46
+  },
+  "1968": {
+    "incollection": 5,
+    "book": 7,
+    "phdthesis": 60,
+    "inproceedings": 646,
+    "proceedings": 10,
+    "article": 1456
+  },
+  "1969": {
+    "book": 20,
+    "article": 1469,
+    "inproceedings": 551,
+    "proceedings": 11,
+    "phdthesis": 69
+  },
+  "1970": {
+    "book": 13,
+    "phdthesis": 120,
+    "inproceedings": 408,
+    "proceedings": 10,
+    "article": 1688
+  },
+  "1971": {
+    "incollection": 14,
+    "book": 26,
+    "phdthesis": 158,
+    "article": 2001,
+    "inproceedings": 921,
+    "proceedings": 18
+  },
+  "1972": {
+    "book": 16,
+    "incollection": 28,
+    "phdthesis": 167,
+    "article": 2636,
+    "proceedings": 24,
+    "inproceedings": 903
+  },
+  "1973": {
+    "book": 21,
+    "phdthesis": 197,
+    "inproceedings": 1374,
+    "proceedings": 29,
+    "article": 2813
+  },
+  "1974": {
+    "incollection": 7,
+    "book": 18,
+    "phdthesis": 193,
+    "article": 3140,
+    "inproceedings": 1644,
+    "proceedings": 35
+  },
+  "1975": {
+    "book": 25,
+    "phdthesis": 228,
+    "inproceedings": 1637,
+    "proceedings": 42,
+    "article": 3375
+  },
+  "1976": {
+    "book": 33,
+    "phdthesis": 249,
+    "inproceedings": 1986,
+    "proceedings": 47,
+    "article": 3451
+  },
+  "1977": {
+    "book": 33,
+    "phdthesis": 211,
+    "inproceedings": 1930,
+    "proceedings": 50,
+    "article": 3824
+  },
+  "1978": {
+    "book": 31,
+    "phdthesis": 266,
+    "proceedings": 46,
+    "inproceedings": 2518,
+    "article": 4001
+  },
+  "1979": {
+    "book": 30,
+    "phdthesis": 268,
+    "inproceedings": 2499,
+    "proceedings": 54,
+    "article": 4194
+  },
+  "1980": {
+    "book": 34,
+    "incollection": 23,
+    "phdthesis": 369,
+    "inproceedings": 2679,
+    "proceedings": 62,
+    "article": 4764
+  },
+  "1981": {
+    "book": 57,
+    "phdthesis": 642,
+    "article": 4848,
+    "proceedings": 77,
+    "inproceedings": 3172
+  },
+  "1982": {
+    "book": 51,
+    "incollection": 42,
+    "phdthesis": 726,
+    "mastersthesis": 1,
+    "inproceedings": 3779,
+    "proceedings": 85,
+    "article": 5386
+  },
+  "1983": {
+    "book": 68,
+    "incollection": 11,
+    "phdthesis": 740,
+    "inproceedings": 4042,
+    "proceedings": 100,
+    "article": 6019
+  },
+  "1984": {
+    "book": 72,
+    "incollection": 65,
+    "phdthesis": 920,
+    "inproceedings": 4785,
+    "proceedings": 90,
+    "article": 6518,
+    "mastersthesis": 1
+  },
+  "1985": {
+    "book": 97,
+    "incollection": 61,
+    "phdthesis": 919,
+    "inproceedings": 5298,
+    "proceedings": 110,
+    "article": 7541
+  },
+  "1986": {
+    "book": 147,
+    "incollection": 72,
+    "phdthesis": 760,
+    "inproceedings": 7278,
+    "proceedings": 128,
+    "article": 8237
+  },
+  "1987": {
+    "book": 173,
+    "incollection": 44,
+    "phdthesis": 972,
+    "inproceedings": 7464,
+    "proceedings": 143,
+    "article": 9069,
+    "mastersthesis": 1
+  },
+  "1988": {
+    "book": 200,
+    "incollection": 69,
+    "phdthesis": 1032,
+    "inproceedings": 10043,
+    "proceedings": 197,
+    "article": 10471
+  },
+  "1989": {
+    "incollection": 114,
+    "book": 288,
+    "phdthesis": 1327,
+    "proceedings": 210,
+    "inproceedings": 11195,
+    "article": 11424
+  },
+  "1990": {
+    "book": 371,
+    "incollection": 125,
+    "phdthesis": 1288,
+    "inproceedings": 13953,
+    "proceedings": 260,
+    "article": 12757
+  },
+  "1991": {
+    "book": 374,
+    "incollection": 280,
+    "phdthesis": 1332,
+    "inproceedings": 14479,
+    "proceedings": 298,
+    "article": 14994,
+    "mastersthesis": 1
+  },
+  "1992": {
+    "mastersthesis": 1,
+    "incollection": 622,
+    "book": 431,
+    "phdthesis": 1307,
+    "proceedings": 320,
+    "inproceedings": 16397,
+    "article": 16395
+  },
+  "1993": {
+    "book": 447,
+    "incollection": 564,
+    "phdthesis": 1459,
+    "inproceedings": 20133,
+    "proceedings": 394,
+    "article": 18239
+  },
+  "1994": {
+    "book": 492,
+    "incollection": 219,
+    "phdthesis": 1473,
+    "inproceedings": 22714,
+    "proceedings": 428,
+    "article": 20234,
+    "mastersthesis": 2
+  },
+  "1995": {
+    "incollection": 328,
+    "book": 491,
+    "phdthesis": 1665,
+    "article": 21736,
+    "inproceedings": 23318,
+    "proceedings": 445
+  },
+  "1996": {
+    "book": 556,
+    "incollection": 488,
+    "phdthesis": 1446,
+    "article": 24317,
+    "inproceedings": 25785,
+    "proceedings": 485
+  },
+  "1997": {
+    "mastersthesis": 2,
+    "incollection": 391,
+    "book": 548,
+    "phdthesis": 1986,
+    "inproceedings": 29037,
+    "proceedings": 541,
+    "article": 24908
+  },
+  "1998": {
+    "book": 465,
+    "incollection": 246,
+    "phdthesis": 1380,
+    "inproceedings": 33944,
+    "proceedings": 612,
+    "article": 28085
+  },
+  "1999": {
+    "incollection": 491,
+    "book": 435,
+    "phdthesis": 2045,
+    "inproceedings": 37971,
+    "proceedings": 671,
+    "article": 29683
+  },
+  "2000": {
+    "book": 422,
+    "incollection": 387,
+    "phdthesis": 1608,
+    "inproceedings": 43635,
+    "proceedings": 708,
+    "article": 34786
+  },
+  "2001": {
+    "book": 438,
+    "incollection": 538,
+    "phdthesis": 1626,
+    "inproceedings": 47564,
+    "proceedings": 846,
+    "article": 36383
+  },
+  "2002": {
+    "book": 488,
+    "incollection": 595,
+    "phdthesis": 1800,
+    "inproceedings": 55409,
+    "proceedings": 887,
+    "article": 39441
+  },
+  "2003": {
+    "incollection": 671,
+    "book": 490,
+    "phdthesis": 2556,
+    "inproceedings": 68397,
+    "proceedings": 1077,
+    "article": 45082
+  },
+  "2004": {
+    "incollection": 839,
+    "book": 503,
+    "phdthesis": 2756,
+    "inproceedings": 82996,
+    "proceedings": 1217,
+    "article": 49285,
+    "mastersthesis": 1
+  },
+  "2005": {
+    "book": 676,
+    "incollection": 2703,
+    "proceedings": 1491,
+    "phdthesis": 3289,
+    "inproceedings": 95261,
+    "article": 56985
+  },
+  "2006": {
+    "mastersthesis": 2,
+    "incollection": 1626,
+    "book": 640,
+    "proceedings": 1607,
+    "phdthesis": 3699,
+    "inproceedings": 105576,
+    "article": 64790
+  },
+  "2007": {
+    "mastersthesis": 1,
+    "book": 665,
+    "incollection": 2244,
+    "proceedings": 1768,
+    "phdthesis": 3908,
+    "inproceedings": 110779,
+    "article": 71657
+  },
+  "2008": {
+    "incollection": 5609,
+    "book": 722,
+    "proceedings": 1946,
+    "phdthesis": 4167,
+    "inproceedings": 115858,
+    "article": 76979,
+    "mastersthesis": 1
+  },
+  "2009": {
+    "mastersthesis": 1,
+    "incollection": 9432,
+    "book": 743,
+    "proceedings": 2060,
+    "phdthesis": 4491,
+    "inproceedings": 122721,
+    "article": 84897
+  },
+  "2010": {
+    "incollection": 3976,
+    "book": 714,
+    "phdthesis": 4892,
+    "inproceedings": 127229,
+    "proceedings": 2177,
+    "article": 92124,
+    "mastersthesis": 1
+  },
+  "2011": {
+    "book": 713,
+    "incollection": 5931,
+    "inproceedings": 139310,
+    "phdthesis": 5440,
+    "proceedings": 2313,
+    "article": 99027,
+    "mastersthesis": 1
+  },
+  "2012": {
+    "incollection": 2265,
+    "book": 722,
+    "proceedings": 2415,
+    "phdthesis": 6054,
+    "article": 108149,
+    "inproceedings": 146147
+  },
+  "2013": {
+    "incollection": 3113,
+    "book": 746,
+    "proceedings": 2620,
+    "phdthesis": 6476,
+    "inproceedings": 153467,
+    "article": 116494,
+    "mastersthesis": 4
+  },
+  "2014": {
+    "incollection": 5277,
+    "book": 785,
+    "inproceedings": 155563,
+    "proceedings": 2733,
+    "phdthesis": 6895,
+    "article": 123509,
+    "mastersthesis": 2
+  },
+  "2015": {
+    "incollection": 2756,
+    "book": 614,
+    "proceedings": 2789,
+    "inproceedings": 161500,
+    "phdthesis": 7203,
+    "article": 130208,
+    "mastersthesis": 2
+  },
+  "2016": {
+    "book": 624,
+    "incollection": 2662,
+    "proceedings": 2820,
+    "phdthesis": 7375,
+    "inproceedings": 162422,
+    "article": 141511
+  },
+  "2017": {
+    "book": 596,
+    "incollection": 4164,
+    "inproceedings": 168301,
+    "proceedings": 2827,
+    "article": 159052,
+    "phdthesis": 7387,
+    "mastersthesis": 1
+  },
+  "2018": {
+    "book": 530,
+    "incollection": 4401,
+    "inproceedings": 176854,
+    "proceedings": 2965,
+    "article": 186120,
+    "phdthesis": 7508,
+    "mastersthesis": 1
+  },
+  "2019": {
+    "incollection": 2717,
+    "book": 557,
+    "inproceedings": 189003,
+    "proceedings": 3047,
+    "article": 218741,
+    "phdthesis": 7193
+  },
+  "2020": {
+    "book": 614,
+    "incollection": 1592,
+    "proceedings": 2893,
+    "phdthesis": 6796,
+    "inproceedings": 172238,
+    "article": 254053
+  },
+  "2021": {
+    "incollection": 803,
+    "book": 563,
+    "inproceedings": 178978,
+    "proceedings": 2897,
+    "article": 276920,
+    "phdthesis": 6820
+  },
+  "2022": {
+    "book": 503,
+    "incollection": 1162,
+    "proceedings": 2937,
+    "inproceedings": 178695,
+    "article": 295867,
+    "phdthesis": 6492
+  },
+  "2023": {
+    "book": 510,
+    "incollection": 804,
+    "proceedings": 3051,
+    "inproceedings": 201882,
+    "article": 315109,
+    "phdthesis": 5965
+  },
+  "2024": {
+    "incollection": 401,
+    "book": 396,
+    "proceedings": 2906,
+    "inproceedings": 213279,
+    "article": 363589,
+    "phdthesis": 5337
+  },
+  "2025": {
+    "book": 298,
+    "incollection": 133,
+    "inproceedings": 197999,
+    "proceedings": 2634,
+    "article": 393606,
+    "phdthesis": 2754
+  },
+  "2026": {
+    "book": 240,
+    "incollection": 75,
+    "inproceedings": 78957,
+    "proceedings": 1589,
+    "article": 293850,
+    "phdthesis": 404
+  },
+  "2027": {
+    "book": 7,
+    "proceedings": 158,
+    "inproceedings": 67,
+    "article": 1609
+  }
+}
