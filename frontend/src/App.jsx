@@ -9,6 +9,9 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  BarChart,
+  Bar,
+  Legend
 } from "recharts";
 
 import "./App.css";
@@ -17,6 +20,14 @@ import "./App.css";
 function App() {
   const [kpis, setKpis] = useState(null);
   const [yearlyData, setYearlyData] = useState([]);
+const [publicationTypes, setPublicationTypes] = useState([]);
+const [publicationTypesByYear, setPublicationTypesByYear] = useState([]);
+const [collaboration, setCollaboration] = useState([]);
+const [venues, setVenues] = useState({
+  journals: [],
+  conferences: []
+});
+const [dataQuality, setDataQuality] = useState({});
 
   useEffect(() => {
     // Get KPI data
@@ -48,13 +59,92 @@ function App() {
       .catch((error) => {
         console.error("Error fetching yearly publications:", error);
       });
+
+      axios
+  .get("http://127.0.0.1:8000/api/publications/types")
+  .then((response) => {
+    const data = Object.entries(response.data).map(([type, count]) => ({
+      type,
+      count
+    }));
+
+    setPublicationTypes(data);
+  })
+  .catch((error) => {
+    console.error("Error fetching publication types:", error);
+  });
+
+  axios
+  .get("http://127.0.0.1:8000/api/publications/types-by-year")
+  .then((response) => {
+    console.log("Yearly type data:", response.data);
+
+    const data = Object.entries(response.data).map(([year, types]) => ({
+      year: Number(year),
+      article: types.article || 0,
+      inproceedings: types.inproceedings || 0,
+      phdthesis: types.phdthesis || 0,
+      incollection: types.incollection || 0,
+      proceedings: types.proceedings || 0,
+      book: types.book || 0,
+      mastersthesis: types.mastersthesis || 0
+    }));
+
+    console.log("Chart data:", data);
+
+    setPublicationTypesByYear(data);
+  })
+  .catch((error) => {
+    console.error(
+      "Error fetching publication types by year:",
+      error
+    );
+  });
+
+  axios
+  .get("http://127.0.0.1:8000/api/collaboration")
+  .then((response) => {
+    const data = Object.entries(response.data).map(([year, values]) => ({
+      year: Number(year),
+      multi_author_pct: values.multi_author_pct,
+      avg_authors: values.avg_authors
+    }));
+
+    setCollaboration(data);
+  })
+  .catch((error) => {
+    console.error("Error fetching collaboration data:", error);
+  });
+
+  axios
+  .get("http://127.0.0.1:8000/api/venues")
+  .then((response) => {
+    setVenues(response.data);
+  })
+  .catch((error) => {
+    console.error("Error fetching venues:", error);
+  });
+
+  axios
+  .get("http://127.0.0.1:8000/api/data-quality")
+  .then((response) => {
+    setDataQuality(response.data);
+  })
+  .catch((error) => {
+    console.error("Error fetching data quality:", error);
+  });
   }, []);
 
 
   if (!kpis) {
     return <p>Loading...</p>;
   }
-
+const getQualityClass = (value) => {
+  if (value === 0) return "quality-good";
+  if (value < 5) return "quality-good";
+  if (value < 25) return "quality-warning";
+  return "quality-bad";
+};
 
   return (
     <div className="dashboard">
@@ -179,7 +269,273 @@ function App() {
 
       </section>
 
+{/* PUBLICATION TYPES */}
+      <div className="chart-card">
+  <h2>Publication Types</h2>
+  <p>Distribution of publications by type</p>
 
+  <ResponsiveContainer width="100%" height={400}>
+    <BarChart data={publicationTypes}>
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <XAxis
+        dataKey="type"
+        angle={-20}
+        textAnchor="end"
+        height={80}
+      />
+
+      <YAxis />
+
+      <Tooltip />
+
+      <Bar
+        dataKey="count"
+        fill="#6366f1"
+      />
+    </BarChart>
+  </ResponsiveContainer>
+</div>
+
+{/* Publications over time */}
+
+<div className="chart-card">
+  <h2>Publication Types Over Time</h2>
+
+  <p>
+    How different publication types have changed over the years
+  </p>
+
+  <ResponsiveContainer width="100%" height={450}>
+    <BarChart data={publicationTypesByYear}>
+
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <XAxis
+        dataKey="year"
+      />
+
+      <YAxis />
+
+      <Tooltip />
+
+      <Bar
+        dataKey="article"
+        stackId="types"
+      />
+
+      <Bar
+        dataKey="inproceedings"
+        stackId="types"
+      />
+
+      <Bar
+        dataKey="phdthesis"
+        stackId="types"
+      />
+
+      <Bar
+        dataKey="incollection"
+        stackId="types"
+      />
+
+      <Bar
+        dataKey="proceedings"
+        stackId="types"
+      />
+
+      <Bar
+        dataKey="book"
+        stackId="types"
+      />
+
+      <Bar
+        dataKey="mastersthesis"
+        stackId="types"
+      />
+
+    </BarChart>
+  </ResponsiveContainer>
+</div>
+
+{/* Author collaboration */}
+
+<div className="chart-card">
+  <h2>Author Collaboration Over Time</h2>
+
+  <p>
+    Growth of multi-author research and average authors per publication
+  </p>
+
+  <ResponsiveContainer width="100%" height={450}>
+    <LineChart data={collaboration}>
+
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <XAxis dataKey="year" />
+
+      <YAxis
+        yAxisId="left"
+        domain={[0, 100]}
+        tickFormatter={(value) => `${value}%`}
+      />
+
+      <YAxis
+        yAxisId="right"
+        orientation="right"
+      />
+
+      <Tooltip />
+
+      <Legend />
+
+      <Line
+        yAxisId="left"
+        type="monotone"
+        dataKey="multi_author_pct"
+        name="Multi-author %"
+        dot={false}
+      />
+
+      <Line
+        yAxisId="right"
+        type="monotone"
+        dataKey="avg_authors"
+        name="Average Authors"
+        dot={false}
+      />
+
+    </LineChart>
+  </ResponsiveContainer>
+</div>
+
+<div className="chart-card">
+  <h2>Top Journals</h2>
+
+  <p>Most common publication venues in the dataset</p>
+
+  <ResponsiveContainer width="100%" height={500}>
+    <BarChart
+      data={venues.journals.slice(0, 10)}
+      layout="vertical"
+      margin={{ left: 40, right: 30 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <XAxis type="number" />
+
+      <YAxis
+        type="category"
+        dataKey="venue"
+        width={180}
+      />
+
+      <Tooltip />
+
+      <Bar
+        dataKey="count"
+      />
+    </BarChart>
+  </ResponsiveContainer>
+</div>
+
+<div className="chart-card">
+  <h2>Top Conferences</h2>
+
+  <p>Most common conference publication venues in the dataset</p>
+
+  <ResponsiveContainer width="100%" height={500}>
+    <BarChart
+      data={venues.conferences.slice(0, 10)}
+      layout="vertical"
+      margin={{ left: 40, right: 30 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <XAxis type="number" />
+
+      <YAxis
+        type="category"
+        dataKey="venue"
+        width={140}
+      />
+
+      <Tooltip />
+
+      <Bar dataKey="count" />
+    </BarChart>
+  </ResponsiveContainer>
+</div>
+
+<div className="chart-card">
+  <h2>Data Quality</h2>
+
+  <p>
+    Percentage of publications with missing metadata
+  </p>
+
+ {/* ============================================================
+    DATA QUALITY / METADATA COMPLETENESS
+============================================================ */}
+
+<div className="chart-card">
+  <h2>Metadata Completeness</h2>
+  <p className="chart-subtitle">
+    Percentage of records missing author, title, or year information
+  </p>
+
+  <div className="quality-table">
+
+    {/* Header */}
+    <div className="quality-row quality-header">
+      <div>Publication Type</div>
+      <div>Author</div>
+      <div>Title</div>
+      <div>Year</div>
+    </div>
+
+    {Object.entries(dataQuality).map(([type, values]) => (
+      <div className="quality-row" key={type}>
+
+        <div className="quality-type">
+          {type}
+        </div>
+
+       <div className={`quality-cell ${getQualityClass(values.missing_author_pct)}`}>
+  {values.missing_author_pct.toFixed(2)}%
+</div>
+
+<div className={`quality-cell ${getQualityClass(values.missing_title_pct)}`}>
+  {values.missing_title_pct.toFixed(2)}%
+</div>
+
+<div className={`quality-cell ${getQualityClass(values.missing_year_pct)}`}>
+  {values.missing_year_pct.toFixed(2)}%
+</div>
+
+      </div>
+    ))}
+
+  </div>
+
+  <div className="quality-legend">
+    <span>
+      <span className="legend-dot good"></span>
+      Low missing data
+    </span>
+
+    <span>
+      <span className="legend-dot warning"></span>
+      Moderate
+    </span>
+
+    <span>
+      <span className="legend-dot bad"></span>
+      High missing data
+    </span>
+  </div>
+</div>
+</div>
       {/* COLLABORATION SUMMARY */}
 
       <section className="summary-grid">
