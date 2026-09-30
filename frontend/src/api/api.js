@@ -25,3 +25,14 @@ export const getDataQuality = () =>
 
 export const getTopicsOverTime = () =>
   axios.get(`${API_URL}/api/topics-over-time`);
+
+export const askRagChat = (
+  question,
+  topK = 5,
+  sessionId = null
+) =>
+  axios.post(`${API_URL}/api/rag/chat`, {
+    question,
+    top_k: topK,
+    session_id: sessionId
+  });

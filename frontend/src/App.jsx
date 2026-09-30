@@ -21,6 +21,7 @@ import VenuesCharts from "./components/VenuesCharts";
 import DataQuality from "./components/DataQuality";
 import SummaryCards from "./components/SummaryCards";
 import TopicRiverChart from "./components/TopicRiverChart";
+import Chatbot from "./components/Chatbot";
 
 import "./App.css";
 
@@ -422,6 +423,8 @@ function App() {
       <SummaryCards
         kpis={kpis}
       />
+
+      <Chatbot />
 
     </div>
   );

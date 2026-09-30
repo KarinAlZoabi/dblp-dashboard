@@ -1,0 +1,2686 @@
+[
+  {
+    "case": {
+      "name": "dataset_count",
+      "question": "How many publications are there in the dataset?",
+      "intents": [
+        "dataset_count"
+      ],
+      "answer_any": [
+        "publication",
+        "records"
+      ]
+    },
+    "passed": true,
+    "latency": 0.04145430002245121,
+    "failures": [],
+    "response": {
+      "question": "How many publications are there in the dataset?",
+      "intent": "dataset_count",
+      "answer": "The indexed DBLP dataset contains 12,944,133 total DBLP records. 8,741,489 are publication records when 'www' profile/web records are excluded.",
+      "count": 8741489,
+      "sources": [],
+      "statistics": {
+        "total_records": 12944133,
+        "publication_records": 8741489,
+        "www_records": 4202644,
+        "type_counts": {
+          "mastersthesis": 27,
+          "book": 21639,
+          "incollection": 71185,
+          "inproceedings": 3967188,
+          "proceedings": 65477,
+          "phdthesis": 157236,
+          "www": 4202644,
+          "article": 4458737
+        }
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "dataset_count_paraphrase",
+      "question": "What is the total number of DBLP publications in this dataset?",
+      "intents": [
+        "dataset_count"
+      ],
+      "answer_any": [
+        "publication",
+        "records"
+      ]
+    },
+    "passed": true,
+    "latency": 8.159705899975961,
+    "failures": [],
+    "response": {
+      "question": "What is the total number of DBLP publications in this dataset?",
+      "intent": "dataset_count",
+      "answer": "The indexed DBLP dataset contains 12,944,133 total DBLP records. 8,741,489 are publication records when 'www' profile/web records are excluded.",
+      "count": 8741489,
+      "sources": [],
+      "statistics": {
+        "total_records": 12944133,
+        "publication_records": 8741489,
+        "www_records": 4202644,
+        "type_counts": {
+          "mastersthesis": 27,
+          "book": 21639,
+          "incollection": 71185,
+          "inproceedings": 3967188,
+          "proceedings": 65477,
+          "phdthesis": 157236,
+          "www": 4202644,
+          "article": 4458737
+        }
+      }
+    }
+  },
+  {
+    "case": {
+      "name": "author_year",
+      "question": "What paper did Hussein Hazimeh publish in 2025?",
+      "intents": [
+        "author_publications"
+      ],
+      "min_sources": 1,
+      "year_range": [
+        2025,
+        2025
+      ],
+      "source_author_base": "hussein hazimeh"
+    },
+    "passed": true,
+    "latency": 0.011800400010542944,
+    "failures": [],
+    "response": {
+      "question": "What paper did Hussein Hazimeh publish in 2025?",
+      "intent": "author_publications",
+      "answer": "'Hussein Hazimeh' maps to multiple DBLP identities with publications matching the requested filters (Hussein Hazimeh 0001, Hussein Hazimeh 0002). I found 9 matching publications and kept each source's identity separate.",
+      "count": 9,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Scaling Laws for Downstream Task Performance in Machine Translation.",
+          "authors": [
+            "Berivan Isik",
+            "Natalia Ponomareva 0001",
+            "Hussein Hazimeh 0001",
+            "Dimitris Paparas",
+            "Sergei Vassilvitskii",
+            "Sanmi Koyejo"
+          ],
+          "venue": "ICLR",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/iclr/Isik00PVK25",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://openreview.net/forum?id=vPOMTkmSiu",
+          "matched_author": "Hussein Hazimeh 0001"
+        },
+        {
+          "id": "P2",
+          "title": "SPARTA: An Optimization Framework for Differentially Private Sparse Fine-Tuning.",
+          "authors": [
+            "Mehdi Makni",
+            "Kayhan Behdin",
+            "Gabriel Afriat",
+            "Zheng Xu 0002",
+            "Sergei Vassilvitskii",
+            "Natalia Ponomareva 0001",
+            "Rahul Mazumder",
+            "Hussein Hazimeh 0001"
+          ],
+          "venue": "KDD (2)",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/kdd/MakniBA0V0M025",
+          "pages": "2090-2101",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3711896.3736842",
+          "matched_author": "Hussein Hazimeh 0001"
+        },
+        {
+          "id": "P3",
+          "title": "SPARKLE: Structured Parsing for Arabic Resource Knowledge and Language Extraction.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Karl Daher",
+            "Omar Abou Khaled",
+            "Elena Mugellini",
+            "Ali Jaber",
+            "Ali El Takach"
+          ],
+          "venue": "AINA (2)",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aina/Tfaily0HDKMJT25",
+          "pages": "282-292",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1007/978-3-031-87766-7_25",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P4",
+          "title": "SHOLO: Similarity-Based Reduction Scheme for Efficient Data Transmission and Energy Saving in Multimedia Sensor Networks.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Chady Abou Jaoude",
+            "Hassan Harb",
+            "Hussein Hazimeh 0002",
+            "Hassan Kanj"
+          ],
+          "venue": "WiMob",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/wimob/TfailyJHHK25",
+          "pages": "97-102",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/WiMob66857.2025.11257515",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P5",
+          "title": "SAGE: Semantic Adaptation of Graph Embeddings for Arabic Entity Linking.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Ali El Takach",
+            "Hatem El Zein",
+            "Hassan Harb",
+            "Ali Jaber"
+          ],
+          "venue": "AICCSA",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aiccsa/TfailyHTZHJ25",
+          "pages": "1-5",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/AICCSA66935.2025.11315323",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P6",
+          "title": "MOTION: Multi-models correlation framework for energy-saving in wireless video sensor networks.",
+          "authors": [
+            "Hassan Harb",
+            "Fouad Al Tfaily",
+            "Kassem Danach",
+            "Hussein Hazimeh 0002",
+            "Ali Jaber"
+          ],
+          "venue": "Comput. Electr. Eng.",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/cee/HarbTDHJ25",
+          "pages": "110720",
+          "volume": "128",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.compeleceng.2025.110720",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P7",
+          "title": "Knowledge Graph-Driven Approach in Aspect-Based Sentiment Analysis: Exploring the Impact of Embedding Techniques.",
+          "authors": [
+            "Souha Al Katat",
+            "Chamseddine Zaki",
+            "Hussein Hazimeh 0002",
+            "Ibrahim El Bitar",
+            "Rafael Angarita",
+            "Lionel Trojman"
+          ],
+          "venue": "IEEE Access",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/access/KatatZHBAT25",
+          "pages": "102553-102563",
+          "volume": "13",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ACCESS.2025.3577048",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P8",
+          "title": "DART: A Principled Approach to Adversarially Robust Unsupervised Domain Adaptation.",
+          "authors": [
+            "Yunjuan Wang",
+            "Hussein Hazimeh 0001",
+            "Natalia Ponomareva 0001",
+            "Alexey Kurakin",
+            "Ibrahim Hammoud",
+            "Raman Arora"
+          ],
+          "venue": "SaTML",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/satml/Wang00KHA25",
+          "pages": "773-796",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/SaTML64287.2025.00048",
+          "matched_author": "Hussein Hazimeh 0001"
+        },
+        {
+          "id": "P9",
+          "title": "An Optimization Framework for Differentially Private Sparse Fine-Tuning.",
+          "authors": [
+            "Mehdi Makni",
+            "Kayhan Behdin",
+            "Gabriel Afriat",
+            "Zheng Xu 0002",
+            "Sergei Vassilvitskii",
+            "Natalia Ponomareva 0001",
+            "Hussein Hazimeh 0001",
+            "Rahul Mazumder"
+          ],
+          "venue": "CoRR",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/corr/abs-2503-12822",
+          "pages": "",
+          "volume": "abs/2503.12822",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.48550/arXiv.2503.12822",
+          "matched_author": "Hussein Hazimeh 0001"
+        }
+      ],
+      "resolved_author": null,
+      "matched_identities": [
+        "Hussein Hazimeh 0001",
+        "Hussein Hazimeh 0002"
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "author_year_paraphrase",
+      "question": "Which publications did Hussein Hazimeh publish during 2025?",
+      "intents": [
+        "author_publications"
+      ],
+      "min_sources": 1,
+      "year_range": [
+        2025,
+        2025
+      ],
+      "source_author_base": "hussein hazimeh"
+    },
+    "passed": true,
+    "latency": 0.007982100010849535,
+    "failures": [],
+    "response": {
+      "question": "Which publications did Hussein Hazimeh publish during 2025?",
+      "intent": "author_publications",
+      "answer": "'Hussein Hazimeh' maps to multiple DBLP identities with publications matching the requested filters (Hussein Hazimeh 0001, Hussein Hazimeh 0002). I found 9 matching publications and kept each source's identity separate.",
+      "count": 9,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Scaling Laws for Downstream Task Performance in Machine Translation.",
+          "authors": [
+            "Berivan Isik",
+            "Natalia Ponomareva 0001",
+            "Hussein Hazimeh 0001",
+            "Dimitris Paparas",
+            "Sergei Vassilvitskii",
+            "Sanmi Koyejo"
+          ],
+          "venue": "ICLR",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/iclr/Isik00PVK25",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://openreview.net/forum?id=vPOMTkmSiu",
+          "matched_author": "Hussein Hazimeh 0001"
+        },
+        {
+          "id": "P2",
+          "title": "SPARTA: An Optimization Framework for Differentially Private Sparse Fine-Tuning.",
+          "authors": [
+            "Mehdi Makni",
+            "Kayhan Behdin",
+            "Gabriel Afriat",
+            "Zheng Xu 0002",
+            "Sergei Vassilvitskii",
+            "Natalia Ponomareva 0001",
+            "Rahul Mazumder",
+            "Hussein Hazimeh 0001"
+          ],
+          "venue": "KDD (2)",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/kdd/MakniBA0V0M025",
+          "pages": "2090-2101",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3711896.3736842",
+          "matched_author": "Hussein Hazimeh 0001"
+        },
+        {
+          "id": "P3",
+          "title": "SPARKLE: Structured Parsing for Arabic Resource Knowledge and Language Extraction.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Karl Daher",
+            "Omar Abou Khaled",
+            "Elena Mugellini",
+            "Ali Jaber",
+            "Ali El Takach"
+          ],
+          "venue": "AINA (2)",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aina/Tfaily0HDKMJT25",
+          "pages": "282-292",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1007/978-3-031-87766-7_25",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P4",
+          "title": "SHOLO: Similarity-Based Reduction Scheme for Efficient Data Transmission and Energy Saving in Multimedia Sensor Networks.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Chady Abou Jaoude",
+            "Hassan Harb",
+            "Hussein Hazimeh 0002",
+            "Hassan Kanj"
+          ],
+          "venue": "WiMob",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/wimob/TfailyJHHK25",
+          "pages": "97-102",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/WiMob66857.2025.11257515",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P5",
+          "title": "SAGE: Semantic Adaptation of Graph Embeddings for Arabic Entity Linking.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Ali El Takach",
+            "Hatem El Zein",
+            "Hassan Harb",
+            "Ali Jaber"
+          ],
+          "venue": "AICCSA",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aiccsa/TfailyHTZHJ25",
+          "pages": "1-5",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/AICCSA66935.2025.11315323",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P6",
+          "title": "MOTION: Multi-models correlation framework for energy-saving in wireless video sensor networks.",
+          "authors": [
+            "Hassan Harb",
+            "Fouad Al Tfaily",
+            "Kassem Danach",
+            "Hussein Hazimeh 0002",
+            "Ali Jaber"
+          ],
+          "venue": "Comput. Electr. Eng.",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/cee/HarbTDHJ25",
+          "pages": "110720",
+          "volume": "128",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.compeleceng.2025.110720",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P7",
+          "title": "Knowledge Graph-Driven Approach in Aspect-Based Sentiment Analysis: Exploring the Impact of Embedding Techniques.",
+          "authors": [
+            "Souha Al Katat",
+            "Chamseddine Zaki",
+            "Hussein Hazimeh 0002",
+            "Ibrahim El Bitar",
+            "Rafael Angarita",
+            "Lionel Trojman"
+          ],
+          "venue": "IEEE Access",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/access/KatatZHBAT25",
+          "pages": "102553-102563",
+          "volume": "13",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ACCESS.2025.3577048",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P8",
+          "title": "DART: A Principled Approach to Adversarially Robust Unsupervised Domain Adaptation.",
+          "authors": [
+            "Yunjuan Wang",
+            "Hussein Hazimeh 0001",
+            "Natalia Ponomareva 0001",
+            "Alexey Kurakin",
+            "Ibrahim Hammoud",
+            "Raman Arora"
+          ],
+          "venue": "SaTML",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/satml/Wang00KHA25",
+          "pages": "773-796",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/SaTML64287.2025.00048",
+          "matched_author": "Hussein Hazimeh 0001"
+        },
+        {
+          "id": "P9",
+          "title": "An Optimization Framework for Differentially Private Sparse Fine-Tuning.",
+          "authors": [
+            "Mehdi Makni",
+            "Kayhan Behdin",
+            "Gabriel Afriat",
+            "Zheng Xu 0002",
+            "Sergei Vassilvitskii",
+            "Natalia Ponomareva 0001",
+            "Hussein Hazimeh 0001",
+            "Rahul Mazumder"
+          ],
+          "venue": "CoRR",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/corr/abs-2503-12822",
+          "pages": "",
+          "volume": "abs/2503.12822",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.48550/arXiv.2503.12822",
+          "matched_author": "Hussein Hazimeh 0001"
+        }
+      ],
+      "resolved_author": null,
+      "matched_identities": [
+        "Hussein Hazimeh 0001",
+        "Hussein Hazimeh 0002"
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_authors",
+      "question": "List all authors for the paper titled 'Attention Is All You Need'.",
+      "intents": [
+        "publication_authors"
+      ],
+      "answer_any": [
+        "Ashish Vaswani",
+        "Noam Shazeer"
+      ]
+    },
+    "passed": true,
+    "latency": 0.027714399999240413,
+    "failures": [],
+    "response": {
+      "question": "List all authors for the paper titled 'Attention Is All You Need'.",
+      "intent": "publication_authors",
+      "answer": "Authors of 'Attention is All you Need.': Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_authors_noise",
+      "question": "List all authors for the paper titled 'Find Attention Is All You Need'.",
+      "intents": [
+        "publication_authors"
+      ],
+      "answer_any": [
+        "Ashish Vaswani",
+        "Noam Shazeer"
+      ]
+    },
+    "passed": true,
+    "latency": 0.03074919999926351,
+    "failures": [],
+    "response": {
+      "question": "List all authors for the paper titled 'Find Attention Is All You Need'.",
+      "intent": "publication_authors",
+      "answer": "Authors of 'Attention is All you Need.': Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_authors_who_wrote",
+      "question": "Who wrote 'Attention Is All You Need'?",
+      "intents": [
+        "publication_authors"
+      ],
+      "answer_any": [
+        "Ashish Vaswani"
+      ]
+    },
+    "passed": true,
+    "latency": 0.020409799995832145,
+    "failures": [],
+    "response": {
+      "question": "Who wrote 'Attention Is All You Need'?",
+      "intent": "publication_authors",
+      "answer": "Authors of 'Attention is All you Need.': Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_venue",
+      "question": "In which journal/conference proceedings was 'Attention Is All You Need' published?",
+      "intents": [
+        "publication_venue"
+      ],
+      "answer_any": [
+        "NIPS",
+        "CoRR"
+      ]
+    },
+    "passed": true,
+    "latency": 0.016489100002218038,
+    "failures": [],
+    "response": {
+      "question": "In which journal/conference proceedings was 'Attention Is All You Need' published?",
+      "intent": "publication_venue",
+      "answer": "DBLP lists 'Attention is All you Need.' as: 2017: NIPS (inproceedings); 2017: CoRR (article).",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_pages",
+      "question": "What is the page range for the article 'Attention Is All You Need'?",
+      "intents": [
+        "publication_pages"
+      ],
+      "answer_any": [
+        "5998",
+        "6008"
+      ]
+    },
+    "passed": true,
+    "latency": 0.0020278000156395137,
+    "failures": [],
+    "response": {
+      "question": "What is the page range for the article 'Attention Is All You Need'?",
+      "intent": "publication_pages",
+      "answer": "Page range information for 'Attention is All you Need.': NIPS: 5998-6008.",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_page_count",
+      "question": "How many pages does 'Attention Is All You Need' have?",
+      "intents": [
+        "publication_page_count"
+      ],
+      "answer_any": [
+        "11"
+      ]
+    },
+    "passed": true,
+    "latency": 0.001581299991812557,
+    "failures": [],
+    "response": {
+      "question": "How many pages does 'Attention Is All You Need' have?",
+      "intent": "publication_page_count",
+      "answer": "'Attention is All you Need.' has 11 pages (5998-6008, NIPS).",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_page_count_paraphrase",
+      "question": "What's the page count of 'Attention Is All You Need'?",
+      "intents": [
+        "publication_page_count"
+      ],
+      "answer_any": [
+        "11"
+      ]
+    },
+    "passed": true,
+    "latency": 0.026780300016980618,
+    "failures": [],
+    "response": {
+      "question": "What's the page count of 'Attention Is All You Need'?",
+      "intent": "publication_page_count",
+      "answer": "'Attention is All you Need.' has 11 pages (5998-6008, NIPS).",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "title_year",
+      "question": "What year was 'Attention Is All You Need' published?",
+      "intents": [
+        "publication_year"
+      ],
+      "answer_any": [
+        "2017"
+      ]
+    },
+    "passed": true,
+    "latency": 0.002993000001879409,
+    "failures": [],
+    "response": {
+      "question": "What year was 'Attention Is All You Need' published?",
+      "intent": "publication_year",
+      "answer": "'Attention is All you Need.' was published in 2017.",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "coauthors",
+      "question": "Who are the top 3 most frequent co-authors of Kassem Danach?",
+      "intents": [
+        "top_coauthors"
+      ],
+      "expected_count": 3
+    },
+    "passed": true,
+    "latency": 0.03329210000811145,
+    "failures": [],
+    "response": {
+      "question": "Who are the top 3 most frequent co-authors of Kassem Danach?",
+      "intent": "top_coauthors",
+      "answer": "Top 3 coauthors of Kassem Danach: 1. Samir Haddad (6 shared publications); 2. Jinane Sayah (5 shared publications); 3. Jomana Al-Haj Hassan (4 shared publications).",
+      "count": 3,
+      "sources": [],
+      "coauthors": [
+        {
+          "author": "Samir Haddad",
+          "count": 6
+        },
+        {
+          "author": "Jinane Sayah",
+          "count": 5
+        },
+        {
+          "author": "Jomana Al-Haj Hassan",
+          "count": 4
+        }
+      ],
+      "resolved_author": "Kassem Danach"
+    }
+  },
+  {
+    "case": {
+      "name": "topic_semantic",
+      "question": "Find research on detecting cyber attacks with machine learning.",
+      "intents": [
+        "topic_search"
+      ],
+      "min_sources": 1
+    },
+    "passed": true,
+    "latency": 2.819152000010945,
+    "failures": [],
+    "response": {
+      "question": "Find research on detecting cyber attacks with machine learning.",
+      "intent": "topic_search",
+      "answer": "I found 5 relevant DBLP publications.",
+      "count": 5,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "DECEPT: Detecting Cyber-Physical Attacks using Machine Learning on Log Data.",
+          "authors": [
+            "Florian Skopik",
+            "Markus Wurzenberger",
+            "Max Landauer"
+          ],
+          "venue": "ERCIM News",
+          "year": 2020,
+          "type": "article",
+          "key": "journals/ercim/SkopikWL20",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P2",
+          "title": "Machine Learning Models for Detecting Cyber Attacks in Vehicular Communication Networks.",
+          "authors": [
+            "Dhotre Yogesh Kadu",
+            "P. William",
+            "Firas Tayseer Ayasrah"
+          ],
+          "venue": "FLLM",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/fllm/KaduWA25",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P3",
+          "title": "Detecting cyber-physical attacks in CyberManufacturing systems with machine learning methods.",
+          "authors": [
+            "Mingtao Wu",
+            "Zhengyi Song",
+            "Young B. Moon"
+          ],
+          "venue": "J. Intell. Manuf.",
+          "year": 2019,
+          "type": "article",
+          "key": "journals/jim/WuSM19",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P4",
+          "title": "Detecting Cyber and Physical Attacks Against Mobile Robots Using Machine Learning: An Empirical Study.",
+          "authors": [
+            "Levente Nyusti",
+            "Sabarathinam Chockalingam",
+            "Patrick Bours",
+            "Terje Bodal"
+          ],
+          "venue": "NordSec",
+          "year": 2024,
+          "type": "inproceedings",
+          "key": "conf/nordsec/NyustiCBB24",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P5",
+          "title": "Detecting Electricity Theft Cyber-attacks in CAT AMI System Using Machine Learning.",
+          "authors": [
+            "Mohamed I. Ibrahem",
+            "Sherif Abdelfattah",
+            "Mohamed Mahmoud 0001",
+            "Waleed Alasmary"
+          ],
+          "venue": "ISNCC",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/isncc/IbrahemAMA21",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        }
+      ],
+      "retrieval_mode": "bm25_fallback",
+      "plan": {
+        "intent": "topic_search",
+        "title": null,
+        "author": null,
+        "search_text": "detecting cyber attacks with machine learning",
+        "year_from": null,
+        "year_to": null,
+        "limit": null,
+        "all_results": false
+      },
+      "retrieval_warning": "ClientError"
+    }
+  },
+  {
+    "case": {
+      "name": "topic_year_range",
+      "question": "Find papers about federated learning from 2020 to 2023.",
+      "intents": [
+        "topic_search"
+      ],
+      "min_sources": 1,
+      "year_range": [
+        2020,
+        2023
+      ]
+    },
+    "passed": true,
+    "latency": 1.9125420000054874,
+    "failures": [],
+    "response": {
+      "question": "Find papers about federated learning from 2020 to 2023.",
+      "intent": "topic_search",
+      "answer": "I found 5 relevant DBLP publications.",
+      "count": 5,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Multi-Center Federated Learning.",
+          "authors": [],
+          "venue": "CoRR",
+          "year": 2021,
+          "type": "article",
+          "key": "journals/corr/abs-2108-08647",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P2",
+          "title": "Federated Learning - Privacy and Incentive",
+          "authors": [],
+          "venue": "Federated Learning",
+          "year": 2020,
+          "type": "book",
+          "key": "series/lncs/12500",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P3",
+          "title": "Federated Quantum Natural Gradient Descent for Quantum Federated Learning.",
+          "authors": [
+            "Jun Qi"
+          ],
+          "venue": "CoRR",
+          "year": 2022,
+          "type": "article",
+          "key": "journals/corr/abs-2209-00564",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P4",
+          "title": "Federated Regularization Learning: an Accurate and Safe Method for Federated Learning.",
+          "authors": [
+            "Tianqi Su",
+            "Meiqi Wang",
+            "Zhongfeng Wang 0001"
+          ],
+          "venue": "AICAS",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/aicas/SuWW21",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P5",
+          "title": "Personalized Federated Learning with Local Attention.",
+          "authors": [],
+          "venue": "CoRR",
+          "year": 2023,
+          "type": "article",
+          "key": "journals/corr/abs-2304-01783",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        }
+      ],
+      "retrieval_mode": "bm25_fallback",
+      "plan": {
+        "intent": "topic_search",
+        "title": null,
+        "author": null,
+        "search_text": "federated learning",
+        "year_from": 2020,
+        "year_to": 2023,
+        "limit": null,
+        "all_results": false
+      },
+      "retrieval_warning": "ClientError"
+    }
+  },
+  {
+    "case": {
+      "name": "topic_year_range_paraphrase",
+      "question": "Show research on federated learning between 2020 and 2023.",
+      "intents": [
+        "topic_search"
+      ],
+      "min_sources": 1,
+      "year_range": [
+        2020,
+        2023
+      ]
+    },
+    "passed": true,
+    "latency": 2.035479399986798,
+    "failures": [],
+    "response": {
+      "question": "Show research on federated learning between 2020 and 2023.",
+      "intent": "topic_search",
+      "answer": "I found 5 relevant DBLP publications.",
+      "count": 5,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Multi-Center Federated Learning.",
+          "authors": [],
+          "venue": "CoRR",
+          "year": 2021,
+          "type": "article",
+          "key": "journals/corr/abs-2108-08647",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P2",
+          "title": "Federated Learning - Privacy and Incentive",
+          "authors": [],
+          "venue": "Federated Learning",
+          "year": 2020,
+          "type": "book",
+          "key": "series/lncs/12500",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P3",
+          "title": "Federated Quantum Natural Gradient Descent for Quantum Federated Learning.",
+          "authors": [
+            "Jun Qi"
+          ],
+          "venue": "CoRR",
+          "year": 2022,
+          "type": "article",
+          "key": "journals/corr/abs-2209-00564",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P4",
+          "title": "Federated Regularization Learning: an Accurate and Safe Method for Federated Learning.",
+          "authors": [
+            "Tianqi Su",
+            "Meiqi Wang",
+            "Zhongfeng Wang 0001"
+          ],
+          "venue": "AICAS",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/aicas/SuWW21",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        },
+        {
+          "id": "P5",
+          "title": "Personalized Federated Learning with Local Attention.",
+          "authors": [],
+          "venue": "CoRR",
+          "year": 2023,
+          "type": "article",
+          "key": "journals/corr/abs-2304-01783",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": ""
+        }
+      ],
+      "retrieval_mode": "bm25_fallback",
+      "plan": {
+        "intent": "topic_search",
+        "title": null,
+        "author": null,
+        "search_text": "federated learning",
+        "year_from": 2020,
+        "year_to": 2023,
+        "limit": null,
+        "all_results": false
+      },
+      "retrieval_warning": "ClientError"
+    }
+  },
+  {
+    "case": {
+      "name": "exact_title",
+      "question": "Find Attention Is All You Need",
+      "intents": [
+        "publication_details"
+      ],
+      "min_sources": 1,
+      "exact_title": "attention is all you need"
+    },
+    "passed": true,
+    "latency": 0.0017635000112932175,
+    "failures": [],
+    "response": {
+      "question": "Find Attention Is All You Need",
+      "intent": "publication_details",
+      "answer": "'Attention is All you Need.' — authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin; year: 2017; venue: NIPS; type: inproceedings. Pages: 5998-6008.",
+      "count": 2,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Attention is All you Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "NIPS",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/nips/VaswaniSPUJGKP17",
+          "pages": "5998-6008",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+        },
+        {
+          "id": "P2",
+          "title": "Attention Is All You Need.",
+          "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+          ],
+          "venue": "CoRR",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/corr/VaswaniSPUJGKP17",
+          "pages": "",
+          "volume": "abs/1706.03762",
+          "number": "",
+          "publisher": "",
+          "ee": "http://arxiv.org/abs/1706.03762"
+        }
+      ]
+    }
+  },
+  {
+    "case": {
+      "name": "author_all",
+      "question": "Give me all publications by Hussein Hazimeh 0002.",
+      "intents": [
+        "author_publications"
+      ],
+      "min_sources": 1,
+      "source_author_exact": "hussein hazimeh 0002"
+    },
+    "passed": true,
+    "latency": 0.0303227000113111,
+    "failures": [],
+    "response": {
+      "question": "Give me all publications by Hussein Hazimeh 0002.",
+      "intent": "author_publications",
+      "answer": "I found 25 matching publications for Hussein Hazimeh 0002.",
+      "count": 25,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Community-based vulnerability prediction framework for IoT intrusion detection using only network topology.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Zakariya Ghalmane",
+            "Mohamed-el-Amine Brahmia",
+            "Hussein Hazimeh 0002",
+            "Ali Jaber",
+            "Mourad Zghal"
+          ],
+          "venue": "Future Gener. Comput. Syst.",
+          "year": 2026,
+          "type": "article",
+          "key": "journals/fgcs/TfailyGBHJZ26",
+          "pages": "108493",
+          "volume": "182",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.future.2026.108493",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P2",
+          "title": "Knowledge Graph-Driven Approach in Aspect-Based Sentiment Analysis: Exploring the Impact of Embedding Techniques.",
+          "authors": [
+            "Souha Al Katat",
+            "Chamseddine Zaki",
+            "Hussein Hazimeh 0002",
+            "Ibrahim El Bitar",
+            "Rafael Angarita",
+            "Lionel Trojman"
+          ],
+          "venue": "IEEE Access",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/access/KatatZHBAT25",
+          "pages": "102553-102563",
+          "volume": "13",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ACCESS.2025.3577048",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P3",
+          "title": "MOTION: Multi-models correlation framework for energy-saving in wireless video sensor networks.",
+          "authors": [
+            "Hassan Harb",
+            "Fouad Al Tfaily",
+            "Kassem Danach",
+            "Hussein Hazimeh 0002",
+            "Ali Jaber"
+          ],
+          "venue": "Comput. Electr. Eng.",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/cee/HarbTDHJ25",
+          "pages": "110720",
+          "volume": "128",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.compeleceng.2025.110720",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P4",
+          "title": "SAGE: Semantic Adaptation of Graph Embeddings for Arabic Entity Linking.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Ali El Takach",
+            "Hatem El Zein",
+            "Hassan Harb",
+            "Ali Jaber"
+          ],
+          "venue": "AICCSA",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aiccsa/TfailyHTZHJ25",
+          "pages": "1-5",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/AICCSA66935.2025.11315323",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P5",
+          "title": "SHOLO: Similarity-Based Reduction Scheme for Efficient Data Transmission and Energy Saving in Multimedia Sensor Networks.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Chady Abou Jaoude",
+            "Hassan Harb",
+            "Hussein Hazimeh 0002",
+            "Hassan Kanj"
+          ],
+          "venue": "WiMob",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/wimob/TfailyJHHK25",
+          "pages": "97-102",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/WiMob66857.2025.11257515",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P6",
+          "title": "SPARKLE: Structured Parsing for Arabic Resource Knowledge and Language Extraction.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Karl Daher",
+            "Omar Abou Khaled",
+            "Elena Mugellini",
+            "Ali Jaber",
+            "Ali El Takach"
+          ],
+          "venue": "AINA (2)",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aina/Tfaily0HDKMJT25",
+          "pages": "282-292",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1007/978-3-031-87766-7_25",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P7",
+          "title": "Natural Language Processing for Arabic Sentiment Analysis: A Systematic Literature Review.",
+          "authors": [
+            "Souha Al Katat",
+            "Chamseddine Zaki",
+            "Hussein Hazimeh 0002",
+            "Ibrahim El Bitar",
+            "Rafael Angarita",
+            "Lionel Trojman"
+          ],
+          "venue": "IEEE Trans. Big Data",
+          "year": 2024,
+          "type": "article",
+          "key": "journals/tbd/KatatZHBAT24",
+          "pages": "576-594",
+          "volume": "10",
+          "number": "5",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/TBDATA.2024.3366083",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P8",
+          "title": "Smart Fall Detection by Enhanced SVM with Fuzzy Logic Membership Function.",
+          "authors": [
+            "Mohammad Kchouri",
+            "Norharyati Binti Harum",
+            "Hussein Hazimeh 0002",
+            "Ali Obeid"
+          ],
+          "venue": "J. Univers. Comput. Sci.",
+          "year": 2023,
+          "type": "article",
+          "key": "journals/jucs/KchouriHHO23",
+          "pages": "1010-1032",
+          "volume": "29",
+          "number": "9",
+          "publisher": "",
+          "ee": "https://doi.org/10.3897/jucs.91399",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P9",
+          "title": "A survey on trends on mobile app development and applications.",
+          "authors": [
+            "Mazen Lahham",
+            "Hussein Hazimeh 0002",
+            "Mohammad Malli"
+          ],
+          "venue": "Int. J. Wirel. Mob. Comput.",
+          "year": 2022,
+          "type": "article",
+          "key": "journals/ijwmc/LahhamHM22",
+          "pages": "350-360",
+          "volume": "23",
+          "number": "3/4",
+          "publisher": "",
+          "ee": "https://doi.org/10.1504/IJWMC.2022.10052554",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P10",
+          "title": "KEMA++: A Full Representative Knowledge-Graph Embedding Model (036).",
+          "authors": [
+            "Hussein Baalbaki",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Rafael Angarita"
+          ],
+          "venue": "Int. J. Softw. Eng. Knowl. Eng.",
+          "year": 2022,
+          "type": "article",
+          "key": "journals/ijseke/BaalbakiHHA22",
+          "pages": "1619-1641",
+          "volume": "32",
+          "number": "11&12",
+          "publisher": "",
+          "ee": "https://doi.org/10.1142/S0218194022500760",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P11",
+          "title": "KEMA: Knowledge-Graph Embedding Using Modular Arithmetic.",
+          "authors": [
+            "Hussein Baalbaki",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Rafael Angarita"
+          ],
+          "venue": "SEKE",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/seke/BaalbakiHHA22",
+          "pages": "263-268",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.18293/SEKE2022-036",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P12",
+          "title": "Real-time Bitcoin price tendency awareness via social media content tracking.",
+          "authors": [
+            "Housam Moustafa",
+            "Mohammad Malli",
+            "Hussein Hazimeh 0002"
+          ],
+          "venue": "ISDFS",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/isdfs/MoustafaMH22",
+          "pages": "1-6",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ISDFS55398.2022.9800793",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P13",
+          "title": "Survey on Fake Accounts Detection Algorithms on Online Social Networks.",
+          "authors": [
+            "Jad Shamseddine",
+            "Mohammad Malli",
+            "Hussein Hazimeh 0002"
+          ],
+          "venue": "ICR",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/icr2/ShamseddineM022",
+          "pages": "375-380",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1007/978-3-031-14054-9_35",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P14",
+          "title": "TransModE: Translational Knowledge Graph Embedding Using Modular Arithmetic.",
+          "authors": [
+            "Hussein Baalbaki",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Rafael Angarita"
+          ],
+          "venue": "KES",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/kes/Baalbaki0HA22",
+          "pages": "1154-1163",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.procs.2022.09.171",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P15",
+          "title": "Exploiting Vulnerabilities of IP Cameras: Lebanon Case Study.",
+          "authors": [
+            "Peter Bathich",
+            "Mohammad Malli",
+            "Hussein Hazimeh 0002"
+          ],
+          "venue": "ISDFS",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/isdfs/BathichMH21",
+          "pages": "1-6",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ISDFS52919.2021.9486324",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P16",
+          "title": "REDUCE: a semi-supervised scalable approach for REsult DUplication detection in Search Engines.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Zahraa Chreim",
+            "Ali Nour Eldine",
+            "Hassan Harb",
+            "Elena Mugellini",
+            "Omar Abou Khaled",
+            "Fouad Hannoun"
+          ],
+          "venue": "KES",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/kes/0002CNHMKH21",
+          "pages": "893-902",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.procs.2021.08.092",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P17",
+          "title": "Reliable User Profile Analytics and Discovery on Social Networks.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "ICSCA",
+          "year": 2019,
+          "type": "inproceedings",
+          "key": "conf/icsca/0002MK19",
+          "pages": "496-500",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3316615.3316642",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P18",
+          "title": "Temporal Sentiment Tracking and Analysis on Large-scale Social Events.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Mohammad Harissa",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "ICSCA",
+          "year": 2019,
+          "type": "inproceedings",
+          "key": "conf/icsca/0002HMK19",
+          "pages": "17-21",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3316615.3316646",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P19",
+          "title": "Automatic Embedding of Social Network Profile Links into Knowledge Graphs.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Simon Ruffieux",
+            "Omar Abou Khaled",
+            "Philippe Cudré-Mauroux"
+          ],
+          "venue": "SoICT",
+          "year": 2018,
+          "type": "inproceedings",
+          "key": "conf/soict/0002MRKC18",
+          "pages": "16-23",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3287921.3287926",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P20",
+          "title": "Lexicon-based sentiment analysis approach for ranking event entities.",
+          "authors": [
+            "Sajida Chamass",
+            "Hussein Hazimeh 0002",
+            "Jawad Makki",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "Int. J. Serv. Stand.",
+          "year": 2018,
+          "type": "article",
+          "key": "journals/ijss/ChamassHMMK18",
+          "pages": "126-139",
+          "volume": "12",
+          "number": "2",
+          "publisher": "",
+          "ee": "https://doi.org/10.1504/IJSS.2018.10012982",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P21",
+          "title": "Linking user profiles in social networks: a comparative review.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Omar Abou Khaled",
+            "Philippe Cudré-Mauroux"
+          ],
+          "venue": "Int. J. Soc. Netw. Min.",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/ijsnm/HazimehMKC17",
+          "pages": "333-361",
+          "volume": "2",
+          "number": "4",
+          "publisher": "",
+          "ee": "https://doi.org/10.1504/IJSNM.2017.10012932",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P22",
+          "title": "SocialMatching++: A Novel Approach for Interlinking User Profiles on Social Networks.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Omar Abou Khaled",
+            "Philippe Cudré-Mauroux"
+          ],
+          "venue": "PROFILES@ISWC",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/semweb/0002MKC17",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://ceur-ws.org/Vol-1927/paper3.pdf",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P23",
+          "title": "Leveraging Co-authorship and Biographical Information for Author Ambiguity Resolution in DBLP.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Iman Youness",
+            "Jawad Makki",
+            "Hassan Noureddine",
+            "Julien Tscherrig",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "AINA",
+          "year": 2016,
+          "type": "inproceedings",
+          "key": "conf/aina/0002YMNTMK16",
+          "pages": "1080-1084",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/AINA.2016.61",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P24",
+          "title": "CARP: Correlation Based Approach for Researcher Profiling.",
+          "authors": [
+            "Hassan Noureddine",
+            "Iman Jarkass",
+            "Hussein Hazimeh 0002",
+            "Omar Abou Khaled",
+            "Elena Mugellini"
+          ],
+          "venue": "SEKE",
+          "year": 2015,
+          "type": "inproceedings",
+          "key": "conf/seke/NoureddineJHKM15",
+          "pages": "461-464",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.18293/SEKE2015-145",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P25",
+          "title": "Context aware mobile application architecture (CAMAA) for health care systems.",
+          "authors": [
+            "Hamid Mcheick",
+            "Hassan Sbeity",
+            "Hussein Hazimeh 0002",
+            "Jihad Naim",
+            "Mohamad Alameh"
+          ],
+          "venue": "IHTC",
+          "year": 2014,
+          "type": "inproceedings",
+          "key": "conf/ihtc/McheickSHNA14",
+          "pages": "1-5",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/IHTC.2014.7147523",
+          "matched_author": "Hussein Hazimeh 0002"
+        }
+      ],
+      "resolved_author": "Hussein Hazimeh 0002",
+      "matched_identities": []
+    }
+  },
+  {
+    "case": {
+      "name": "author_short_suffix",
+      "question": "Give me all publications by Hussein Hazimeh 002.",
+      "intents": [
+        "author_publications"
+      ],
+      "min_sources": 1,
+      "source_author_exact": "hussein hazimeh 0002"
+    },
+    "passed": true,
+    "latency": 0.02832390001276508,
+    "failures": [],
+    "response": {
+      "question": "Give me all publications by Hussein Hazimeh 002.",
+      "intent": "author_publications",
+      "answer": "I found 25 matching publications for Hussein Hazimeh 0002.",
+      "count": 25,
+      "sources": [
+        {
+          "id": "P1",
+          "title": "Community-based vulnerability prediction framework for IoT intrusion detection using only network topology.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Zakariya Ghalmane",
+            "Mohamed-el-Amine Brahmia",
+            "Hussein Hazimeh 0002",
+            "Ali Jaber",
+            "Mourad Zghal"
+          ],
+          "venue": "Future Gener. Comput. Syst.",
+          "year": 2026,
+          "type": "article",
+          "key": "journals/fgcs/TfailyGBHJZ26",
+          "pages": "108493",
+          "volume": "182",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.future.2026.108493",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P2",
+          "title": "Knowledge Graph-Driven Approach in Aspect-Based Sentiment Analysis: Exploring the Impact of Embedding Techniques.",
+          "authors": [
+            "Souha Al Katat",
+            "Chamseddine Zaki",
+            "Hussein Hazimeh 0002",
+            "Ibrahim El Bitar",
+            "Rafael Angarita",
+            "Lionel Trojman"
+          ],
+          "venue": "IEEE Access",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/access/KatatZHBAT25",
+          "pages": "102553-102563",
+          "volume": "13",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ACCESS.2025.3577048",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P3",
+          "title": "MOTION: Multi-models correlation framework for energy-saving in wireless video sensor networks.",
+          "authors": [
+            "Hassan Harb",
+            "Fouad Al Tfaily",
+            "Kassem Danach",
+            "Hussein Hazimeh 0002",
+            "Ali Jaber"
+          ],
+          "venue": "Comput. Electr. Eng.",
+          "year": 2025,
+          "type": "article",
+          "key": "journals/cee/HarbTDHJ25",
+          "pages": "110720",
+          "volume": "128",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.compeleceng.2025.110720",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P4",
+          "title": "SAGE: Semantic Adaptation of Graph Embeddings for Arabic Entity Linking.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Ali El Takach",
+            "Hatem El Zein",
+            "Hassan Harb",
+            "Ali Jaber"
+          ],
+          "venue": "AICCSA",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aiccsa/TfailyHTZHJ25",
+          "pages": "1-5",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/AICCSA66935.2025.11315323",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P5",
+          "title": "SHOLO: Similarity-Based Reduction Scheme for Efficient Data Transmission and Energy Saving in Multimedia Sensor Networks.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Chady Abou Jaoude",
+            "Hassan Harb",
+            "Hussein Hazimeh 0002",
+            "Hassan Kanj"
+          ],
+          "venue": "WiMob",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/wimob/TfailyJHHK25",
+          "pages": "97-102",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/WiMob66857.2025.11257515",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P6",
+          "title": "SPARKLE: Structured Parsing for Arabic Resource Knowledge and Language Extraction.",
+          "authors": [
+            "Fouad Al Tfaily",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Karl Daher",
+            "Omar Abou Khaled",
+            "Elena Mugellini",
+            "Ali Jaber",
+            "Ali El Takach"
+          ],
+          "venue": "AINA (2)",
+          "year": 2025,
+          "type": "inproceedings",
+          "key": "conf/aina/Tfaily0HDKMJT25",
+          "pages": "282-292",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1007/978-3-031-87766-7_25",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P7",
+          "title": "Natural Language Processing for Arabic Sentiment Analysis: A Systematic Literature Review.",
+          "authors": [
+            "Souha Al Katat",
+            "Chamseddine Zaki",
+            "Hussein Hazimeh 0002",
+            "Ibrahim El Bitar",
+            "Rafael Angarita",
+            "Lionel Trojman"
+          ],
+          "venue": "IEEE Trans. Big Data",
+          "year": 2024,
+          "type": "article",
+          "key": "journals/tbd/KatatZHBAT24",
+          "pages": "576-594",
+          "volume": "10",
+          "number": "5",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/TBDATA.2024.3366083",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P8",
+          "title": "Smart Fall Detection by Enhanced SVM with Fuzzy Logic Membership Function.",
+          "authors": [
+            "Mohammad Kchouri",
+            "Norharyati Binti Harum",
+            "Hussein Hazimeh 0002",
+            "Ali Obeid"
+          ],
+          "venue": "J. Univers. Comput. Sci.",
+          "year": 2023,
+          "type": "article",
+          "key": "journals/jucs/KchouriHHO23",
+          "pages": "1010-1032",
+          "volume": "29",
+          "number": "9",
+          "publisher": "",
+          "ee": "https://doi.org/10.3897/jucs.91399",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P9",
+          "title": "A survey on trends on mobile app development and applications.",
+          "authors": [
+            "Mazen Lahham",
+            "Hussein Hazimeh 0002",
+            "Mohammad Malli"
+          ],
+          "venue": "Int. J. Wirel. Mob. Comput.",
+          "year": 2022,
+          "type": "article",
+          "key": "journals/ijwmc/LahhamHM22",
+          "pages": "350-360",
+          "volume": "23",
+          "number": "3/4",
+          "publisher": "",
+          "ee": "https://doi.org/10.1504/IJWMC.2022.10052554",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P10",
+          "title": "KEMA++: A Full Representative Knowledge-Graph Embedding Model (036).",
+          "authors": [
+            "Hussein Baalbaki",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Rafael Angarita"
+          ],
+          "venue": "Int. J. Softw. Eng. Knowl. Eng.",
+          "year": 2022,
+          "type": "article",
+          "key": "journals/ijseke/BaalbakiHHA22",
+          "pages": "1619-1641",
+          "volume": "32",
+          "number": "11&12",
+          "publisher": "",
+          "ee": "https://doi.org/10.1142/S0218194022500760",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P11",
+          "title": "KEMA: Knowledge-Graph Embedding Using Modular Arithmetic.",
+          "authors": [
+            "Hussein Baalbaki",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Rafael Angarita"
+          ],
+          "venue": "SEKE",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/seke/BaalbakiHHA22",
+          "pages": "263-268",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.18293/SEKE2022-036",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P12",
+          "title": "Real-time Bitcoin price tendency awareness via social media content tracking.",
+          "authors": [
+            "Housam Moustafa",
+            "Mohammad Malli",
+            "Hussein Hazimeh 0002"
+          ],
+          "venue": "ISDFS",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/isdfs/MoustafaMH22",
+          "pages": "1-6",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ISDFS55398.2022.9800793",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P13",
+          "title": "Survey on Fake Accounts Detection Algorithms on Online Social Networks.",
+          "authors": [
+            "Jad Shamseddine",
+            "Mohammad Malli",
+            "Hussein Hazimeh 0002"
+          ],
+          "venue": "ICR",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/icr2/ShamseddineM022",
+          "pages": "375-380",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1007/978-3-031-14054-9_35",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P14",
+          "title": "TransModE: Translational Knowledge Graph Embedding Using Modular Arithmetic.",
+          "authors": [
+            "Hussein Baalbaki",
+            "Hussein Hazimeh 0002",
+            "Hassan Harb",
+            "Rafael Angarita"
+          ],
+          "venue": "KES",
+          "year": 2022,
+          "type": "inproceedings",
+          "key": "conf/kes/Baalbaki0HA22",
+          "pages": "1154-1163",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.procs.2022.09.171",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P15",
+          "title": "Exploiting Vulnerabilities of IP Cameras: Lebanon Case Study.",
+          "authors": [
+            "Peter Bathich",
+            "Mohammad Malli",
+            "Hussein Hazimeh 0002"
+          ],
+          "venue": "ISDFS",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/isdfs/BathichMH21",
+          "pages": "1-6",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/ISDFS52919.2021.9486324",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P16",
+          "title": "REDUCE: a semi-supervised scalable approach for REsult DUplication detection in Search Engines.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Zahraa Chreim",
+            "Ali Nour Eldine",
+            "Hassan Harb",
+            "Elena Mugellini",
+            "Omar Abou Khaled",
+            "Fouad Hannoun"
+          ],
+          "venue": "KES",
+          "year": 2021,
+          "type": "inproceedings",
+          "key": "conf/kes/0002CNHMKH21",
+          "pages": "893-902",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1016/j.procs.2021.08.092",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P17",
+          "title": "Reliable User Profile Analytics and Discovery on Social Networks.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "ICSCA",
+          "year": 2019,
+          "type": "inproceedings",
+          "key": "conf/icsca/0002MK19",
+          "pages": "496-500",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3316615.3316642",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P18",
+          "title": "Temporal Sentiment Tracking and Analysis on Large-scale Social Events.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Mohammad Harissa",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "ICSCA",
+          "year": 2019,
+          "type": "inproceedings",
+          "key": "conf/icsca/0002HMK19",
+          "pages": "17-21",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3316615.3316646",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P19",
+          "title": "Automatic Embedding of Social Network Profile Links into Knowledge Graphs.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Simon Ruffieux",
+            "Omar Abou Khaled",
+            "Philippe Cudré-Mauroux"
+          ],
+          "venue": "SoICT",
+          "year": 2018,
+          "type": "inproceedings",
+          "key": "conf/soict/0002MRKC18",
+          "pages": "16-23",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1145/3287921.3287926",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P20",
+          "title": "Lexicon-based sentiment analysis approach for ranking event entities.",
+          "authors": [
+            "Sajida Chamass",
+            "Hussein Hazimeh 0002",
+            "Jawad Makki",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "Int. J. Serv. Stand.",
+          "year": 2018,
+          "type": "article",
+          "key": "journals/ijss/ChamassHMMK18",
+          "pages": "126-139",
+          "volume": "12",
+          "number": "2",
+          "publisher": "",
+          "ee": "https://doi.org/10.1504/IJSS.2018.10012982",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P21",
+          "title": "Linking user profiles in social networks: a comparative review.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Omar Abou Khaled",
+            "Philippe Cudré-Mauroux"
+          ],
+          "venue": "Int. J. Soc. Netw. Min.",
+          "year": 2017,
+          "type": "article",
+          "key": "journals/ijsnm/HazimehMKC17",
+          "pages": "333-361",
+          "volume": "2",
+          "number": "4",
+          "publisher": "",
+          "ee": "https://doi.org/10.1504/IJSNM.2017.10012932",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P22",
+          "title": "SocialMatching++: A Novel Approach for Interlinking User Profiles on Social Networks.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Elena Mugellini",
+            "Omar Abou Khaled",
+            "Philippe Cudré-Mauroux"
+          ],
+          "venue": "PROFILES@ISWC",
+          "year": 2017,
+          "type": "inproceedings",
+          "key": "conf/semweb/0002MKC17",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://ceur-ws.org/Vol-1927/paper3.pdf",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P23",
+          "title": "Leveraging Co-authorship and Biographical Information for Author Ambiguity Resolution in DBLP.",
+          "authors": [
+            "Hussein Hazimeh 0002",
+            "Iman Youness",
+            "Jawad Makki",
+            "Hassan Noureddine",
+            "Julien Tscherrig",
+            "Elena Mugellini",
+            "Omar Abou Khaled"
+          ],
+          "venue": "AINA",
+          "year": 2016,
+          "type": "inproceedings",
+          "key": "conf/aina/0002YMNTMK16",
+          "pages": "1080-1084",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/AINA.2016.61",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P24",
+          "title": "CARP: Correlation Based Approach for Researcher Profiling.",
+          "authors": [
+            "Hassan Noureddine",
+            "Iman Jarkass",
+            "Hussein Hazimeh 0002",
+            "Omar Abou Khaled",
+            "Elena Mugellini"
+          ],
+          "venue": "SEKE",
+          "year": 2015,
+          "type": "inproceedings",
+          "key": "conf/seke/NoureddineJHKM15",
+          "pages": "461-464",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.18293/SEKE2015-145",
+          "matched_author": "Hussein Hazimeh 0002"
+        },
+        {
+          "id": "P25",
+          "title": "Context aware mobile application architecture (CAMAA) for health care systems.",
+          "authors": [
+            "Hamid Mcheick",
+            "Hassan Sbeity",
+            "Hussein Hazimeh 0002",
+            "Jihad Naim",
+            "Mohamad Alameh"
+          ],
+          "venue": "IHTC",
+          "year": 2014,
+          "type": "inproceedings",
+          "key": "conf/ihtc/McheickSHNA14",
+          "pages": "1-5",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "https://doi.org/10.1109/IHTC.2014.7147523",
+          "matched_author": "Hussein Hazimeh 0002"
+        }
+      ],
+      "resolved_author": "Hussein Hazimeh 0002",
+      "matched_identities": []
+    }
+  },
+  {
+    "case": {
+      "name": "author_count",
+      "question": "How many publications does Hussein Hazimeh 0002 have?",
+      "intents": [
+        "author_publication_count"
+      ]
+    },
+    "passed": true,
+    "latency": 0.026513799995882437,
+    "failures": [],
+    "response": {
+      "question": "How many publications does Hussein Hazimeh 0002 have?",
+      "intent": "author_publication_count",
+      "answer": "The matching DBLP author identity has 25 publications for the requested filters.",
+      "count": 25,
+      "sources": [],
+      "resolved_author": "Hussein Hazimeh 0002",
+      "matched_identities": []
+    }
+  },
+  {
+    "case": {
+      "name": "missing_author",
+      "question": "Give me all publications by This Person Does Not Exist 9999.",
+      "intents": [
+        "author_publications"
+      ],
+      "expected_count": 0,
+      "answer_any": [
+        "could not find",
+        "no publications",
+        "not find"
+      ]
+    },
+    "passed": true,
+    "latency": 0.015157799993176013,
+    "failures": [],
+    "response": {
+      "question": "Give me all publications by This Person Does Not Exist 9999.",
+      "intent": "author_publications",
+      "answer": "I could not find a DBLP author matching 'This Person Does Not Exist 9999'.",
+      "count": 0,
+      "sources": []
+    }
+  }
+]

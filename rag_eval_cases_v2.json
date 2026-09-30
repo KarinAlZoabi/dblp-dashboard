@@ -1,0 +1,221 @@
+[
+  {
+    "name": "dataset_count",
+    "question": "How many publications are there in the dataset?",
+    "intents": [
+      "dataset_count"
+    ],
+    "answer_any": [
+      "publication",
+      "records"
+    ]
+  },
+  {
+    "name": "dataset_count_paraphrase",
+    "question": "What is the total number of DBLP publications in this dataset?",
+    "intents": [
+      "dataset_count"
+    ],
+    "answer_any": [
+      "publication",
+      "records"
+    ]
+  },
+  {
+    "name": "author_year",
+    "question": "What paper did Hussein Hazimeh publish in 2025?",
+    "intents": [
+      "author_publications"
+    ],
+    "min_sources": 1,
+    "year_range": [
+      2025,
+      2025
+    ],
+    "source_author_base": "hussein hazimeh"
+  },
+  {
+    "name": "author_year_paraphrase",
+    "question": "Which publications did Hussein Hazimeh publish during 2025?",
+    "intents": [
+      "author_publications"
+    ],
+    "min_sources": 1,
+    "year_range": [
+      2025,
+      2025
+    ],
+    "source_author_base": "hussein hazimeh"
+  },
+  {
+    "name": "title_authors",
+    "question": "List all authors for the paper titled 'Attention Is All You Need'.",
+    "intents": [
+      "publication_authors"
+    ],
+    "answer_any": [
+      "Ashish Vaswani",
+      "Noam Shazeer"
+    ]
+  },
+  {
+    "name": "title_authors_noise",
+    "question": "List all authors for the paper titled 'Find Attention Is All You Need'.",
+    "intents": [
+      "publication_authors"
+    ],
+    "answer_any": [
+      "Ashish Vaswani",
+      "Noam Shazeer"
+    ]
+  },
+  {
+    "name": "title_authors_who_wrote",
+    "question": "Who wrote 'Attention Is All You Need'?",
+    "intents": [
+      "publication_authors"
+    ],
+    "answer_any": [
+      "Ashish Vaswani"
+    ]
+  },
+  {
+    "name": "title_venue",
+    "question": "In which journal/conference proceedings was 'Attention Is All You Need' published?",
+    "intents": [
+      "publication_venue"
+    ],
+    "answer_any": [
+      "NIPS",
+      "CoRR"
+    ]
+  },
+  {
+    "name": "title_pages",
+    "question": "What is the page range for the article 'Attention Is All You Need'?",
+    "intents": [
+      "publication_pages"
+    ],
+    "answer_any": [
+      "5998",
+      "6008"
+    ]
+  },
+  {
+    "name": "title_page_count",
+    "question": "How many pages does 'Attention Is All You Need' have?",
+    "intents": [
+      "publication_page_count"
+    ],
+    "answer_any": [
+      "11"
+    ]
+  },
+  {
+    "name": "title_page_count_paraphrase",
+    "question": "What's the page count of 'Attention Is All You Need'?",
+    "intents": [
+      "publication_page_count"
+    ],
+    "answer_any": [
+      "11"
+    ]
+  },
+  {
+    "name": "title_year",
+    "question": "What year was 'Attention Is All You Need' published?",
+    "intents": [
+      "publication_year"
+    ],
+    "answer_any": [
+      "2017"
+    ]
+  },
+  {
+    "name": "coauthors",
+    "question": "Who are the top 3 most frequent co-authors of Kassem Danach?",
+    "intents": [
+      "top_coauthors"
+    ],
+    "expected_count": 3
+  },
+  {
+    "name": "topic_semantic",
+    "question": "Find research on detecting cyber attacks with machine learning.",
+    "intents": [
+      "topic_search"
+    ],
+    "min_sources": 1
+  },
+  {
+    "name": "topic_year_range",
+    "question": "Find papers about federated learning from 2020 to 2023.",
+    "intents": [
+      "topic_search"
+    ],
+    "min_sources": 1,
+    "year_range": [
+      2020,
+      2023
+    ]
+  },
+  {
+    "name": "topic_year_range_paraphrase",
+    "question": "Show research on federated learning between 2020 and 2023.",
+    "intents": [
+      "topic_search"
+    ],
+    "min_sources": 1,
+    "year_range": [
+      2020,
+      2023
+    ]
+  },
+  {
+    "name": "exact_title",
+    "question": "Find Attention Is All You Need",
+    "intents": [
+      "publication_details"
+    ],
+    "min_sources": 1,
+    "exact_title": "attention is all you need"
+  },
+  {
+    "name": "author_all",
+    "question": "Give me all publications by Hussein Hazimeh 0002.",
+    "intents": [
+      "author_publications"
+    ],
+    "min_sources": 1,
+    "source_author_exact": "hussein hazimeh 0002"
+  },
+  {
+    "name": "author_short_suffix",
+    "question": "Give me all publications by Hussein Hazimeh 002.",
+    "intents": [
+      "author_publications"
+    ],
+    "min_sources": 1,
+    "source_author_exact": "hussein hazimeh 0002"
+  },
+  {
+    "name": "author_count",
+    "question": "How many publications does Hussein Hazimeh 0002 have?",
+    "intents": [
+      "author_publication_count"
+    ]
+  },
+  {
+    "name": "missing_author",
+    "question": "Give me all publications by This Person Does Not Exist 9999.",
+    "intents": [
+      "author_publications"
+    ],
+    "expected_count": 0,
+    "answer_any": [
+      "could not find",
+      "no publications",
+      "not find"
+    ]
+  }
+]
