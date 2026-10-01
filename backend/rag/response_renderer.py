@@ -67,7 +67,7 @@ def render_dataset_count(stats: dict) -> str:
 
 
 def render_author_not_found(author: str) -> str:
-    return f"I couldn't find a DBLP author matching '{author}'."
+    return f"I could not find a DBLP author matching '{author}'."
 
 
 def render_author_ambiguous(requested_author: str, identities: Iterable[str]) -> str:
@@ -147,7 +147,7 @@ def render_author_multi_match(
 
 
 def render_publication_not_found(title: str) -> str:
-    return f"I couldn't find a DBLP publication matching '{title}'."
+    return f"I could not find a DBLP publication matching '{title}'."
 
 
 def render_publication_authors(title: str, authors: Iterable[str]) -> str:
@@ -294,7 +294,7 @@ def render_publication_details(title: str, paper: dict) -> str:
 
 def render_coauthors(author: str, coauthors: list[dict]) -> str:
     if not coauthors:
-        return f"I couldn't find any coauthors for {author} in the indexed DBLP publications."
+        return f"I could not find any coauthors for {author} in the indexed DBLP publications."
 
     lines = [f"The top {len(coauthors)} most frequent coauthors of {author} are:"]
     for index, item in enumerate(coauthors, 1):

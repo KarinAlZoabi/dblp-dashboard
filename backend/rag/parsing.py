@@ -10,6 +10,8 @@ STOP_WORDS = {
     "related", "regarding", "using",
 }
 
+YEAR_RE = r"(?:1\d{3}|20\d{2}|21\d{2})"
+
 
 def normalize_text(text: str) -> str:
     text = (text or "").casefold()
@@ -52,11 +54,7 @@ def author_has_suffix(name: str) -> bool:
 
 
 def extract_quoted_text(question: str) -> str | None:
-    # Straight and curly quote pairs.
     patterns = [
-        # A straight apostrophe inside a contraction (e.g. What's) is NOT
-        # a quotation mark. Require straight single quotes to sit outside
-        # word characters so only actual quoted spans are captured.
         r"(?<!\w)'([^']+)'(?!\w)",
         r'"([^"]+)"',
         r"‘([^’]+)’",
@@ -73,9 +71,9 @@ def extract_year_filters(text: str) -> tuple[int | None, int | None, str]:
     original = text or ""
 
     patterns = [
-        (r"\bbetween\s+(19\d{2}|20\d{2})\s+and\s+(19\d{2}|20\d{2})\b", 2),
-        (r"\bfrom\s+(19\d{2}|20\d{2})\s+to\s+(19\d{2}|20\d{2})\b", 2),
-        (r"\b(?:in|during|published\s+in)\s+(19\d{2}|20\d{2})\b", 1),
+        (rf"\bbetween\s+({YEAR_RE})\s+and\s+({YEAR_RE})\b", 2),
+        (rf"\bfrom\s+({YEAR_RE})\s+to\s+({YEAR_RE})\b", 2),
+        (rf"\b(?:in|during|published\s+in)\s+({YEAR_RE})\b", 1),
     ]
 
     for pattern, groups in patterns:
@@ -83,7 +81,7 @@ def extract_year_filters(text: str) -> tuple[int | None, int | None, str]:
         if match:
             year_from = int(match.group(1))
             year_to = int(match.group(2)) if groups == 2 else year_from
-            cleaned = (original[:match.start()] + " " + original[match.end():])
+            cleaned = original[:match.start()] + " " + original[match.end():]
             cleaned = re.sub(r"\s+", " ", cleaned).strip()
             return year_from, year_to, cleaned
 
@@ -93,13 +91,28 @@ def extract_year_filters(text: str) -> tuple[int | None, int | None, str]:
 def clean_topic_text(text: str) -> str:
     value = text or ""
     value = re.sub(
-        r"\b(find|show|give|list|search|lookup|look\s+up|me|papers?|publications?|"
-        r"articles?|research|about|related\s+to|on)\b",
+        r"\b(?:i(?:'m| am)\s+looking\s+for|looking\s+for|interested\s+in)\b",
         " ",
         value,
         flags=re.IGNORECASE,
     )
-    return re.sub(r"\s+", " ", value).strip(" .?!")
+    value = re.sub(r"\btop\s+\d{1,2}\b", " ", value, flags=re.IGNORECASE)
+    value = re.sub(
+        r"^\s*(?:show|give|list)(?:\s+me)?\s+\d{1,2}\s+",
+        " ",
+        value,
+        flags=re.IGNORECASE,
+    )
+    value = re.sub(
+        r"\b(find|show|give|list|search|lookup|look\s+up|me|papers?|publications?|"
+        r"articles?|research|work|works|about|related\s+to|on|relevant|conference|journal)\b",
+        " ",
+        value,
+        flags=re.IGNORECASE,
+    )
+    value = re.sub(r"\s+", " ", value).strip(" .?!")
+    value = re.sub(r"^the\s+", "", value, flags=re.IGNORECASE)
+    return value
 
 
 def clean_title_request(title: str) -> str:
@@ -119,14 +132,54 @@ def clean_title_request(title: str) -> str:
     return value.strip().strip("\"'“”‘’")
 
 
+def _requested_limit(question: str) -> int | None:
+    patterns = [
+        r"\btop\s+(\d{1,2})\b",
+        r"\b(?:show|give|list)(?:\s+me)?\s+(\d{1,2})\s+(?:relevant\s+)?(?:papers?|publications?|articles?)\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, question, flags=re.IGNORECASE)
+        if match:
+            return max(1, min(int(match.group(1)), 20))
+    return None
+
+
+def _publication_type_filter(question: str) -> str | None:
+    q = question.casefold()
+    if re.search(r"\bconference\s+(?:papers?|publications?|articles?)\b", q):
+        return "inproceedings"
+    if re.search(r"\bjournal\s+(?:papers?|publications?|articles?)\b", q):
+        return "article"
+    if re.search(r"\bphd\s+(?:theses|thesis)\b", q):
+        return "phdthesis"
+    if re.search(r"\bbooks?\b", q):
+        return "book"
+    return None
+
+
+def _venue_filter(no_year: str) -> str | None:
+    # Conservative local venue extraction. Arbitrary/ambiguous venue wording is
+    # intentionally left to the LLM planner instead of guessed here.
+    match = re.search(
+        r"\b(?:in|at)\s+([A-Z][A-Za-z0-9.&+()\-]*(?:\s+[A-Z0-9][A-Za-z0-9.&+()\-]*){0,3})\s*$",
+        no_year.strip(),
+    )
+    if match:
+        candidate = match.group(1).strip()
+        if candidate.casefold() not in {"machine learning", "deep learning"}:
+            return candidate
+    return None
+
+
 def _author_year_plan(question: str) -> dict | None:
     q = question.strip()
 
     patterns = [
-        r"(?:what|which)\s+(?:paper|papers|publication|publications)\s+did\s+(.+?)\s+publish(?:ed)?\s+(?:in|during)\s+(19\d{2}|20\d{2})",
-        r"what\s+did\s+(.+?)\s+publish\s+(?:in|during)\s+(19\d{2}|20\d{2})",
-        r"(?:show|list|give\s+me)\s+(.+?)(?:'s)?\s+(?:papers?|publications?|articles?)\s+(?:in|during|from)\s+(19\d{2}|20\d{2})",
-        r"(?:papers?|publications?|articles?)\s+(?:by|from)\s+(.+?)\s+(?:in|during)\s+(19\d{2}|20\d{2})",
+        rf"(?:what|which)\s+(?:paper|papers|publication|publications)\s+did\s+(.+?)\s+publish(?:ed)?\s+(?:in|during)\s+({YEAR_RE})",
+        rf"what\s+did\s+(.+?)\s+publish\s+(?:in|during)\s+({YEAR_RE})",
+        rf"(?:show\s+me\s+)?what\s+(.+?)\s+(?:put\s+out|published|produced)\s+(?:in|during)\s+({YEAR_RE})",
+        rf"(?:show|list|give\s+me)\s+(.+?)(?:'s)?\s+(?:papers?|publications?|articles?)\s+(?:in|during|from)\s+({YEAR_RE})",
+        rf"(?:papers?|publications?|articles?)\s+(?:by|from)\s+(.+?)\s+(?:in|during)\s+({YEAR_RE})",
     ]
 
     for pattern in patterns:
@@ -150,8 +203,7 @@ def fast_plan(question: str) -> dict | None:
     title = extract_quoted_text(q)
     year_from, year_to, no_year = extract_year_filters(q)
 
-    # Dataset-level counts. Keep common paraphrases local so a simple
-    # statistics question never needs a remote planner call.
+    # Dataset counts.
     if (
         re.search(
             r"\b(?:how many|number of|total number of)\b.*"
@@ -165,24 +217,35 @@ def fast_plan(question: str) -> dict | None:
             r"\b(publications|papers|records|entries)\b",
             ql,
         )
+        or re.search(
+            r"\b(?:what(?:'s| is)\s+)?(?:the\s+)?(?:total\s+)?"
+            r"(?:publication|paper|record|entry)\s+count\b.*\b(?:dataset|dblp)\b",
+            ql,
+        )
     ):
         return {"intent": "dataset_count"}
 
-    # Exact publication facts. Ordering matters: page count before generic pages.
+    # Exact publication facts. Ordering matters.
     if title and re.search(
-        r"\bhow many pages\b|\bnumber of pages\b|\bpage count\b|\bhow long\b.*\bpages\b",
+        r"\bhow many pages\b|\bnumber of pages\b|\bpage[-\s]?count\b|\bhow long\b.*\bpages\b",
         ql,
     ):
         return {"intent": "publication_page_count", "title": title}
 
-    if title and re.search(r"\bpage range\b|\bwhich pages\b|\bwhat pages\b", ql):
+    if title and re.search(
+        r"\bpage range\b|\bwhich pages\b|\bwhat pages\b|\bwhat (?:are|were) the pages\b",
+        ql,
+    ):
         return {"intent": "publication_pages", "title": title}
 
     if title and re.search(r"\bauthors?\b|\bwho wrote\b|\bwho authored\b", ql):
         return {"intent": "publication_authors", "title": title}
 
     if title and re.search(
-        r"\bjournal\b|\bconference\b|\bproceedings\b|\bvenue\b|\bwhere was\b.*\bpublished\b",
+        r"\bjournal\b|\bconference\b|\bproceedings\b|\bvenue\b|"
+        r"\bwhere was\b.*\bpublished\b|"
+        r"\bwhere did\b.*\b(?:appear|publish(?:ed)?)\b|"
+        r"\bwhich venue\b",
         ql,
     ):
         return {"intent": "publication_venue", "title": title}
@@ -202,14 +265,12 @@ def fast_plan(question: str) -> dict | None:
     if title and re.search(r"\bdoi\b|\bee\b|\belectronic edition\b|\blink\b", ql):
         return {"intent": "publication_ee", "title": title}
 
-    if title:
-        # A quoted title with no other analytical wording is an exact publication lookup.
-        if re.search(
-            r"\bpaper\b|\bpublication\b|\barticle\b|\bfind\b|\bshow\b|"
-            r"\btell me about\b|\bwhat about\b",
-            ql,
-        ):
-            return {"intent": "publication_details", "title": title}
+    if title and re.search(
+        r"\bpaper\b|\bpublication\b|\barticle\b|\bfind\b|\bshow\b|"
+        r"\btell me about\b|\bwhat about\b",
+        ql,
+    ):
+        return {"intent": "publication_details", "title": title}
 
     # Coauthor analytics.
     match = re.search(
@@ -224,12 +285,25 @@ def fast_plan(question: str) -> dict | None:
             "limit": int(match.group(1) or 3),
         }
 
-    # Explicit author + year forms.
+    # Author + year.
     author_year = _author_year_plan(q)
     if author_year:
         return author_year
 
-    # Author publication counts.
+    # Possessive publication counts: "What's Kassem Danach's publication count?"
+    match = re.search(
+        r"^(?:what(?:'s| is)\s+)?(.+?)'s\s+(?:publication|paper|article)\s+count\b",
+        no_year,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return {
+            "intent": "author_publication_count",
+            "author": match.group(1).strip(),
+            "year_from": year_from,
+            "year_to": year_to,
+        }
+
     count_patterns = [
         r"\bhow many\s+(?:papers?|publications?|articles?|works?)\s+(?:does|did)\s+(.+?)\s+(?:have|publish|published)\b",
         r"\bhow many\s+(?:papers?|publications?|articles?|works?)\s+(?:by|from)\s+(.+?)(?:[?.!]|$)",
@@ -244,12 +318,37 @@ def fast_plan(question: str) -> dict | None:
                 "year_to": year_to,
             }
 
-    # Publication list by author.
+    # Latest/oldest author publication.
+    ranking_patterns = [
+        (r"(?:what is|show me|find)\s+(.+?)'s\s+(?:most recent|latest|newest)\s+(?:paper|publication|article)", "latest"),
+        (r"(?:what is|show me|find)\s+(.+?)'s\s+(?:earliest|oldest|first)\s+(?:paper|publication|article)", "oldest"),
+        (r"(?:latest|newest|most recent)\s+(?:paper|publication|article)\s+(?:by|from)\s+(.+?)(?:[?.!]|$)", "latest"),
+        (r"(?:earliest|oldest|first)\s+(?:paper|publication|article)\s+(?:by|from)\s+(.+?)(?:[?.!]|$)", "oldest"),
+    ]
+    for pattern, order in ranking_patterns:
+        match = re.search(pattern, no_year, flags=re.IGNORECASE)
+        if match:
+            return {
+                "intent": "author_publications",
+                "author": match.group(1).strip().strip("\"'"),
+                "year_from": year_from,
+                "year_to": year_to,
+                "limit": 1,
+                "sort_order": order,
+            }
+
+    # Publication lists by author: "papers by X" and "show X publications".
     match = re.search(
         r"\b(?:all\s+|every\s+)?(?:papers?|publications?|articles?|works?)\s+(?:by|from)\s+(.+?)(?:[?.!]|$)",
         no_year,
         flags=re.IGNORECASE,
     )
+    if not match:
+        match = re.search(
+            r"^(?:show|list|give\s+me)\s+(?:all\s+)?(.+?)\s+(?:papers?|publications?|articles?|works?)\s*[?.!]*$",
+            no_year,
+            flags=re.IGNORECASE,
+        )
     if match:
         return {
             "intent": "author_publications",
@@ -259,37 +358,54 @@ def fast_plan(question: str) -> dict | None:
             "all_results": bool(re.search(r"\b(all|every|complete list|full list)\b", ql)),
         }
 
-    # Exact title command without quotes. Avoid topic forms such as "papers about X".
-    if not re.search(
-        r"\b(?:papers?|publications?|articles?|research)\s+(?:about|on|related to)\b",
-        ql,
-    ):
-        direct = re.match(
-            r"^\s*(?:find|show|lookup|look\s+up|get)\s+(.+?)(?:[?.!]|$)",
-            no_year,
-            flags=re.IGNORECASE,
+    # Topic discovery MUST be checked before unquoted exact-title commands.
+    topic_form = bool(
+        re.search(
+            r"\b(?:papers?|publications?|articles?|research|work)\s+(?:about|on|related to|regarding)\b",
+            ql,
         )
-        if direct and len(direct.group(1).split()) >= 2:
-            return {
-                "intent": "publication_details",
-                "title": direct.group(1).strip(),
-                "year_from": year_from,
-                "year_to": year_to,
-            }
-
-    # High-confidence topic-discovery forms. Route locally to avoid a planner API call.
-    if re.search(
-        r"\b(?:papers?|publications?|articles?|research)\s+(?:about|on|related to|regarding)\b",
-        ql,
-    ) or re.search(r"^\s*(?:find|show|list|search for)\s+.*\b(?:papers?|publications?|research)\b", ql):
+        or re.search(
+            r"^\s*(?:find|show|list|search(?:\s+for)?|give\s+me)\s+.+\b(?:papers?|publications?|articles?|research|work)\b",
+            ql,
+        )
+        or re.search(
+            r"\b(?:i(?:'m| am)\s+looking\s+for|looking\s+for|interested\s+in)\b.*\b(?:work|research|papers?|publications?)\b",
+            ql,
+        )
+    )
+    if topic_form:
         search_text = clean_topic_text(no_year)
         if search_text:
+            venue = _venue_filter(no_year)
+            if venue:
+                search_text = re.sub(
+                    rf"\b(?:in|at)\s+{re.escape(venue)}\s*$",
+                    "",
+                    search_text,
+                    flags=re.IGNORECASE,
+                ).strip()
             return {
                 "intent": "topic_search",
                 "search_text": search_text,
                 "year_from": year_from,
                 "year_to": year_to,
-                "limit": None,
+                "limit": _requested_limit(q),
+                "venue": venue,
+                "pub_type": _publication_type_filter(q),
             }
+
+    # Exact title command without quotes.
+    direct = re.match(
+        r"^\s*(?:find|show|lookup|look\s+up|get)\s+(.+?)(?:[?.!]|$)",
+        no_year,
+        flags=re.IGNORECASE,
+    )
+    if direct and len(direct.group(1).split()) >= 2:
+        return {
+            "intent": "publication_details",
+            "title": direct.group(1).strip(),
+            "year_from": year_from,
+            "year_to": year_to,
+        }
 
     return None

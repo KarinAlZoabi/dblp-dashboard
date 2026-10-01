@@ -7,11 +7,12 @@ import uuid
 from dataclasses import dataclass, field
 
 
-# In-memory conversational context is intentionally small and ephemeral.
-# It is enough for a local/demo assistant and resets when the backend restarts.
+# Small, ephemeral conversation state for the local/demo backend.
+# It resets when Uvicorn restarts.
 SESSION_TTL_SECONDS = 2 * 60 * 60
 MAX_SESSIONS = 1000
 MAX_REMEMBERED_SOURCES = 20
+MAX_CONTEXT_SOURCES = 10
 
 
 @dataclass
@@ -20,11 +21,33 @@ class ConversationState:
     last_author: str | None = None
     last_sources: list[dict] = field(default_factory=list)
     last_intent: str | None = None
+    last_plan: dict = field(default_factory=dict)
+    last_question: str | None = None
     updated_at: float = field(default_factory=time.monotonic)
 
 
 _sessions: dict[str, ConversationState] = {}
 _lock = threading.RLock()
+
+
+PUBLICATION_INTENTS = {
+    "publication_authors",
+    "publication_venue",
+    "publication_pages",
+    "publication_page_count",
+    "publication_year",
+    "publication_volume",
+    "publication_number",
+    "publication_publisher",
+    "publication_ee",
+    "publication_details",
+}
+
+AUTHOR_INTENTS = {
+    "author_publications",
+    "author_publication_count",
+    "top_coauthors",
+}
 
 
 def _cleanup_locked(now: float) -> None:
@@ -33,6 +56,7 @@ def _cleanup_locked(now: float) -> None:
         for session_id, state in _sessions.items()
         if now - state.updated_at > SESSION_TTL_SECONDS
     ]
+
     for session_id in expired:
         _sessions.pop(session_id, None)
 
@@ -48,7 +72,9 @@ def _cleanup_locked(now: float) -> None:
         _sessions.pop(session_id, None)
 
 
-def get_or_create_session(session_id: str | None) -> tuple[str, ConversationState]:
+def get_or_create_session(
+    session_id: str | None,
+) -> tuple[str, ConversationState]:
     now = time.monotonic()
 
     with _lock:
@@ -68,8 +94,180 @@ def get_or_create_session(session_id: str | None) -> tuple[str, ConversationStat
 def clear_session(session_id: str | None) -> None:
     if not session_id:
         return
+
     with _lock:
         _sessions.pop(session_id, None)
+
+
+def planner_context(state: ConversationState) -> dict:
+    """
+    Give the LLM planner only compact VERIFIED conversation state.
+
+    We do NOT send a giant raw chat transcript. The model only receives the
+    entities/filters/results it may need to resolve phrases such as:
+      - "it"
+      - "that author"
+      - "the second one"
+      - "what about 2023?"
+      - "the newest one"
+    """
+    previous_plan = {
+        key: state.last_plan.get(key)
+        for key in (
+            "intent",
+            "title",
+            "author",
+            "search_text",
+            "year_from",
+            "year_to",
+            "limit",
+            "all_results",
+            "venue",
+            "pub_type",
+            "sort_order",
+        )
+        if state.last_plan.get(key) is not None
+    }
+
+    recent_results = []
+
+    for index, source in enumerate(
+        state.last_sources[:MAX_CONTEXT_SOURCES],
+        start=1,
+    ):
+        recent_results.append({
+            "index": index,
+            "title": source.get("title"),
+            "authors": source.get("authors", []),
+            "year": source.get("year"),
+            "venue": source.get("venue"),
+            "type": source.get("type"),
+            "key": source.get("key"),
+        })
+
+    return {
+        "last_question": state.last_question,
+        "last_intent": state.last_intent,
+        "last_title": state.last_title,
+        "last_author": state.last_author,
+        "previous_plan": previous_plan,
+        "recent_results": recent_results,
+    }
+
+
+def _select_source(
+    state: ConversationState,
+    source_index: int | None = None,
+    source_selector: str | None = None,
+) -> dict | None:
+    sources = state.last_sources
+
+    if not sources:
+        return None
+
+    if source_index is not None:
+        index = source_index - 1
+        if 0 <= index < len(sources):
+            return sources[index]
+        return None
+
+    selector = (source_selector or "").casefold()
+
+    with_year = [
+        source
+        for source in sources
+        if isinstance(source.get("year"), int)
+    ]
+
+    if selector == "latest" and with_year:
+        return max(
+            with_year,
+            key=lambda source: source["year"],
+        )
+
+    if selector == "oldest" and with_year:
+        return min(
+            with_year,
+            key=lambda source: source["year"],
+        )
+
+    return None
+
+
+def apply_context_to_plan(
+    plan: dict,
+    state: ConversationState,
+) -> tuple[dict, dict]:
+    """
+    Deterministically fill entity references after the LLM has interpreted
+    the user's language.
+
+    The LLM says WHAT the user means. Python chooses the concrete verified
+    DBLP entity from stored session state.
+    """
+    plan = dict(plan)
+    used = {}
+
+    source = _select_source(
+        state,
+        source_index=plan.get("source_index"),
+        source_selector=plan.get("source_selector"),
+    )
+
+    if source:
+        title = source.get("title")
+
+        if title and not plan.get("title"):
+            plan["title"] = title
+            used["title"] = title
+
+        used["source"] = {
+            "title": source.get("title"),
+            "year": source.get("year"),
+            "venue": source.get("venue"),
+            "key": source.get("key"),
+        }
+
+    intent = plan.get("intent")
+
+    if (
+        intent in PUBLICATION_INTENTS
+        and not plan.get("title")
+        and state.last_title
+    ):
+        plan["title"] = state.last_title
+        used["title"] = state.last_title
+
+    if (
+        intent in AUTHOR_INTENTS
+        and not plan.get("author")
+        and state.last_author
+    ):
+        plan["author"] = state.last_author
+        used["author"] = state.last_author
+
+    # Optional planner instruction: reuse a previous year filter.
+    if plan.get("reuse_previous_year"):
+        previous_from = state.last_plan.get("year_from")
+        previous_to = state.last_plan.get("year_to")
+
+        if plan.get("year_from") is None and previous_from is not None:
+            plan["year_from"] = previous_from
+            used["year_from"] = previous_from
+
+        if plan.get("year_to") is None and previous_to is not None:
+            plan["year_to"] = previous_to
+            used["year_to"] = previous_to
+
+    return plan, used
+
+
+# ---------------------------------------------------------------------
+# Emergency fallback only
+# ---------------------------------------------------------------------
+# The functions below are NOT the primary conversation system anymore.
+# They are retained only for graceful degradation if the remote planner
+# becomes unavailable.
 
 
 _ORDINALS = {
@@ -83,146 +281,75 @@ _ORDINALS = {
     "4th": 3,
     "fifth": 4,
     "5th": 4,
-    "sixth": 5,
-    "6th": 5,
-    "seventh": 6,
-    "7th": 6,
-    "eighth": 7,
-    "8th": 7,
-    "ninth": 8,
-    "9th": 8,
-    "tenth": 9,
-    "10th": 9,
 }
 
 
 def _quoted_title(title: str) -> str:
-    # Titles may contain apostrophes; double quotes are safer for rewriting.
     return '"' + title.replace('"', '\\"') + '"'
 
 
-def _replace_ordinal_reference(question: str, state: ConversationState):
-    if not state.last_sources:
-        return question, None
-
-    pattern = (
-        r"\b(?:the\s+)?"
-        r"(first|1st|second|2nd|third|3rd|fourth|4th|fifth|5th|"
-        r"sixth|6th|seventh|7th|eighth|8th|ninth|9th|tenth|10th)"
-        r"(?:\s+(?:one|paper|publication|article|result))?\b"
-    )
-
-    match = re.search(pattern, question, flags=re.IGNORECASE)
-    if not match:
-        return question, None
-
-    index = _ORDINALS[match.group(1).casefold()]
-    if index >= len(state.last_sources):
-        return question, None
-
-    source = state.last_sources[index]
-    title = source.get("title")
-    if not title:
-        return question, None
-
-    rewritten = (
-        question[: match.start()]
-        + _quoted_title(title)
-        + question[match.end() :]
-    )
-
-    # "What about the second one?" should become an exact publication-details
-    # question instead of being sent to semantic search.
-    if re.match(r"^\s*what\s+about\b", rewritten, flags=re.IGNORECASE):
-        rewritten = f"Tell me about {_quoted_title(title)}."
-
-    return rewritten, title
-
-
-def resolve_followup(question: str, state: ConversationState) -> tuple[str, dict]:
+def resolve_followup_fallback(
+    question: str,
+    state: ConversationState,
+) -> tuple[str, dict]:
     """
-    Rewrite lightweight conversational references into explicit DBLP entities.
+    Minimal emergency rewrite used only when the LLM planner fails.
 
-    Examples:
-      "How many pages does it have?"
-        -> "How many pages does \"Attention Is All You Need.\" have?"
-
-      "Who wrote the second one?"
-        -> "Who wrote \"<second title from previous results>\"?"
-
-      "What did they publish in 2025?"
-        -> "What did Kassem Danach publish in 2025?"
+    This deliberately covers only the most common references instead of trying
+    to encode natural language in hundreds of regex rules.
     """
     original = (question or "").strip()
     rewritten = original
-    used: dict = {}
+    used = {}
 
-    rewritten, ordinal_title = _replace_ordinal_reference(rewritten, state)
-    if ordinal_title:
-        used["title"] = ordinal_title
-        used["source_reference"] = "ordinal"
+    ordinal = re.search(
+        r"\b(?:the\s+)?"
+        r"(first|1st|second|2nd|third|3rd|fourth|4th|fifth|5th)"
+        r"(?:\s+(?:one|paper|publication|article|result))?\b",
+        rewritten,
+        flags=re.IGNORECASE,
+    )
 
-    # Publication references. Avoid touching the question if it already
-    # contains an explicit quoted title.
-    if state.last_title and "title" not in used:
+    if ordinal and state.last_sources:
+        index = _ORDINALS[ordinal.group(1).casefold()]
+
+        if index < len(state.last_sources):
+            title = state.last_sources[index].get("title")
+
+            if title:
+                rewritten = (
+                    rewritten[:ordinal.start()]
+                    + _quoted_title(title)
+                    + rewritten[ordinal.end():]
+                )
+                used["title"] = title
+
+    if state.last_title:
         title = _quoted_title(state.last_title)
+        before = rewritten
 
-        substitutions = [
-            (r"\bthat\s+(?:paper|publication|article)\b", title),
-            (r"\bthis\s+(?:paper|publication|article)\b", title),
-            (r"\bthe\s+(?:paper|publication|article)\b", title),
-            (r"\bits\b", f"{title}'s"),
-            (r"\bit\b", title),
-        ]
+        rewritten = re.sub(
+            r"\b(?:it|that paper|this paper|that publication|this publication)\b",
+            title,
+            rewritten,
+            flags=re.IGNORECASE,
+        )
 
-        changed = False
-        for pattern, replacement in substitutions:
-            new_value = re.sub(
-                pattern,
-                replacement,
-                rewritten,
-                flags=re.IGNORECASE,
-            )
-            if new_value != rewritten:
-                changed = True
-                rewritten = new_value
-
-        if changed:
+        if rewritten != before:
             used["title"] = state.last_title
-            used["source_reference"] = "previous_title"
 
-    # Author references. These are only used when a previously resolved author
-    # exists. Publication-title rewrites above take precedence.
     if state.last_author:
-        author = state.last_author
-        author_possessive = author + ("'" if author.endswith("s") else "'s")
+        before = rewritten
 
-        substitutions = [
-            (r"\bthat\s+author\b", author),
-            (r"\bthe\s+author\b", author),
-            (r"\btheir\b", author_possessive),
-            (r"\bhis\b", author_possessive),
-            (r"\bher\b", author_possessive),
-            (r"\bthey\b", author),
-            (r"\bthem\b", author),
-            (r"\bhe\b", author),
-            (r"\bshe\b", author),
-        ]
+        rewritten = re.sub(
+            r"\b(?:he|she|they|that author|the author)\b",
+            state.last_author,
+            rewritten,
+            flags=re.IGNORECASE,
+        )
 
-        changed = False
-        for pattern, replacement in substitutions:
-            new_value = re.sub(
-                pattern,
-                replacement,
-                rewritten,
-                flags=re.IGNORECASE,
-            )
-            if new_value != rewritten:
-                changed = True
-                rewritten = new_value
-
-        if changed:
-            used["author"] = author
+        if rewritten != before:
+            used["author"] = state.last_author
 
     return rewritten, used
 
@@ -230,32 +357,60 @@ def resolve_followup(question: str, state: ConversationState) -> tuple[str, dict
 def update_session_from_response(
     state: ConversationState,
     response: dict,
+    plan: dict | None = None,
+    question: str | None = None,
 ) -> None:
+    state.last_question = question or state.last_question
     state.last_intent = response.get("intent") or state.last_intent
 
+    if plan:
+        state.last_plan = {
+            key: value
+            for key, value in plan.items()
+            if key in {
+                "intent",
+                "title",
+                "author",
+                "search_text",
+                "year_from",
+                "year_to",
+                "limit",
+                "all_results",
+                "venue",
+                "pub_type",
+                "sort_order",
+                "source_index",
+                "source_selector",
+            }
+            and value is not None
+        }
+
     resolved_author = response.get("resolved_author")
+
     if resolved_author:
         state.last_author = resolved_author
 
     sources = response.get("sources") or []
+
     if sources:
         state.last_sources = [
             dict(source)
             for source in sources[:MAX_REMEMBERED_SOURCES]
         ]
 
-        # Exact publication fact lookups often contain multiple DBLP versions
-        # of the same title. Remember the title only when the current response
-        # clearly refers to one publication title.
         titles = []
+
         for source in sources:
             title = (source.get("title") or "").strip()
+
             if title and title.casefold() not in {
-                existing.casefold() for existing in titles
+                existing.casefold()
+                for existing in titles
             }:
                 titles.append(title)
 
         intent = response.get("intent") or ""
+
         if (
             len(titles) == 1
             and (
@@ -264,5 +419,15 @@ def update_session_from_response(
             )
         ):
             state.last_title = titles[0]
+
+    # If a successful exact-publication plan had an explicit title, remember
+    # it even if the response source list is empty because metadata is missing.
+    if (
+        plan
+        and plan.get("intent") in PUBLICATION_INTENTS
+        and plan.get("title")
+        and response.get("intent") != "topic_search"
+    ):
+        state.last_title = plan["title"]
 
     state.updated_at = time.monotonic()

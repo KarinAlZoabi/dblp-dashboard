@@ -4,8 +4,10 @@ import re
 
 from .analytics import get_dataset_statistics, get_top_coauthors, page_count_from_range
 from .conversation import (
+    apply_context_to_plan,
     get_or_create_session,
-    resolve_followup,
+    planner_context,
+    resolve_followup_fallback,
     update_session_from_response,
 )
 from .generator import generate_grounded_answer
@@ -129,12 +131,19 @@ def _publication_fact_answer(question: str, intent: str, title: str) -> dict:
 def _is_simple_discovery(question: str) -> bool:
     q = question.casefold()
     return bool(
-        re.search(r"\b(find|show|list|search)\b", q)
-        and re.search(r"\b(papers?|publications?|articles?|research)\b", q)
+        (
+            re.search(r"\b(find|show|list|search|looking for|interested in)\b", q)
+            and re.search(r"\b(papers?|publications?|articles?|research|work)\b", q)
+        )
+        or re.search(r"\b(?:papers?|publications?|articles?|research|work)\s+(?:about|on|regarding)\b", q)
     )
 
 
-def _answer_resolved_question(question: str, default_top_k: int = 5) -> dict:
+def _answer_resolved_question(
+    question: str,
+    default_top_k: int = 5,
+    plan: dict | None = None,
+) -> dict:
     question = (question or "").strip()
     if not question:
         return {
@@ -145,7 +154,7 @@ def _answer_resolved_question(question: str, default_top_k: int = 5) -> dict:
             "sources": [],
         }
 
-    plan = plan_question(question)
+    plan = plan or plan_question(question)
     intent = plan["intent"]
 
     if intent == "dataset_count":
@@ -159,15 +168,37 @@ def _answer_resolved_question(question: str, default_top_k: int = 5) -> dict:
             "statistics": stats,
         }
 
-    if intent in {"author_publications", "author_publication_count"}:
+    if intent in {
+        "author_publications",
+        "author_publication_count"
+    }:
         author = plan.get("author") or ""
-        all_results = bool(plan.get("all_results"))
-        limit = None if all_results or intent == "author_publication_count" else (plan.get("limit") or default_top_k)
+
+        all_results = bool(
+            plan.get("all_results")
+        )
+
+        if intent == "author_publication_count":
+            limit = None
+
+        elif plan.get("limit") is not None:
+            limit = plan["limit"]
+
+        else:
+            limit = None
+            all_results = True
+
         result = get_author_publications(
             author,
             year_from=plan.get("year_from"),
             year_to=plan.get("year_to"),
             limit=limit,
+            venue=plan.get("venue"),
+            pub_type=plan.get("pub_type"),
+            sort_order=(
+                plan.get("sort_order")
+                or "latest"
+            ),
         )
 
         if result["status"] == "ambiguous":
@@ -210,6 +241,10 @@ def _answer_resolved_question(question: str, default_top_k: int = 5) -> dict:
                 ),
                 "count": 0,
                 "sources": [],
+                # Keep the resolved identity in the conversation state even
+                # when the requested year/filter has zero publications.
+                "resolved_author": result.get("resolved_author"),
+                "matched_identities": result.get("matched_identities", []),
             }
 
         if result["status"] == "multi_match":
@@ -286,6 +321,8 @@ def _answer_resolved_question(question: str, default_top_k: int = 5) -> dict:
         year_from=plan.get("year_from"),
         year_to=plan.get("year_to"),
         top_k=top_k,
+        venue=plan.get("venue"),
+        pub_type=plan.get("pub_type"),
     )
 
     if not results:
@@ -331,42 +368,151 @@ def _answer_resolved_question(question: str, default_top_k: int = 5) -> dict:
     return payload
 
 
+def _plan_missing_required_entity(plan: dict) -> bool:
+    intent = plan.get("intent")
+
+    publication_intents = {
+        "publication_authors",
+        "publication_venue",
+        "publication_pages",
+        "publication_page_count",
+        "publication_year",
+        "publication_volume",
+        "publication_number",
+        "publication_publisher",
+        "publication_ee",
+        "publication_details",
+    }
+
+    author_intents = {
+        "author_publications",
+        "author_publication_count",
+        "top_coauthors",
+    }
+
+    if intent in publication_intents:
+        return not plan.get("title")
+
+    if intent in author_intents:
+        return not plan.get("author")
+
+    return False
+
+
 def answer_chat_question(
     question: str,
     default_top_k: int = 5,
     session_id: str | None = None,
 ) -> dict:
     """
-    Answer one chat turn while preserving lightweight conversational context.
+    Hybrid conversational orchestration.
 
-    The DBLP facts remain deterministic. Conversation memory is only used to
-    resolve references such as "it", "that paper", "they", and "the second one".
+    1. Obvious standalone questions are planned locally in milliseconds.
+    2. Ambiguous/follow-up language goes to Gemini WITH compact verified
+       conversation context.
+    3. Python resolves concrete stored entities and performs every DBLP lookup.
+    4. Gemini never supplies bibliographic facts.
     """
-    session_id, state = get_or_create_session(session_id)
+    session_id, state = get_or_create_session(
+        session_id
+    )
 
-    resolved_question, context_used = resolve_followup(
-        question,
+    context = planner_context(state)
+
+    planner_exception = None
+
+    try:
+        plan = plan_question(
+            question,
+            context=context,
+        )
+    except Exception as exc:
+        # Conversation understanding is optional infrastructure. A temporary
+        # planner/API error must never turn an otherwise usable DBLP endpoint
+        # into HTTP 500.
+        planner_exception = type(exc).__name__
+        plan = {
+            "intent": "topic_search",
+            "search_text": question,
+            "limit": None,
+            "_planner": "failed",
+            "planner_error": planner_exception,
+        }
+
+    plan, context_used = apply_context_to_plan(
+        plan,
         state,
     )
 
+    # If the remote planner is unavailable or returned a plan that still lacks
+    # a required entity, use the tiny deterministic rewrite layer as a backup.
+    # This is resilience, not the primary conversation mechanism.
+    if (
+        plan.get("_planner") == "failed"
+        or _plan_missing_required_entity(plan)
+    ):
+        fallback_question, fallback_context = (
+            resolve_followup_fallback(
+                question,
+                state,
+            )
+        )
+
+        if fallback_question != question:
+            fallback_plan = plan_question(
+                fallback_question,
+                context=None,
+            )
+
+            fallback_plan, fallback_used = (
+                apply_context_to_plan(
+                    fallback_plan,
+                    state,
+                )
+            )
+
+            # Prefer the fallback only if it produced a usable plan.
+            if not _plan_missing_required_entity(
+                fallback_plan
+            ):
+                plan = fallback_plan
+                context_used.update(
+                    fallback_context
+                )
+                context_used.update(
+                    fallback_used
+                )
+
     response = _answer_resolved_question(
-        resolved_question,
+        question,
         default_top_k=default_top_k,
+        plan=plan,
     )
 
-    # Preserve the literal user message for frontend/debug display.
     response["question"] = question
     response["session_id"] = session_id
-
-    if resolved_question != question:
-        response["resolved_question"] = resolved_question
 
     if context_used:
         response["context_used"] = context_used
 
+    # Helpful during development/evaluation; the frontend can ignore it.
+    response["planner_mode"] = plan.get(
+        "_planner",
+        "unknown",
+    )
+
+    planner_warning = (
+        planner_exception
+        or plan.get("planner_error")
+    )
+    if planner_warning:
+        response["planner_warning"] = planner_warning
+
     update_session_from_response(
         state,
         response,
+        plan=plan,
+        question=question,
     )
 
     return response

@@ -12,12 +12,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.04145430002245121,
+    "latency": 0.044631000026129186,
     "failures": [],
     "response": {
       "question": "How many publications are there in the dataset?",
       "intent": "dataset_count",
-      "answer": "The indexed DBLP dataset contains 12,944,133 total DBLP records. 8,741,489 are publication records when 'www' profile/web records are excluded.",
+      "answer": "The indexed DBLP dataset contains 8,741,489 publication records. There are 12,944,133 DBLP records in total when profile/web records are included.",
       "count": 8741489,
       "sources": [],
       "statistics": {
@@ -34,7 +34,9 @@
           "www": 4202644,
           "article": 4458737
         }
-      }
+      },
+      "session_id": "562a2d55759040a5a45f1ce7e023da46",
+      "planner_mode": "local"
     }
   },
   {
@@ -50,12 +52,12 @@
       ]
     },
     "passed": true,
-    "latency": 8.159705899975961,
+    "latency": 0.001969899982213974,
     "failures": [],
     "response": {
       "question": "What is the total number of DBLP publications in this dataset?",
       "intent": "dataset_count",
-      "answer": "The indexed DBLP dataset contains 12,944,133 total DBLP records. 8,741,489 are publication records when 'www' profile/web records are excluded.",
+      "answer": "The indexed DBLP dataset contains 8,741,489 publication records. There are 12,944,133 DBLP records in total when profile/web records are included.",
       "count": 8741489,
       "sources": [],
       "statistics": {
@@ -72,7 +74,9 @@
           "www": 4202644,
           "article": 4458737
         }
-      }
+      },
+      "session_id": "ea283fff6abe4cc0995e85022263359a",
+      "planner_mode": "local"
     }
   },
   {
@@ -90,12 +94,12 @@
       "source_author_base": "hussein hazimeh"
     },
     "passed": true,
-    "latency": 0.011800400010542944,
+    "latency": 0.013800900022033602,
     "failures": [],
     "response": {
       "question": "What paper did Hussein Hazimeh publish in 2025?",
       "intent": "author_publications",
-      "answer": "'Hussein Hazimeh' maps to multiple DBLP identities with publications matching the requested filters (Hussein Hazimeh 0001, Hussein Hazimeh 0002). I found 9 matching publications and kept each source's identity separate.",
+      "answer": "More than one DBLP identity for 'Hussein Hazimeh' has matching publications in 2025. I found 9 publications across Hussein Hazimeh 0001, Hussein Hazimeh 0002, and kept the identities separate below.",
       "count": 9,
       "sources": [
         {
@@ -305,7 +309,9 @@
       "matched_identities": [
         "Hussein Hazimeh 0001",
         "Hussein Hazimeh 0002"
-      ]
+      ],
+      "session_id": "8c9c3051740a4395a53ee4b2dd8e4e58",
+      "planner_mode": "local"
     }
   },
   {
@@ -323,12 +329,12 @@
       "source_author_base": "hussein hazimeh"
     },
     "passed": true,
-    "latency": 0.007982100010849535,
+    "latency": 0.01798080001026392,
     "failures": [],
     "response": {
       "question": "Which publications did Hussein Hazimeh publish during 2025?",
       "intent": "author_publications",
-      "answer": "'Hussein Hazimeh' maps to multiple DBLP identities with publications matching the requested filters (Hussein Hazimeh 0001, Hussein Hazimeh 0002). I found 9 matching publications and kept each source's identity separate.",
+      "answer": "More than one DBLP identity for 'Hussein Hazimeh' has matching publications in 2025. I found 9 publications across Hussein Hazimeh 0001, Hussein Hazimeh 0002, and kept the identities separate below.",
       "count": 9,
       "sources": [
         {
@@ -538,7 +544,9 @@
       "matched_identities": [
         "Hussein Hazimeh 0001",
         "Hussein Hazimeh 0002"
-      ]
+      ],
+      "session_id": "0b93e9ef47a94ec49f0638f1f7f00ed2",
+      "planner_mode": "local"
     }
   },
   {
@@ -554,12 +562,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.027714399999240413,
+    "latency": 0.01328099996317178,
     "failures": [],
     "response": {
       "question": "List all authors for the paper titled 'Attention Is All You Need'.",
       "intent": "publication_authors",
-      "answer": "Authors of 'Attention is All you Need.': Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
+      "answer": "'Attention is All you Need.' was written by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
       "count": 2,
       "sources": [
         {
@@ -608,7 +616,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "210d0790a6584be98979c34b4646fc82",
+      "planner_mode": "local"
     }
   },
   {
@@ -624,12 +634,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.03074919999926351,
+    "latency": 0.02175760001409799,
     "failures": [],
     "response": {
       "question": "List all authors for the paper titled 'Find Attention Is All You Need'.",
       "intent": "publication_authors",
-      "answer": "Authors of 'Attention is All you Need.': Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
+      "answer": "'Attention is All you Need.' was written by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
       "count": 2,
       "sources": [
         {
@@ -678,7 +688,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "6e3bac49d0d043328e3d2ef26ee50c40",
+      "planner_mode": "local"
     }
   },
   {
@@ -693,12 +705,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.020409799995832145,
+    "latency": 0.0019773999811150134,
     "failures": [],
     "response": {
       "question": "Who wrote 'Attention Is All You Need'?",
       "intent": "publication_authors",
-      "answer": "Authors of 'Attention is All you Need.': Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
+      "answer": "'Attention is All you Need.' was written by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.",
       "count": 2,
       "sources": [
         {
@@ -747,7 +759,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "296c7c456e3048d78d28b533c5b837ca",
+      "planner_mode": "local"
     }
   },
   {
@@ -763,12 +777,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.016489100002218038,
+    "latency": 0.019445499987341464,
     "failures": [],
     "response": {
       "question": "In which journal/conference proceedings was 'Attention Is All You Need' published?",
       "intent": "publication_venue",
-      "answer": "DBLP lists 'Attention is All you Need.' as: 2017: NIPS (inproceedings); 2017: CoRR (article).",
+      "answer": "DBLP lists 2 versions of 'Attention is All you Need.': NIPS in 2017 (conference paper); CoRR in 2017 (article).",
       "count": 2,
       "sources": [
         {
@@ -817,7 +831,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "dd096285150f4cf7be59f58cd5c75a45",
+      "planner_mode": "local"
     }
   },
   {
@@ -833,12 +849,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.0020278000156395137,
+    "latency": 0.0018351000035181642,
     "failures": [],
     "response": {
       "question": "What is the page range for the article 'Attention Is All You Need'?",
       "intent": "publication_pages",
-      "answer": "Page range information for 'Attention is All you Need.': NIPS: 5998-6008.",
+      "answer": "The NIPS version of 'Attention is All you Need.' spans pages 5998-6008.",
       "count": 2,
       "sources": [
         {
@@ -887,7 +903,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "cf40ab68ef054d41b986cd00000be913",
+      "planner_mode": "local"
     }
   },
   {
@@ -902,12 +920,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.001581299991812557,
+    "latency": 0.0015546000213362277,
     "failures": [],
     "response": {
       "question": "How many pages does 'Attention Is All You Need' have?",
       "intent": "publication_page_count",
-      "answer": "'Attention is All you Need.' has 11 pages (5998-6008, NIPS).",
+      "answer": "The NIPS version of 'Attention is All you Need.' is 11 pages long (5998-6008).",
       "count": 2,
       "sources": [
         {
@@ -956,7 +974,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "aff7a2c814db4e69bdbd803facbd1c5f",
+      "planner_mode": "local"
     }
   },
   {
@@ -971,12 +991,12 @@
       ]
     },
     "passed": true,
-    "latency": 0.026780300016980618,
+    "latency": 0.0013884000363759696,
     "failures": [],
     "response": {
       "question": "What's the page count of 'Attention Is All You Need'?",
       "intent": "publication_page_count",
-      "answer": "'Attention is All you Need.' has 11 pages (5998-6008, NIPS).",
+      "answer": "The NIPS version of 'Attention is All you Need.' is 11 pages long (5998-6008).",
       "count": 2,
       "sources": [
         {
@@ -1025,7 +1045,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "eba5e668518c402ea8214b2c85f02b99",
+      "planner_mode": "local"
     }
   },
   {
@@ -1040,7 +1062,7 @@
       ]
     },
     "passed": true,
-    "latency": 0.002993000001879409,
+    "latency": 0.0017095999792218208,
     "failures": [],
     "response": {
       "question": "What year was 'Attention Is All You Need' published?",
@@ -1094,7 +1116,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "4d3cecfa3187442eae5e3237397201b5",
+      "planner_mode": "local"
     }
   },
   {
@@ -1107,12 +1131,12 @@
       "expected_count": 3
     },
     "passed": true,
-    "latency": 0.03329210000811145,
+    "latency": 0.007334900030400604,
     "failures": [],
     "response": {
       "question": "Who are the top 3 most frequent co-authors of Kassem Danach?",
       "intent": "top_coauthors",
-      "answer": "Top 3 coauthors of Kassem Danach: 1. Samir Haddad (6 shared publications); 2. Jinane Sayah (5 shared publications); 3. Jomana Al-Haj Hassan (4 shared publications).",
+      "answer": "The top 3 most frequent coauthors of Kassem Danach are:\n1. Samir Haddad — 6 shared publications\n2. Jinane Sayah — 5 shared publications\n3. Jomana Al-Haj Hassan — 4 shared publications",
       "count": 3,
       "sources": [],
       "coauthors": [
@@ -1129,7 +1153,9 @@
           "count": 4
         }
       ],
-      "resolved_author": "Kassem Danach"
+      "resolved_author": "Kassem Danach",
+      "session_id": "58e63a1f9db44cfaa461057d2aaf2243",
+      "planner_mode": "local"
     }
   },
   {
@@ -1142,16 +1168,69 @@
       "min_sources": 1
     },
     "passed": true,
-    "latency": 2.819152000010945,
+    "latency": 5.0408743000007235,
     "failures": [],
     "response": {
       "question": "Find research on detecting cyber attacks with machine learning.",
       "intent": "topic_search",
-      "answer": "I found 5 relevant DBLP publications.",
+      "answer": "I found 5 relevant DBLP publications on detecting cyber attacks with machine learning. I've listed them below.",
       "count": 5,
       "sources": [
         {
           "id": "P1",
+          "title": "Machine Learning Techniques for Cyber Attacks Detection.",
+          "authors": [
+            "Rafal Kozik",
+            "Michal Choras"
+          ],
+          "venue": "IP&C",
+          "year": 2013,
+          "type": "inproceedings",
+          "key": "conf/ip-c/KozikC13",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "",
+          "semantic_score": 0.918894
+        },
+        {
+          "id": "P2",
+          "title": "Detection and Prevention of Cyber Defense Attacks using Machine Learning Algorithms.",
+          "authors": [
+            "Yongqiang Shang"
+          ],
+          "venue": "Scalable Comput. Pract. Exp.",
+          "year": 2024,
+          "type": "article",
+          "key": "journals/scpe/Shang24",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "",
+          "semantic_score": 0.915938
+        },
+        {
+          "id": "P3",
+          "title": "Machine learning techniques applied to detect cyber attacks on web applications.",
+          "authors": [
+            "Michal Choras",
+            "Rafal Kozik"
+          ],
+          "venue": "Log. J. IGPL",
+          "year": 2015,
+          "type": "article",
+          "key": "journals/igpl/ChorasK15",
+          "pages": "",
+          "volume": "",
+          "number": "",
+          "publisher": "",
+          "ee": "",
+          "semantic_score": 0.912589
+        },
+        {
+          "id": "P4",
           "title": "DECEPT: Detecting Cyber-Physical Attacks using Machine Learning on Log Data.",
           "authors": [
             "Florian Skopik",
@@ -1166,84 +1245,29 @@
           "volume": "",
           "number": "",
           "publisher": "",
-          "ee": ""
-        },
-        {
-          "id": "P2",
-          "title": "Machine Learning Models for Detecting Cyber Attacks in Vehicular Communication Networks.",
-          "authors": [
-            "Dhotre Yogesh Kadu",
-            "P. William",
-            "Firas Tayseer Ayasrah"
-          ],
-          "venue": "FLLM",
-          "year": 2025,
-          "type": "inproceedings",
-          "key": "conf/fllm/KaduWA25",
-          "pages": "",
-          "volume": "",
-          "number": "",
-          "publisher": "",
-          "ee": ""
-        },
-        {
-          "id": "P3",
-          "title": "Detecting cyber-physical attacks in CyberManufacturing systems with machine learning methods.",
-          "authors": [
-            "Mingtao Wu",
-            "Zhengyi Song",
-            "Young B. Moon"
-          ],
-          "venue": "J. Intell. Manuf.",
-          "year": 2019,
-          "type": "article",
-          "key": "journals/jim/WuSM19",
-          "pages": "",
-          "volume": "",
-          "number": "",
-          "publisher": "",
-          "ee": ""
-        },
-        {
-          "id": "P4",
-          "title": "Detecting Cyber and Physical Attacks Against Mobile Robots Using Machine Learning: An Empirical Study.",
-          "authors": [
-            "Levente Nyusti",
-            "Sabarathinam Chockalingam",
-            "Patrick Bours",
-            "Terje Bodal"
-          ],
-          "venue": "NordSec",
-          "year": 2024,
-          "type": "inproceedings",
-          "key": "conf/nordsec/NyustiCBB24",
-          "pages": "",
-          "volume": "",
-          "number": "",
-          "publisher": "",
-          "ee": ""
+          "ee": "",
+          "semantic_score": 0.911783
         },
         {
           "id": "P5",
-          "title": "Detecting Electricity Theft Cyber-attacks in CAT AMI System Using Machine Learning.",
+          "title": "Machine Learning to detect cyber-attacks and discriminating the types of power system disturbances.",
           "authors": [
-            "Mohamed I. Ibrahem",
-            "Sherif Abdelfattah",
-            "Mohamed Mahmoud 0001",
-            "Waleed Alasmary"
+            "Diane Tuyizere",
+            "Remy Ihabwikuzo"
           ],
-          "venue": "ISNCC",
-          "year": 2021,
-          "type": "inproceedings",
-          "key": "conf/isncc/IbrahemAMA21",
+          "venue": "CoRR",
+          "year": 2023,
+          "type": "article",
+          "key": "journals/corr/abs-2307-03323",
           "pages": "",
           "volume": "",
           "number": "",
           "publisher": "",
-          "ee": ""
+          "ee": "",
+          "semantic_score": 0.910164
         }
       ],
-      "retrieval_mode": "bm25_fallback",
+      "retrieval_mode": "hybrid_semantic",
       "plan": {
         "intent": "topic_search",
         "title": null,
@@ -1252,9 +1276,17 @@
         "year_from": null,
         "year_to": null,
         "limit": null,
-        "all_results": false
+        "all_results": false,
+        "source_index": null,
+        "source_selector": null,
+        "reuse_previous_year": false,
+        "venue": null,
+        "pub_type": null,
+        "sort_order": null,
+        "_planner": "local"
       },
-      "retrieval_warning": "ClientError"
+      "session_id": "d7384aa654e94d0cae35fda464d514e0",
+      "planner_mode": "local"
     }
   },
   {
@@ -1271,12 +1303,12 @@
       ]
     },
     "passed": true,
-    "latency": 1.9125420000054874,
+    "latency": 2.1144872999866493,
     "failures": [],
     "response": {
       "question": "Find papers about federated learning from 2020 to 2023.",
       "intent": "topic_search",
-      "answer": "I found 5 relevant DBLP publications.",
+      "answer": "I found 5 relevant DBLP publications on federated learning between 2020 and 2023. I've listed them below.",
       "count": 5,
       "sources": [
         {
@@ -1365,9 +1397,18 @@
         "year_from": 2020,
         "year_to": 2023,
         "limit": null,
-        "all_results": false
+        "all_results": false,
+        "source_index": null,
+        "source_selector": null,
+        "reuse_previous_year": false,
+        "venue": null,
+        "pub_type": null,
+        "sort_order": null,
+        "_planner": "local"
       },
-      "retrieval_warning": "ClientError"
+      "retrieval_warning": "ClientError",
+      "session_id": "9a57f15c9ba944f1bd3f0b40011d2d11",
+      "planner_mode": "local"
     }
   },
   {
@@ -1384,12 +1425,12 @@
       ]
     },
     "passed": true,
-    "latency": 2.035479399986798,
+    "latency": 2.410240500001237,
     "failures": [],
     "response": {
       "question": "Show research on federated learning between 2020 and 2023.",
       "intent": "topic_search",
-      "answer": "I found 5 relevant DBLP publications.",
+      "answer": "I found 5 relevant DBLP publications on federated learning between 2020 and 2023. I've listed them below.",
       "count": 5,
       "sources": [
         {
@@ -1478,9 +1519,18 @@
         "year_from": 2020,
         "year_to": 2023,
         "limit": null,
-        "all_results": false
+        "all_results": false,
+        "source_index": null,
+        "source_selector": null,
+        "reuse_previous_year": false,
+        "venue": null,
+        "pub_type": null,
+        "sort_order": null,
+        "_planner": "local"
       },
-      "retrieval_warning": "ClientError"
+      "retrieval_warning": "ClientError",
+      "session_id": "6f1ca0e3660246fdb5c49c825c3416fb",
+      "planner_mode": "local"
     }
   },
   {
@@ -1494,12 +1544,12 @@
       "exact_title": "attention is all you need"
     },
     "passed": true,
-    "latency": 0.0017635000112932175,
+    "latency": 0.025386499997694045,
     "failures": [],
     "response": {
       "question": "Find Attention Is All You Need",
       "intent": "publication_details",
-      "answer": "'Attention is All you Need.' — authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin; year: 2017; venue: NIPS; type: inproceedings. Pages: 5998-6008.",
+      "answer": "'Attention is All you Need.' was written by Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin. DBLP lists it as a conference paper from 2017, published in NIPS. Its page range is 5998-6008.",
       "count": 2,
       "sources": [
         {
@@ -1548,7 +1598,9 @@
           "publisher": "",
           "ee": "http://arxiv.org/abs/1706.03762"
         }
-      ]
+      ],
+      "session_id": "9628cc79dd054643a36f956ca01ad154",
+      "planner_mode": "local"
     }
   },
   {
@@ -1562,12 +1614,12 @@
       "source_author_exact": "hussein hazimeh 0002"
     },
     "passed": true,
-    "latency": 0.0303227000113111,
+    "latency": 0.023836999956984073,
     "failures": [],
     "response": {
       "question": "Give me all publications by Hussein Hazimeh 0002.",
       "intent": "author_publications",
-      "answer": "I found 25 matching publications for Hussein Hazimeh 0002.",
+      "answer": "I found 25 publications by Hussein Hazimeh 0002. I've listed all of the matching records below.",
       "count": 25,
       "sources": [
         {
@@ -2091,7 +2143,9 @@
         }
       ],
       "resolved_author": "Hussein Hazimeh 0002",
-      "matched_identities": []
+      "matched_identities": [],
+      "session_id": "1e1a446d9f334e639f2939422da83c5b",
+      "planner_mode": "local"
     }
   },
   {
@@ -2105,12 +2159,12 @@
       "source_author_exact": "hussein hazimeh 0002"
     },
     "passed": true,
-    "latency": 0.02832390001276508,
+    "latency": 0.02833539998391643,
     "failures": [],
     "response": {
       "question": "Give me all publications by Hussein Hazimeh 002.",
       "intent": "author_publications",
-      "answer": "I found 25 matching publications for Hussein Hazimeh 0002.",
+      "answer": "I found 25 publications by Hussein Hazimeh 0002. I've listed all of the matching records below.",
       "count": 25,
       "sources": [
         {
@@ -2634,7 +2688,9 @@
         }
       ],
       "resolved_author": "Hussein Hazimeh 0002",
-      "matched_identities": []
+      "matched_identities": [],
+      "session_id": "585b835838a6432685685dbf1f64cfe6",
+      "planner_mode": "local"
     }
   },
   {
@@ -2646,16 +2702,18 @@
       ]
     },
     "passed": true,
-    "latency": 0.026513799995882437,
+    "latency": 0.005891099979635328,
     "failures": [],
     "response": {
       "question": "How many publications does Hussein Hazimeh 0002 have?",
       "intent": "author_publication_count",
-      "answer": "The matching DBLP author identity has 25 publications for the requested filters.",
+      "answer": "Hussein Hazimeh 0002 has 25 publications in the indexed DBLP data.",
       "count": 25,
       "sources": [],
       "resolved_author": "Hussein Hazimeh 0002",
-      "matched_identities": []
+      "matched_identities": [],
+      "session_id": "64e7b9a0245a47379097ec4ff448dd75",
+      "planner_mode": "local"
     }
   },
   {
@@ -2673,14 +2731,16 @@
       ]
     },
     "passed": true,
-    "latency": 0.015157799993176013,
+    "latency": 0.04202719999011606,
     "failures": [],
     "response": {
       "question": "Give me all publications by This Person Does Not Exist 9999.",
       "intent": "author_publications",
       "answer": "I could not find a DBLP author matching 'This Person Does Not Exist 9999'.",
       "count": 0,
-      "sources": []
+      "sources": [],
+      "session_id": "4779158e911f497398850e2067e90848",
+      "planner_mode": "local"
     }
   }
 ]

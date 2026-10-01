@@ -170,6 +170,7 @@ def _find_publication_by_title_uncached(title: str) -> list[dict]:
         if not useful:
             return []
 
+        # First try strict token coverage.
         query = " AND ".join(f'title : "{fts_phrase(t)}"' for t in useful)
         rows = con.execute(
             f"""
@@ -179,10 +180,40 @@ def _find_publication_by_title_uncached(title: str) -> list[dict]:
             {join}
             WHERE papers MATCH ?
               AND papers.pub_type != 'www'
-            LIMIT 50
+            LIMIT 100
             """,
             (query,),
         ).fetchall()
+
+        # Typo-tolerant fallback: if one title token is misspelled, retrieve a
+        # broader OR pool using the correctly spelled tokens, but rank the pool
+        # with FTS5 BM25 before applying whole-title similarity.
+        #
+        # The previous version used LIMIT 500 without ORDER BY, so a title such
+        # as "Attentin Is All You Need" could retrieve 500 arbitrary rows that
+        # matched "all"/"you"/"need" before the real paper ever entered the
+        # candidate pool.
+        if not rows:
+            fuzzy_terms = [t for t in useful if len(t) >= 3]
+            if fuzzy_terms:
+                or_query = " OR ".join(
+                    f'title : "{fts_phrase(t)}"'
+                    for t in fuzzy_terms
+                )
+                rows = con.execute(
+                    f"""
+                    SELECT papers.title, papers.authors, papers.venue, papers.key,
+                           papers.year, papers.pub_type {extra},
+                           bm25(papers, 12.0, 0.5, 0.5) AS fuzzy_bm25
+                    FROM papers
+                    {join}
+                    WHERE papers MATCH ?
+                      AND papers.pub_type != 'www'
+                    ORDER BY fuzzy_bm25
+                    LIMIT 1000
+                    """,
+                    (or_query,),
+                ).fetchall()
 
         scored = []
         for row in rows:
@@ -192,7 +223,25 @@ def _find_publication_by_title_uncached(title: str) -> list[dict]:
             ).ratio()
             scored.append((score, paper))
         scored.sort(key=lambda x: x[0], reverse=True)
-        return [paper for score, paper in scored[:3] if score >= 0.65]
+
+        if not scored:
+            return []
+
+        # Keep only genuinely close title matches; do not turn fuzzy lookup
+        # into a broad topic search.
+        best = scored[0][0]
+
+        # Exact-title typo recovery must stay conservative. We only accept a
+        # fuzzy title when the best whole-title similarity is high enough that
+        # it looks like a misspelling, not merely a related paper.
+        if best < 0.86:
+            return []
+
+        return [
+            paper
+            for score, paper in scored[:5]
+            if score >= 0.86 and score >= best - 0.03
+        ]
     finally:
         con.close()
 
@@ -234,7 +283,56 @@ def resolve_author_identities(author_name: str) -> tuple[str, ...]:
                 elif author_base_name(author) == requested_base:
                     found.add(canonicalize_author_name(author))
 
-        return tuple(sorted(found, key=normalize_author_name))
+        if found:
+            return tuple(sorted(found, key=normalize_author_name))
+
+        # Conservative typo fallback for author names. Search using the most
+        # distinctive visible token, then compare complete author names. This
+        # lets "Kassem Danah" resolve to "Kassem Danach" without asking an LLM
+        # to invent an identity.
+        visible_tokens = [
+            token
+            for token in re.findall(r"[\wÀ-ÖØ-öø-ÿ]+", base, flags=re.UNICODE)
+            if len(token) >= 3
+        ]
+        if not visible_tokens:
+            return tuple()
+
+        anchor = max(visible_tokens, key=len)
+        fuzzy_rows = con.execute(
+            """
+            SELECT authors
+            FROM papers
+            WHERE papers MATCH ?
+              AND pub_type != 'www'
+            LIMIT 5000
+            """,
+            (f'authors : "{fts_phrase(anchor)}"',),
+        ).fetchall()
+
+        candidates = {}
+        requested_cmp = normalize_text(base)
+        for row in fuzzy_rows:
+            for author in (row["authors"].split(" ; ") if row["authors"] else []):
+                candidate = canonicalize_author_name(author)
+                candidate_base = re.sub(r"\s+\d{4}$", "", candidate).strip()
+                score = SequenceMatcher(
+                    None,
+                    requested_cmp,
+                    normalize_text(candidate_base),
+                ).ratio()
+                if score >= 0.88:
+                    candidates[candidate] = max(score, candidates.get(candidate, 0.0))
+
+        if not candidates:
+            return tuple()
+
+        best = max(candidates.values())
+        close = [
+            name for name, score in candidates.items()
+            if score >= best - 0.02
+        ]
+        return tuple(sorted(close, key=normalize_author_name))
     finally:
         con.close()
 
@@ -244,6 +342,9 @@ def _publications_for_exact_author(
     year_from: Optional[int] = None,
     year_to: Optional[int] = None,
     limit: Optional[int] = None,
+    venue: Optional[str] = None,
+    pub_type: Optional[str] = None,
+    sort_order: str = "latest",
 ) -> list[dict]:
     identity = canonicalize_author_name(identity)
     target = normalize_author_name(identity)
@@ -251,6 +352,7 @@ def _publications_for_exact_author(
 
     con = connect_ro()
     try:
+        direction = "ASC" if sort_order == "oldest" else "DESC"
         rows = con.execute(
             f"""
             SELECT papers.title, papers.authors, papers.venue, papers.key,
@@ -261,12 +363,16 @@ def _publications_for_exact_author(
               AND papers.pub_type != 'www'
               AND (? IS NULL OR papers.year >= ?)
               AND (? IS NULL OR papers.year <= ?)
-            ORDER BY papers.year DESC, papers.title ASC
+              AND (? IS NULL OR LOWER(papers.venue) = LOWER(?))
+              AND (? IS NULL OR papers.pub_type = ?)
+            ORDER BY papers.year {direction}, papers.title ASC
             """,
             (
                 f'authors : "{fts_phrase(identity)}"',
                 year_from, year_from,
                 year_to, year_to,
+                venue, venue,
+                pub_type, pub_type,
             ),
         )
 
@@ -289,6 +395,9 @@ def get_author_publications(
     year_from: Optional[int] = None,
     year_to: Optional[int] = None,
     limit: Optional[int] = None,
+    venue: Optional[str] = None,
+    pub_type: Optional[str] = None,
+    sort_order: str = "latest",
 ) -> dict:
     identities = list(resolve_author_identities(author_name))
     if not identities:
@@ -308,25 +417,45 @@ def get_author_publications(
             "resolved_author": identity,
             "identities": identities,
             "publications": _publications_for_exact_author(
-                identity, year_from, year_to, limit
+                identity,
+                year_from,
+                year_to,
+                limit,
+                venue=venue,
+                pub_type=pub_type,
+                sort_order=sort_order,
             ),
         }
 
     # Plain visible names may map to multiple people. If the user supplied a
     # year/range, answer the filtered question across identities rather than
     # failing with a disambiguation prompt. Each source retains matched_author.
-    if year_from is not None or year_to is not None:
+    if (
+        year_from is not None
+        or year_to is not None
+        or venue is not None
+        or pub_type is not None
+    ):
         groups = {}
         combined = []
         for identity in identities:
             pubs = _publications_for_exact_author(
-                identity, year_from, year_to, limit=None
+                identity,
+                year_from,
+                year_to,
+                limit=None,
+                venue=venue,
+                pub_type=pub_type,
+                sort_order=sort_order,
             )
             if pubs:
                 groups[identity] = pubs
                 combined.extend(pubs)
 
-        combined.sort(key=lambda p: ((p.get("year") or 0), p.get("title", "")), reverse=True)
+        combined.sort(
+            key=lambda p: ((p.get("year") or 0), p.get("title", "")),
+            reverse=(sort_order != "oldest"),
+        )
         if limit is not None:
             combined = combined[:limit]
 
@@ -353,6 +482,8 @@ def semantic_candidates(
     year_from: Optional[int] = None,
     year_to: Optional[int] = None,
     limit: int = SEMANTIC_CANDIDATE_LIMIT,
+    venue: Optional[str] = None,
+    pub_type: Optional[str] = None,
 ) -> list[dict]:
     terms = [
         term for term in re.findall(r"[\wÀ-ÖØ-öø-ÿ]+", search_text or "", flags=re.UNICODE)
@@ -373,6 +504,8 @@ def semantic_candidates(
               AND pub_type != 'www'
               AND (? IS NULL OR year >= ?)
               AND (? IS NULL OR year <= ?)
+              AND (? IS NULL OR LOWER(venue) = LOWER(?))
+              AND (? IS NULL OR pub_type = ?)
             ORDER BY bm25_score
             LIMIT ?
             """,
@@ -380,6 +513,8 @@ def semantic_candidates(
                 query,
                 year_from, year_from,
                 year_to, year_to,
+                venue, venue,
+                pub_type, pub_type,
                 max(1, min(limit, 99)),
             ),
         ).fetchall()
@@ -393,9 +528,17 @@ def semantic_topic_search(
     year_from: Optional[int] = None,
     year_to: Optional[int] = None,
     top_k: int = 5,
+    venue: Optional[str] = None,
+    pub_type: Optional[str] = None,
 ) -> tuple[list[dict], str, str | None]:
     """Return (results, mode, error_name). Never discard lexical evidence."""
-    candidates = semantic_candidates(search_text, year_from, year_to)
+    candidates = semantic_candidates(
+        search_text,
+        year_from,
+        year_to,
+        venue=venue,
+        pub_type=pub_type,
+    )
     if not candidates:
         return [], "none", None
 
