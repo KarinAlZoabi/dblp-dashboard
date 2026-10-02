@@ -29,6 +29,45 @@ def _details_select() -> tuple[str, str]:
     return ("", "")
 
 
+def _copy_publication(paper: dict) -> dict:
+    item = dict(paper)
+    item["authors"] = list(paper.get("authors", []))
+    return item
+
+
+def deduplicate_verified_records(papers: list[dict]) -> list[dict]:
+    """
+    Remove only duplicates we can verify are the same DBLP record.
+
+    We do NOT collapse records merely because title/year/venue look identical;
+    DBLP can intentionally contain distinct records/versions with similar
+    metadata. A duplicate is removed only when the DBLP key repeats, or when
+    the same non-empty electronic-edition identifier repeats.
+    """
+    seen_keys = set()
+    seen_ee = set()
+    unique = []
+
+    for paper in papers:
+        key = (paper.get("key") or "").strip()
+        ee = (paper.get("ee") or "").strip()
+
+        if key and key in seen_keys:
+            continue
+
+        if ee and ee in seen_ee:
+            continue
+
+        if key:
+            seen_keys.add(key)
+        if ee:
+            seen_ee.add(ee)
+
+        unique.append(paper)
+
+    return unique
+
+
 def lexical_search(question: str, top_k: int = 5) -> list[dict]:
     """Exact/lexical DBLP search using title phrase retrieval + BM25."""
     question = (question or "").strip()
@@ -383,8 +422,12 @@ def _publications_for_exact_author(
                 continue
             paper["matched_author"] = identity
             publications.append(paper)
-            if limit is not None and len(publications) >= limit:
-                break
+
+        publications = deduplicate_verified_records(publications)
+
+        if limit is not None:
+            publications = publications[:limit]
+
         return publications
     finally:
         con.close()
@@ -452,6 +495,7 @@ def get_author_publications(
                 groups[identity] = pubs
                 combined.extend(pubs)
 
+        combined = deduplicate_verified_records(combined)
         combined.sort(
             key=lambda p: ((p.get("year") or 0), p.get("title", "")),
             reverse=(sort_order != "oldest"),
@@ -518,9 +562,50 @@ def semantic_candidates(
                 max(1, min(limit, 99)),
             ),
         ).fetchall()
-        return [row_to_publication(row) | {"bm25_score": float(row["bm25_score"])} for row in rows]
+        results = [
+            row_to_publication(row) | {"bm25_score": float(row["bm25_score"])}
+            for row in rows
+        ]
+        return deduplicate_verified_records(results)
     finally:
         con.close()
+
+
+@lru_cache(maxsize=256)
+def _semantic_topic_search_cached(
+    search_text: str,
+    year_from: Optional[int],
+    year_to: Optional[int],
+    top_k: int,
+    venue: Optional[str],
+    pub_type: Optional[str],
+) -> tuple[tuple[dict, ...], str, str | None]:
+    candidates = semantic_candidates(
+        search_text,
+        year_from,
+        year_to,
+        venue=venue,
+        pub_type=pub_type,
+    )
+
+    if not candidates:
+        return tuple(), "none", None
+
+    try:
+        results = semantic_rerank(
+            search_text,
+            candidates,
+            top_k=top_k,
+        )
+        results = deduplicate_verified_records(results)
+        return tuple(_copy_publication(item) for item in results), "hybrid_semantic", None
+    except Exception as exc:
+        fallback = candidates[:max(1, top_k)]
+        return (
+            tuple(_copy_publication(item) for item in fallback),
+            "bm25_fallback",
+            type(exc).__name__,
+        )
 
 
 def semantic_topic_search(
@@ -531,21 +616,28 @@ def semantic_topic_search(
     venue: Optional[str] = None,
     pub_type: Optional[str] = None,
 ) -> tuple[list[dict], str, str | None]:
-    """Return (results, mode, error_name). Never discard lexical evidence."""
-    candidates = semantic_candidates(
-        search_text,
+    """
+    Return (results, mode, error_name).
+
+    Repeated semantic queries are cached in-process. The first request still
+    performs BM25 + remote embeddings; repeated identical requests avoid the
+    remote embedding call entirely.
+    """
+    normalized_search = re.sub(r"\s+", " ", (search_text or "").strip()).casefold()
+    normalized_venue = (venue or "").strip() or None
+    normalized_type = (pub_type or "").strip() or None
+
+    cached_results, mode, error = _semantic_topic_search_cached(
+        normalized_search,
         year_from,
         year_to,
-        venue=venue,
-        pub_type=pub_type,
+        max(1, min(int(top_k), 20)),
+        normalized_venue,
+        normalized_type,
     )
-    if not candidates:
-        return [], "none", None
 
-    try:
-        results = semantic_rerank(search_text, candidates, top_k=top_k)
-        return results, "hybrid_semantic", None
-    except Exception as exc:
-        # Critical reliability fix: an embedding outage must not masquerade as
-        # "no DBLP evidence". Fall back to the BM25 candidates we already have.
-        return candidates[:max(1, top_k)], "bm25_fallback", type(exc).__name__
+    return [
+        _copy_publication(item)
+        for item in cached_results
+    ], mode, error
+

@@ -107,6 +107,7 @@ function Chatbot() {
   const [loading, setLoading] = useState(false);
   const [loadingStage, setLoadingStage] = useState(0);
   const [expandedSources, setExpandedSources] = useState({});
+  const [visibleSourceCounts, setVisibleSourceCounts] = useState({});
 
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
@@ -200,6 +201,7 @@ function Chatbot() {
     sessionIdRef.current = null;
     setMessages([WELCOME_MESSAGE]);
     setExpandedSources({});
+    setVisibleSourceCounts({});
     setInput("");
 
     window.setTimeout(() => {
@@ -303,6 +305,21 @@ function Chatbot() {
       ...previous,
       [messageId]: !previous[messageId]
     }));
+
+    setVisibleSourceCounts((previous) => ({
+      ...previous,
+      [messageId]: previous[messageId] || 5
+    }));
+  };
+
+  const showMoreSources = (messageId, total) => {
+    setVisibleSourceCounts((previous) => ({
+      ...previous,
+      [messageId]: Math.min(
+        (previous[messageId] || 5) + 5,
+        total
+      )
+    }));
   };
 
   const getDblpUrl = (key) => {
@@ -325,6 +342,72 @@ function Chatbot() {
     }, 50);
   };
 
+  const renderInlineAnswer = (
+    text,
+    sources,
+    messageId,
+    keyPrefix
+  ) => {
+    const sourceIds = new Set(
+      (sources || []).map((source) => source.id)
+    );
+
+    const pieces = text.split(
+      /(\[P\d+\]|\*\*[^*\n]+\*\*)/g
+    );
+
+    return pieces.map((piece, index) => {
+      const citationMatch = piece.match(
+        /^\[(P\d+)\]$/
+      );
+
+      if (citationMatch) {
+        const sourceId = citationMatch[1];
+
+        if (!sourceIds.has(sourceId)) {
+          return (
+            <span key={`${keyPrefix}-citation-${index}`}>
+              {piece}
+            </span>
+          );
+        }
+
+        return (
+          <button
+            key={`${keyPrefix}-citation-${index}`}
+            type="button"
+            className="chat-inline-citation"
+            onClick={() =>
+              openCitation(messageId, sourceId)
+            }
+            title={`Show source ${sourceId}`}
+          >
+            {sourceId}
+          </button>
+        );
+      }
+
+      const boldMatch = piece.match(
+        /^\*\*(.+)\*\*$/
+      );
+
+      if (boldMatch) {
+        return (
+          <strong key={`${keyPrefix}-bold-${index}`}>
+            {boldMatch[1]}
+          </strong>
+        );
+      }
+
+      return (
+        <span key={`${keyPrefix}-text-${index}`}>
+          {piece}
+        </span>
+      );
+    });
+  };
+
+
   const renderAnswer = (
     text,
     sources,
@@ -332,47 +415,116 @@ function Chatbot() {
   ) => {
     if (!text) return null;
 
-    const sourceIds = new Set(
-      (sources || []).map((source) => source.id)
-    );
+    const normalized = text
+      .replace(/\r\n/g, "\n")
+      .replace(/\r/g, "\n");
 
-    const pieces = text.split(/(\[P\d+\])/g);
+    const lines = normalized.split("\n");
+    const blocks = [];
+    let paragraphLines = [];
+    let bulletItems = [];
 
-    return pieces.map((piece, index) => {
-      const match = piece.match(/^\[(P\d+)\]$/);
+    const flushParagraph = () => {
+      if (!paragraphLines.length) return;
 
-      if (!match) {
-        return (
-          <span key={`${messageId}-text-${index}`}>
-            {piece}
-          </span>
-        );
+      const value = paragraphLines
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      if (value) {
+        blocks.push({
+          type: "paragraph",
+          value
+        });
       }
 
-      const sourceId = match[1];
+      paragraphLines = [];
+    };
 
-      if (!sourceIds.has(sourceId)) {
-        return (
-          <span key={`${messageId}-citation-${index}`}>
-            {piece}
-          </span>
+    const flushBullets = () => {
+      if (!bulletItems.length) return;
+
+      blocks.push({
+        type: "list",
+        items: bulletItems
+      });
+
+      bulletItems = [];
+    };
+
+    lines.forEach((line) => {
+      const bulletMatch = line.match(
+        /^\s*[-*•]\s+(.+)$/
+      );
+
+      if (bulletMatch) {
+        flushParagraph();
+        bulletItems.push(
+          bulletMatch[1].trim()
         );
+        return;
       }
 
-      return (
-        <button
-          key={`${messageId}-citation-${index}`}
-          type="button"
-          className="chat-inline-citation"
-          onClick={() =>
-            openCitation(messageId, sourceId)
-          }
-          title={`Show source ${sourceId}`}
-        >
-          {sourceId}
-        </button>
+      if (!line.trim()) {
+        flushParagraph();
+        flushBullets();
+        return;
+      }
+
+      if (bulletItems.length) {
+        flushBullets();
+      }
+
+      paragraphLines.push(
+        line.trim()
       );
     });
+
+    flushParagraph();
+    flushBullets();
+
+    return (
+      <div className="chat-answer-content">
+        {blocks.map((block, blockIndex) => {
+          if (block.type === "list") {
+            return (
+              <ul
+                key={`${messageId}-list-${blockIndex}`}
+                className="chat-answer-list"
+              >
+                {block.items.map((item, itemIndex) => (
+                  <li
+                    key={`${messageId}-list-${blockIndex}-${itemIndex}`}
+                  >
+                    {renderInlineAnswer(
+                      item,
+                      sources,
+                      messageId,
+                      `${messageId}-list-${blockIndex}-${itemIndex}`
+                    )}
+                  </li>
+                ))}
+              </ul>
+            );
+          }
+
+          return (
+            <p
+              key={`${messageId}-paragraph-${blockIndex}`}
+              className="chat-answer-paragraph"
+            >
+              {renderInlineAnswer(
+                block.value,
+                sources,
+                messageId,
+                `${messageId}-paragraph-${blockIndex}`
+              )}
+            </p>
+          );
+        })}
+      </div>
+    );
   };
 
   return (
@@ -475,6 +627,12 @@ function Chatbot() {
               const sourcesOpen =
                 !!expandedSources[message.id];
 
+              const visibleSourceCount =
+                visibleSourceCounts[message.id] || 5;
+
+              const visibleSources =
+                message.sources?.slice(0, visibleSourceCount) || [];
+
               return (
                 <article
                   key={message.id}
@@ -523,7 +681,7 @@ function Chatbot() {
                       {sourcesOpen && (
                         <div className="chat-sources">
 
-                          {message.sources.map(
+                          {visibleSources.map(
                             (source) => (
                               <a
                                 id={`${message.id}-${source.id}`}
@@ -582,6 +740,24 @@ function Chatbot() {
 
                               </a>
                             )
+                          )}
+
+                          {visibleSourceCount < message.sources.length && (
+                            <button
+                              type="button"
+                              className="chat-source-more"
+                              onClick={() =>
+                                showMoreSources(
+                                  message.id,
+                                  message.sources.length
+                                )
+                              }
+                            >
+                              Show 5 more
+                              <span>
+                                {message.sources.length - visibleSourceCount} remaining
+                              </span>
+                            </button>
                           )}
 
                         </div>

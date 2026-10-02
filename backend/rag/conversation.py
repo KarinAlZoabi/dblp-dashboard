@@ -46,6 +46,7 @@ PUBLICATION_INTENTS = {
 AUTHOR_INTENTS = {
     "author_publications",
     "author_publication_count",
+    "author_summary",
     "top_coauthors",
 }
 
@@ -293,14 +294,61 @@ def resolve_followup_fallback(
     state: ConversationState,
 ) -> tuple[str, dict]:
     """
-    Minimal emergency rewrite used only when the LLM planner fails.
+    Emergency-only conversational rewrite.
 
-    This deliberately covers only the most common references instead of trying
-    to encode natural language in hundreds of regex rules.
+    Gemini remains the primary interpreter. These few generic rewrites exist
+    only so a temporary planner/API outage does not break obvious references.
     """
     original = (question or "").strip()
     rewritten = original
     used = {}
+
+    # "What about 2023?" after an author query.
+    year_followup = re.fullmatch(
+        r"\s*(?:(?:and\s+)?(?:what|how)\s+about\s+|(?:and\s+)?in\s+)?"
+        r"((?:19|20)\d{2})\s*[?.!]*\s*",
+        original,
+        flags=re.IGNORECASE,
+    )
+    if year_followup and state.last_author:
+        year = int(year_followup.group(1))
+
+        if state.last_intent == "author_publication_count":
+            rewritten = (
+                f"How many publications did {state.last_author} "
+                f"have in {year}?"
+            )
+        else:
+            rewritten = (
+                f"What did {state.last_author} publish in {year}?"
+            )
+
+        used["author"] = state.last_author
+        used["year"] = year
+        return rewritten, used
+
+    # Topic refinement: "What about privacy?" after a topic search.
+    topic_followup = re.fullmatch(
+        r"\s*(?:and\s+)?(?:what|how)\s+about\s+(.+?)[?.!]*\s*",
+        original,
+        flags=re.IGNORECASE,
+    )
+    previous_topic = state.last_plan.get("search_text")
+
+    if (
+        topic_followup
+        and previous_topic
+        and state.last_intent == "topic_search"
+    ):
+        refinement = topic_followup.group(1).strip()
+
+        if refinement:
+            rewritten = (
+                f"Find papers about {previous_topic} {refinement}"
+            )
+            used["search_text"] = previous_topic
+            used["refinement"] = refinement
+            return rewritten, used
 
     ordinal = re.search(
         r"\b(?:the\s+)?"
@@ -328,6 +376,15 @@ def resolve_followup_fallback(
         title = _quoted_title(state.last_title)
         before = rewritten
 
+        # Possessive "its" needs a possessive replacement so phrases like
+        # "What is its page range?" remain grammatical.
+        rewritten = re.sub(
+            r"\bits\b",
+            f"{title}'s",
+            rewritten,
+            flags=re.IGNORECASE,
+        )
+
         rewritten = re.sub(
             r"\b(?:it|that paper|this paper|that publication|this publication)\b",
             title,
@@ -348,6 +405,13 @@ def resolve_followup_fallback(
             flags=re.IGNORECASE,
         )
 
+        rewritten = re.sub(
+            r"\b(?:his|her|their)\b",
+            f"{state.last_author}'s",
+            rewritten,
+            flags=re.IGNORECASE,
+        )
+
         if rewritten != before:
             used["author"] = state.last_author
 
@@ -360,8 +424,17 @@ def update_session_from_response(
     plan: dict | None = None,
     question: str | None = None,
 ) -> None:
+    response_intent = response.get("intent")
+
+    # Irrelevant input should not destroy the last useful conversational
+    # reference. A user can paste code accidentally and then continue with
+    # "how many pages does it have?" about the paper discussed beforehand.
+    if response_intent in {"unsupported", "smalltalk", "invalid"}:
+        state.updated_at = time.monotonic()
+        return
+
     state.last_question = question or state.last_question
-    state.last_intent = response.get("intent") or state.last_intent
+    state.last_intent = response_intent or state.last_intent
 
     if plan:
         state.last_plan = {

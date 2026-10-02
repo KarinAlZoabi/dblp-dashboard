@@ -132,6 +132,91 @@ def clean_title_request(title: str) -> str:
     return value.strip().strip("\"'“”‘’")
 
 
+
+def _obvious_non_query_plan(question: str) -> dict | None:
+    """
+    High-confidence guardrails for input that is clearly not a DBLP request.
+
+    This is deliberately conservative: ambiguous natural-language research
+    questions still go to the LLM planner. We only intercept obvious code,
+    greetings, acknowledgements, and extremely low-information noise.
+    """
+    q = (question or "").strip()
+    if not q:
+        return {"intent": "unsupported", "reason": "empty"}
+
+    ql = q.casefold()
+
+    # Lightweight conversational messages should not be turned into searches.
+    if re.fullmatch(
+        r"(?:hi|hello|hey|heyo|good\s+(?:morning|afternoon|evening)|"
+        r"thanks|thank\s+you|thx|okay|ok|cool|nice)[!. ]*",
+        ql,
+    ):
+        return {"intent": "smalltalk"}
+
+    # Pasted source code / CSS / markup. Require multiple signals so normal
+    # paper titles containing punctuation are not rejected.
+    code_score = 0
+
+    if re.search(
+        r"(?m)^\s*(?:def|class|import|from|const|let|var|function|"
+        r"public|private|protected|SELECT|INSERT|UPDATE|CREATE)\b",
+        q,
+    ):
+        code_score += 2
+
+    if re.search(r"</?[A-Za-z][^>]*>", q):
+        code_score += 2
+
+    if re.search(
+        r"(?m)^\s*[.#]?[A-Za-z_-][\w-]*(?:\s+[.#]?[A-Za-z_-][\w-]*)*\s*\{",
+        q,
+    ):
+        code_score += 2
+
+    if re.search(
+        r"(?m)^\s*[A-Za-z-]+\s*:\s*[^;\n{}]+;\s*$",
+        q,
+    ):
+        code_score += 2
+
+    if q.count("{") + q.count("}") >= 2:
+        code_score += 1
+
+    if q.count(";") >= 2:
+        code_score += 1
+
+    if re.search(r"=>|===|!==|::|&&|\|\|", q):
+        code_score += 1
+
+    if code_score >= 2:
+        return {"intent": "unsupported", "reason": "code"}
+
+    # Keyboard-smash / identifier-like noise with no recognizable research
+    # request language. Longer natural text is left to Gemini.
+    words = re.findall(r"[A-Za-zÀ-ÖØ-öø-ÿ]+", q)
+    if words and len(words) <= 4:
+        known_query_words = {
+            "paper", "papers", "publication", "publications", "article",
+            "articles", "author", "authors", "research", "dblp", "journal",
+            "conference", "venue", "year", "pages", "coauthor", "coauthors",
+            "find", "show", "list", "search", "who", "what", "when", "where",
+            "how", "latest", "oldest", "recent", "topic",
+        }
+        if not any(word.casefold() in known_query_words for word in words):
+            suspicious = [
+                word for word in words
+                if len(word) >= 8
+                and len(set(word.casefold())) >= 6
+                and not re.search(r"[aeiouy]", word, flags=re.IGNORECASE)
+            ]
+            if suspicious:
+                return {"intent": "unsupported", "reason": "noise"}
+
+    return None
+
+
 def _requested_limit(question: str) -> int | None:
     patterns = [
         r"\btop\s+(\d{1,2})\b",
@@ -199,13 +284,72 @@ def _author_year_plan(question: str) -> dict | None:
 def fast_plan(question: str) -> dict | None:
     """High-confidence local routing. Returns None when Gemini should decide."""
     q = (question or "").strip()
+
+    guarded = _obvious_non_query_plan(q)
+    if guarded is not None:
+        return guarded
+
     ql = q.casefold()
     title = extract_quoted_text(q)
     year_from, year_to, no_year = extract_year_filters(q)
 
+    # Low-information messages are not errors, but they need clarification.
+    if re.fullmatch(r"(?:19|20)\d{2}[?.!]*", q):
+        return {
+            "intent": "clarify",
+            "reason": "year_only",
+            "year_from": int(re.search(r"(?:19|20)\d{2}", q).group(0)),
+        }
+
+    if re.fullmatch(
+        r"(?:find|show|list|give\s+me|search(?:\s+for)?)?\s*"
+        r"(?:papers?|publications?|articles?|research)\s*[?.!]*",
+        q,
+        flags=re.IGNORECASE,
+    ):
+        return {"intent": "clarify", "reason": "missing_topic"}
+
+    if re.fullmatch(
+        r"(?:tell\s+me\s+something|show\s+me\s+something|"
+        r"what\s+can\s+you\s+tell\s+me)[?.!]*",
+        q,
+        flags=re.IGNORECASE,
+    ):
+        return {"intent": "clarify", "reason": "vague"}
+
+    # Dataset author counts.
+    if (
+        re.search(
+            r"\b(?:how many|number of|total number of|count of)\b.*"
+            r"\b(?:unique\s+)?authors?\b.*"
+            r"\b(?:dataset|dblp)\b",
+            ql,
+        )
+        or re.search(
+            r"\b(?:dataset|dblp)\b.*"
+            r"\b(?:has|have|contains?|includes?)\b.*"
+            r"\b(?:unique\s+)?authors?\b",
+            ql,
+        )
+        or re.search(
+            r"\bhow many\s+authors?\s+(?:does|do)\s+(?:dblp|the\s+dataset)\s+have\b",
+            ql,
+        )
+    ):
+        return {"intent": "dataset_author_count"}
+
     # Dataset counts.
     if (
         re.search(
+            r"\bhow many\b.*\b(?:total\s+)?dblp\s+records?\b",
+            ql,
+        )
+        or re.search(
+            r"\b(?:total\s+)?dblp\s+records?\b.*"
+            r"\b(?:including|with)\b.*\b(?:profile|web)\b",
+            ql,
+        )
+        or re.search(
             r"\b(?:how many|number of|total number of)\b.*"
             r"\b(publications|papers|records|entries)\b.*"
             r"\b(dataset|dblp)\b",
@@ -272,6 +416,87 @@ def fast_plan(question: str) -> dict | None:
     ):
         return {"intent": "publication_details", "title": title}
 
+
+    # Strong unquoted publication-fact forms.
+    # These are safe to route locally because the command itself identifies
+    # the bibliographic field; the title is whatever follows the command.
+    unquoted_patterns = [
+        (
+            "publication_authors",
+            r"^\s*(?:who\s+(?:wrote|authored)|authors?\s+of)\s+(.+?)[?.!]*$",
+        ),
+        (
+            "publication_page_count",
+            r"^\s*(?:how\s+many\s+pages\s+(?:does|did)\s+|"
+            r"number\s+of\s+pages\s+(?:in|for)\s+)"
+            r"(.+?)(?:\s+have)?[?.!]*$",
+        ),
+        (
+            "publication_pages",
+            r"^\s*(?:what\s+(?:is|was)\s+the\s+page\s+range\s+(?:of|for)\s+|"
+            r"page\s+range\s+(?:of|for)\s+)"
+            r"(.+?)[?.!]*$",
+        ),
+        (
+            "publication_venue",
+            r"^\s*(?:where\s+(?:was|is)\s+(.+?)\s+published|"
+            r"where\s+did\s+(.+?)\s+appear)[?.!]*$",
+        ),
+        (
+            "publication_year",
+            r"^\s*(?:what\s+year\s+was\s+(.+?)\s+published|"
+            r"when\s+was\s+(.+?)\s+published)[?.!]*$",
+        ),
+    ]
+
+    for unquoted_intent, pattern in unquoted_patterns:
+        match = re.match(pattern, q, flags=re.IGNORECASE)
+        if not match:
+            continue
+
+        candidate = next(
+            (
+                group.strip().strip("\"'")
+                for group in match.groups()
+                if group and group.strip()
+            ),
+            "",
+        )
+
+        if len(candidate.split()) >= 2:
+            return {
+                "intent": unquoted_intent,
+                "title": candidate,
+            }
+
+    # "Who is <author>?" asks for a bibliographic author summary, not a
+    # biography. DBLP can safely answer from publication metadata.
+    match = re.match(
+        r"^\s*who\s+is\s+(.+?)[?.!]*$",
+        q,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return {
+            "intent": "author_summary",
+            "author": match.group(1).strip().strip("\"'"),
+        }
+
+    # Natural author-output wording.
+    match = re.search(
+        r"^(?:roughly\s+speaking,\s*)?(?:what(?:'s| is)\s+)?"
+        r"(.+?)'s\s+(?:publication|research)\s+output\b",
+        no_year,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return {
+            "intent": "author_publication_count",
+            "author": match.group(1).strip(),
+            "year_from": year_from,
+            "year_to": year_to,
+        }
+
     # Coauthor analytics.
     match = re.search(
         r"(?:top\s+(\d+)\s+)?(?:most\s+frequent\s+)?co-?authors?\s+(?:of|for|with)\s+(.+?)[?.!]*$",
@@ -288,6 +513,10 @@ def fast_plan(question: str) -> dict | None:
     # Author + year.
     author_year = _author_year_plan(q)
     if author_year:
+        requested_limit = _requested_limit(q)
+        if requested_limit is not None:
+            author_year["limit"] = requested_limit
+            author_year["all_results"] = False
         return author_year
 
     # Possessive publication counts: "What's Kassem Danach's publication count?"
@@ -337,6 +566,27 @@ def fast_plan(question: str) -> dict | None:
                 "sort_order": order,
             }
 
+
+    # Explicit result count for exact author lookup:
+    # "Give me the top 3 publications by Kassem Danach."
+    match = re.search(
+        r"^\s*(?:show|give|list)(?:\s+me)?\s+(?:the\s+)?top\s+(\d{1,2})\s+"
+        r"(?:papers?|publications?|articles?|works?)\s+(?:by|from)\s+"
+        r"(.+?)[?.!]*$",
+        no_year,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return {
+            "intent": "author_publications",
+            "author": match.group(2).strip().strip("\"'"),
+            "year_from": year_from,
+            "year_to": year_to,
+            "limit": max(1, min(int(match.group(1)), 20)),
+            "sort_order": "latest",
+            "all_results": False,
+        }
+
     # Publication lists by author: "papers by X" and "show X publications".
     match = re.search(
         r"\b(?:all\s+|every\s+)?(?:papers?|publications?|articles?|works?)\s+(?:by|from)\s+(.+?)(?:[?.!]|$)",
@@ -350,12 +600,21 @@ def fast_plan(question: str) -> dict | None:
             flags=re.IGNORECASE,
         )
     if match:
+        requested_limit = _requested_limit(q)
         return {
             "intent": "author_publications",
             "author": match.group(1).strip().strip("\"'"),
             "year_from": year_from,
             "year_to": year_to,
-            "all_results": bool(re.search(r"\b(all|every|complete list|full list)\b", ql)),
+            "limit": requested_limit,
+            "all_results": (
+                False
+                if requested_limit is not None
+                else bool(re.search(
+                    r"\b(all|every|complete list|full list)\b",
+                    ql,
+                ))
+            ),
         }
 
     # Topic discovery MUST be checked before unquoted exact-title commands.

@@ -21,6 +21,7 @@ def get_dataset_statistics() -> dict:
                     "total_records": values.get("total_records", 0),
                     "publication_records": values.get("publication_records", 0),
                     "www_records": values.get("www_records", 0),
+                    "unique_authors": values.get("unique_authors"),
                     "type_counts": {
                         key.split(":", 1)[1]: value
                         for key, value in values.items()
@@ -38,6 +39,7 @@ def get_dataset_statistics() -> dict:
             "total_records": total,
             "publication_records": publications,
             "www_records": total - publications,
+            "unique_authors": None,
             "type_counts": {},
         }
     finally:

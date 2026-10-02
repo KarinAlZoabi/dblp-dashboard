@@ -11,6 +11,7 @@ from .conversation import (
     update_session_from_response,
 )
 from .generator import generate_grounded_answer
+from .answer_polish import polish_grounded_answer
 from .parsing import extract_year_filters, normalize_text
 from .planner import plan_question
 from .response_renderer import (
@@ -20,6 +21,7 @@ from .response_renderer import (
     render_author_publication_count,
     render_author_publications,
     render_coauthors,
+    render_dataset_author_count,
     render_dataset_count,
     render_publication_authors,
     render_publication_details,
@@ -157,6 +159,90 @@ def _answer_resolved_question(
     plan = plan or plan_question(question)
     intent = plan["intent"]
 
+    if intent == "smalltalk":
+        return {
+            "question": question,
+            "intent": intent,
+            "answer": (
+                "Hi! I can help you search and analyze DBLP publications, "
+                "authors, venues, years, co-authors, and research topics."
+            ),
+            "count": 0,
+            "sources": [],
+        }
+
+    if intent == "clarify":
+        reason = plan.get("reason")
+
+        if reason == "year_only":
+            year = plan.get("year_from")
+            answer = (
+                f"What would you like to know about {year}? "
+                "For example, I can find papers from that year, "
+                "filter an author's publications, or search a research topic."
+            )
+        elif reason == "missing_topic":
+            answer = (
+                "Sure — what kind of papers are you looking for? "
+                "You can give me a research topic, author, title, year, or venue."
+            )
+        else:
+            answer = (
+                "Sure — what would you like to explore in DBLP? "
+                "You can ask about a paper, author, research topic, venue, or year."
+            )
+
+        return {
+            "question": question,
+            "intent": intent,
+            "answer": answer,
+            "count": 0,
+            "sources": [],
+            "reason": reason,
+        }
+
+    if intent == "unsupported":
+        reason = plan.get("reason")
+
+        if reason == "code":
+            answer = (
+                "That looks like pasted code rather than a DBLP research "
+                "question. I can help with publications, authors, venues, "
+                "years, co-authors, and research topics."
+            )
+        elif reason == "planner_unavailable":
+            answer = (
+                "I could not confidently interpret that as a DBLP request "
+                "right now. Try asking about a publication, author, venue, "
+                "year, co-author relationship, or research topic."
+            )
+        elif reason == "out_of_domain":
+            answer = (
+                "That is outside this assistant's DBLP research scope. "
+                "I can help with publications, authors, titles, venues, years, "
+                "co-authors, and research topics."
+            )
+        elif reason == "noise":
+            answer = (
+                "I couldn't identify a DBLP question in that message. "
+                "Try giving me a paper title, author, research topic, venue, or year."
+            )
+        else:
+            answer = (
+                "That does not look like a DBLP bibliographic question. "
+                "Try asking me to find papers, look up an author or title, "
+                "filter publications, or explore a research topic."
+            )
+
+        return {
+            "question": question,
+            "intent": intent,
+            "answer": answer,
+            "count": 0,
+            "sources": [],
+            "reason": reason,
+        }
+
     if intent == "dataset_count":
         stats = get_dataset_statistics()
         return {
@@ -168,22 +254,104 @@ def _answer_resolved_question(
             "statistics": stats,
         }
 
-    if intent in {
-        "author_publications",
-        "author_publication_count"
-    }:
-        author = plan.get("author") or ""
+    if intent == "dataset_author_count":
+        stats = get_dataset_statistics()
+        count = stats.get("unique_authors")
+        return {
+            "question": question,
+            "intent": intent,
+            "answer": render_dataset_author_count(stats),
+            "count": count,
+            "sources": [],
+            "statistics": stats,
+            "setup_required": count is None,
+        }
 
-        all_results = bool(
-            plan.get("all_results")
+    if intent == "author_summary":
+        author = plan.get("author") or ""
+        result = get_author_publications(
+            author,
+            limit=None,
+            sort_order="latest",
         )
 
+        if result["status"] == "ambiguous":
+            return _ambiguous_author(question, result, intent)
+
+        if result["status"] == "not_found":
+            return {
+                "question": question,
+                "intent": intent,
+                "answer": render_author_not_found(author),
+                "count": 0,
+                "sources": [],
+            }
+
+        papers = result.get("publications", [])
+        resolved = result.get("resolved_author") or author
+        years = sorted({
+            paper.get("year")
+            for paper in papers
+            if isinstance(paper.get("year"), int)
+        })
+
+        venues = {}
+        for paper in papers:
+            venue = (paper.get("venue") or "").strip()
+            if venue:
+                venues[venue] = venues.get(venue, 0) + 1
+
+        top_venues = sorted(
+            venues.items(),
+            key=lambda item: (-item[1], item[0]),
+        )[:3]
+
+        parts = [
+            f"{resolved} is an author identity in the indexed DBLP data "
+            f"with {len(papers)} publication"
+            f"{'s' if len(papers) != 1 else ''}."
+        ]
+
+        if years:
+            parts.append(
+                f"The indexed publications span {years[0]} to {years[-1]}."
+            )
+
+        if top_venues:
+            venue_text = ", ".join(
+                f"{venue} ({count})"
+                for venue, count in top_venues
+            )
+            parts.append(
+                f"The most frequent venues in these records are {venue_text}."
+            )
+
+        parts.append(
+            "DBLP is bibliographic, so I won't invent biographical details "
+            "that are not present in the dataset."
+        )
+
+        return {
+            "question": question,
+            "intent": intent,
+            "answer": " ".join(parts),
+            "count": len(papers),
+            "sources": source_cards(papers[:5]),
+            "resolved_author": result.get("resolved_author"),
+        }
+
+    if intent in {"author_publications", "author_publication_count"}:
+        author = plan.get("author") or ""
+
+        # Exact author queries are deterministic database lookups, not topic
+        # search. Return all matching publications unless the user explicitly
+        # requested a numeric limit (e.g. "latest 3").
         if intent == "author_publication_count":
             limit = None
-
+            all_results = True
         elif plan.get("limit") is not None:
             limit = plan["limit"]
-
+            all_results = False
         else:
             limit = None
             all_results = True
@@ -195,10 +363,7 @@ def _answer_resolved_question(
             limit=limit,
             venue=plan.get("venue"),
             pub_type=plan.get("pub_type"),
-            sort_order=(
-                plan.get("sort_order")
-                or "latest"
-            ),
+            sort_order=plan.get("sort_order") or "latest",
         )
 
         if result["status"] == "ambiguous":
@@ -350,7 +515,14 @@ def _answer_resolved_question(
         )
     else:
         try:
-            answer = generate_grounded_answer(question, results)
+            answer = generate_grounded_answer(
+                question,
+                results,
+            )
+            answer = polish_grounded_answer(
+                answer,
+                search_text=search_text,
+            )
         except Exception:
             answer = f"I found {len(results)} relevant DBLP publication{'s' if len(results) != 1 else ''}; the generation service is temporarily unavailable, so I am returning the verified sources directly."
 
@@ -387,6 +559,7 @@ def _plan_missing_required_entity(plan: dict) -> bool:
     author_intents = {
         "author_publications",
         "author_publication_count",
+        "author_summary",
         "top_coauthors",
     }
 
@@ -432,9 +605,8 @@ def answer_chat_question(
         # into HTTP 500.
         planner_exception = type(exc).__name__
         plan = {
-            "intent": "topic_search",
-            "search_text": question,
-            "limit": None,
+            "intent": "unsupported",
+            "reason": "planner_unavailable",
             "_planner": "failed",
             "planner_error": planner_exception,
         }

@@ -1,18 +1,86 @@
+# ============================================================
 # Python
+# ============================================================
 .venv/
+venv/
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Jupyter
 .ipynb_checkpoints/
 
-# Dataset
+# ============================================================
+# Environment / secrets
+# ============================================================
+.env
+.env.*
+!.env.example
+
+# ============================================================
+# Frontend / Node / Vite
+# ============================================================
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ============================================================
+# DBLP source data
+# Download these locally; do not commit them.
+# ============================================================
 data/*.xml
+data/*.dtd
 data/*.gz
 
-# Generated data
+# Existing generated-data folders
 data/processed/
 data/output/
 
-# Environment
-.env
+# ============================================================
+# Generated local databases / search indexes
+# ============================================================
+backend/rag_data/*.sqlite
+backend/rag_data/*.sqlite-*
+backend/rag_data/*.db
+backend/rag_data/*.db-*
+backend/rag_data/_author_stats_temp.sqlite*
+
+# DuckDB files generated for network/co-author analysis
+backend/network/*.duckdb
+backend/network/*.duckdb.*
+*.duckdb.wal
+
+# Generated co-author/network data
+backend/network_data/
+
+# ============================================================
+# Generated evaluation/debug output
+# Keep evaluator scripts; ignore generated reports.
+# ============================================================
+rag_hardening_report.json
+*.log
+
+# Local handoff / patch archives
+tochat.zip
+DBLP_*_hotfix.zip
+DBLP_*_patch.zip
+
+# ============================================================
+# IDE / OS
+# ============================================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

@@ -66,6 +66,22 @@ def render_dataset_count(stats: dict) -> str:
     )
 
 
+def render_dataset_author_count(stats: dict) -> str:
+    count = stats.get("unique_authors")
+
+    if count is None:
+        return (
+            "The DBLP index does not have the unique-author statistic yet. "
+            "The administrator needs to build the author statistic once before "
+            "I can answer that accurately."
+        )
+
+    return (
+        f"The indexed DBLP data contains {int(count):,} unique author names "
+        "appearing on publication records."
+    )
+
+
 def render_author_not_found(author: str) -> str:
     return f"I could not find a DBLP author matching '{author}'."
 

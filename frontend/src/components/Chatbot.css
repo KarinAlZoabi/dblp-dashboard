@@ -536,3 +536,82 @@
     border-radius: 12px;
   }
 }
+
+
+/* Add this to the END of your existing Chatbot.css. */
+
+.chat-source-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 9px 12px;
+
+  border: 1px dashed #d8d8ee;
+  border-radius: 10px;
+
+  color: #5f61b7;
+  background: #fafaff;
+
+  font: inherit;
+  font-size: 10px;
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+.chat-source-more:hover {
+  border-color: #bfc0e7;
+  background: #f3f2ff;
+}
+
+.chat-source-more span {
+  color: #9499aa;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+.chat-answer-content {
+  display: block;
+  width: 100%;
+}
+
+.chat-answer-paragraph {
+  margin: 0;
+}
+
+.chat-answer-paragraph + .chat-answer-paragraph,
+.chat-answer-list + .chat-answer-paragraph,
+.chat-answer-paragraph + .chat-answer-list {
+  margin-top: 9px;
+}
+
+.chat-answer-list {
+  margin: 7px 0 0;
+  padding-left: 18px;
+}
+
+.chat-answer-list:first-child {
+  margin-top: 0;
+}
+
+.chat-answer-list li {
+  margin: 5px 0;
+  padding-left: 2px;
+}
+
+.chat-answer-list li::marker {
+  color: #7778d8;
+}
+
+.chat-answer-content strong {
+  color: #27324a;
+  font-weight: 750;
+}
+
+.chat-message-user .chat-answer-content strong {
+  color: inherit;
+}

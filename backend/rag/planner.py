@@ -14,7 +14,12 @@ from .parsing import fast_plan
 
 
 ALLOWED_INTENTS = {
+    "unsupported",
+    "smalltalk",
+    "clarify",
+    "author_summary",
     "dataset_count",
+    "dataset_author_count",
     "author_publications",
     "author_publication_count",
     "publication_authors",
@@ -46,13 +51,13 @@ def _sanitize(
         or plan.get("intent") not in ALLOWED_INTENTS
     ):
         return {
-            "intent": "topic_search",
-            "search_text": question.strip(),
-            "limit": None,
+            "intent": "unsupported",
+            "reason": "unrecognized",
         }
 
     result = {
         "intent": plan.get("intent"),
+        "reason": plan.get("reason"),
         "title": plan.get("title"),
         "author": plan.get("author"),
         "search_text": plan.get("search_text"),
@@ -164,7 +169,12 @@ Python/SQLite functions will perform every factual lookup, count, filter,
 sort, comparison, and calculation after your plan is returned.
 
 Allowed intents:
+- unsupported
+- smalltalk
+- clarify
+- author_summary
 - dataset_count
+- dataset_author_count
 - author_publications
 - author_publication_count
 - publication_authors
@@ -182,6 +192,7 @@ Allowed intents:
 
 Allowed fields:
 - intent
+- reason
 - title
 - author
 - search_text
@@ -226,8 +237,30 @@ CONTEXT RULES:
    -> search_text="federated learning privacy".
 10. Never infer bibliographic facts that are not in the context.
 
+OUT-OF-DOMAIN RULES:
+- If the message is pasted code, CSS, HTML, SQL, JSON/programming content,
+  meaningless/random text, or a request unrelated to DBLP bibliographic
+  research, return:
+  {"intent":"unsupported","reason":"code|noise|out_of_domain"}
+- If the message is only a greeting or acknowledgement, return:
+  {"intent":"smalltalk"}
+- If the message is too vague to execute safely (for example only "papers",
+  only a year such as "2023", or "tell me something"), return:
+  {"intent":"clarify","reason":"missing_topic|year_only|vague"}
+- Do NOT map unrelated text to dataset_count, dataset_author_count, or
+  topic_search just because one of the allowed intents must be chosen.
+- topic_search is only for a plausible research subject where the user wants
+  DBLP publications/research discovery, including concise topic requests such
+  as "graph neural networks papers".
+
 GENERAL ROUTING RULES:
-11. Use structured intents for exact bibliographic facts.
+11. Questions asking how many authors/unique authors DBLP has use
+    intent="dataset_author_count". Questions asking how many publication
+    records/papers the dataset has use intent="dataset_count".
+11a. "Who is <person>?" when the person is being asked about as a DBLP author
+    uses intent="author_summary" with the author field. Do not invent a
+    biography; Python will summarize bibliographic metadata.
+12. Use structured intents for exact bibliographic facts.
 12. Use topic_search only for conceptual discovery where the user wants papers
     about a research subject.
 13. Preserve DBLP author disambiguation suffixes such as 0002.
@@ -255,10 +288,14 @@ USER MESSAGE:
     try:
         client = get_gemini_client()
     except Exception as exc:
+        print(
+            f"[RAG PLANNER] Client unavailable: "
+            f"{type(exc).__name__}: {exc}",
+            flush=True,
+        )
         return {
-            "intent": "topic_search",
-            "search_text": question.strip(),
-            "limit": None,
+            "intent": "unsupported",
+            "reason": "planner_unavailable",
             "_planner": "failed",
             "planner_error": type(exc).__name__,
         }
@@ -286,11 +323,15 @@ USER MESSAGE:
 
         except Exception as exc:
             last_error = exc
+            print(
+                f"[RAG PLANNER] Model {model} failed: "
+                f"{type(exc).__name__}: {exc}",
+                flush=True,
+            )
 
     return {
-        "intent": "topic_search",
-        "search_text": question.strip(),
-        "limit": None,
+        "intent": "unsupported",
+        "reason": "planner_unavailable",
         "_planner": "failed",
         "planner_error": (
             type(last_error).__name__

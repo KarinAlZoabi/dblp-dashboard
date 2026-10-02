@@ -119,37 +119,3 @@ def rag_chat(request: RAGChatRequest):
         default_top_k=request.top_k,
         session_id=request.session_id,
     )
-
-# ============================================================
-# AUTHOR NETWORK VISUALIZATION
-# ============================================================
-
-NETWORK_VIS_DIR = PROCESSED_DIR / "network"
-
-NETWORK_METRICS = {
-    "degree",
-    "pagerank",
-    "eigenvector",
-    "betweenness",
-}
-
-@app.get("/api/network/{metric}")
-def get_author_network(metric: str):
-    metric = metric.lower().strip()
-
-    if metric not in NETWORK_METRICS:
-        raise HTTPException(
-            status_code=400,
-            detail="Use degree, pagerank, eigenvector, or betweenness."
-        )
-
-    path = NETWORK_VIS_DIR / f"{metric}.json"
-
-    if not path.exists():
-        raise HTTPException(
-            status_code=404,
-            detail="Network visualization data has not been exported yet."
-        )
-
-    with open(path, "r", encoding="utf-8") as file:
-        return json.load(file)

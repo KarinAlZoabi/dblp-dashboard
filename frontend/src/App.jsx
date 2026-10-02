@@ -22,6 +22,7 @@ import DataQuality from "./components/DataQuality";
 import SummaryCards from "./components/SummaryCards";
 import TopicRiverChart from "./components/TopicRiverChart";
 import Chatbot from "./components/Chatbot";
+import AuthorNetwork from "./components/AuthorNetwork";
 
 import "./App.css";
 
@@ -392,6 +393,12 @@ function App() {
         <VenuesCharts
           venues={filteredVenues}
         />
+
+      </div>
+
+      <div className="full-width-chart">
+
+        <AuthorNetwork />
 
       </div>
 
